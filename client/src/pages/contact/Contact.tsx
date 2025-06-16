@@ -37,7 +37,6 @@ const Contact = () => {
 
   return (
     <div className={styles.container}>
-      {/* Header Section */}
       <div className={styles.header}>
         <h1 className={styles.title}>Get In Touch</h1>
         <p className={styles.subtitle}>
@@ -46,9 +45,7 @@ const Contact = () => {
         </p>
       </div>
 
-      {/* Main Content */}
       <div className={styles.main}>
-        {/* Contact Form */}
         <div className={styles.formSection}>
           <h2 className={styles.formTitle}>Send me a message</h2>
           <div className={styles.form}>
@@ -117,7 +114,6 @@ const Contact = () => {
           </div>
         </div>
 
-        {/* Contact Info */}
         <div className={styles.infoSection}>
           <h2 className={styles.infoTitle}>Let's Connect</h2>
 

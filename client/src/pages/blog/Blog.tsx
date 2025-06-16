@@ -16,7 +16,7 @@ const Blog: React.FC = () => {
   const [selectedCategory, setSelectedCategory] = useState<string>("All");
   const [expandedPost, setExpandedPost] = useState<number | null>(null);
 
-  // Sample blog posts with full content - replace with your actual data
+  // Sample blog posts with full content
   const blogPosts: BlogPost[] = [
     {
       id: 1,

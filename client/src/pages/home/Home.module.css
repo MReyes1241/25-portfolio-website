@@ -3,17 +3,14 @@
   background-color: #0f172a; /* Match the hero background */
 }
 
-/* Remove or modify header since Hero acts as the header */
 .header {
-  display: none; /* Hide original header since Hero replaces it */
-}
-
-.main {
-  /* Remove if not needed, or style for content after hero */
   display: none;
 }
 
-/* Sections that come after the hero */
+.main {
+  display: none;
+}
+
 .section {
   min-height: 100vh;
   display: flex;
@@ -65,7 +62,6 @@
   font-size: 0.875rem;
 }
 
-/* Responsive adjustments */
 @media (max-width: 768px) {
   .section {
     padding: 2rem 1rem;
