@@ -1,0 +1,403 @@
+.container {
+  min-height: 100vh;
+  background-color: #0f172a;
+  padding: 2rem 0;
+}
+
+.resumeWrapper {
+  max-width: 56rem;
+  margin: 0 auto;
+  padding: 0 2rem;
+}
+
+.resumeHeader {
+  text-align: center;
+  margin-bottom: 3rem;
+  padding: 3rem 0;
+  background: linear-gradient(135deg, #1e293b 0%, #334155 100%);
+  border-radius: 1rem;
+  border: 1px solid rgba(255, 255, 255, 0.1);
+}
+
+.name {
+  font-size: 3.5rem;
+  font-weight: 700;
+  margin-bottom: 1rem;
+  background: linear-gradient(135deg, #60a5fa, #a78bfa);
+  background-clip: text;
+  -webkit-background-clip: text;
+  -webkit-text-fill-color: transparent;
+}
+
+.contactInfo {
+  display: flex;
+  justify-content: center;
+  flex-wrap: wrap;
+  gap: 2rem;
+  margin-top: 1.5rem;
+}
+
+.contactItem {
+  display: flex;
+  align-items: center;
+  gap: 0.5rem;
+  color: rgba(255, 255, 255, 0.8);
+  text-decoration: none;
+  transition: color 0.3s ease;
+  cursor: pointer;
+}
+
+.contactItem:hover {
+  color: #60a5fa;
+}
+
+.section {
+  margin-bottom: 2.5rem;
+  background: linear-gradient(135deg, #1e293b 0%, #334155 100%);
+  border-radius: 1rem;
+  border: 1px solid rgba(255, 255, 255, 0.1);
+  overflow: hidden;
+}
+
+.sectionHeader {
+  display: flex;
+  align-items: center;
+  justify-content: space-between;
+  padding: 1.5rem 2rem;
+  cursor: pointer;
+  transition: background-color 0.3s ease;
+  border-bottom: 1px solid rgba(255, 255, 255, 0.1);
+}
+
+.sectionHeader:hover {
+  background-color: rgba(255, 255, 255, 0.05);
+}
+
+.sectionTitle {
+  display: flex;
+  align-items: center;
+  gap: 0.75rem;
+  font-size: 1.5rem;
+  font-weight: 600;
+  color: white;
+}
+
+.sectionContent {
+  padding: 0 2rem 2rem;
+  color: rgba(255, 255, 255, 0.8);
+}
+
+.educationItem {
+  margin-bottom: 1.5rem;
+}
+
+.schoolName {
+  font-size: 1.25rem;
+  font-weight: 600;
+  color: #60a5fa;
+  margin-bottom: 0.5rem;
+}
+
+.degreeInfo {
+  display: flex;
+  justify-content: space-between;
+  align-items: flex-start;
+  flex-wrap: wrap;
+  gap: 1rem;
+  margin-bottom: 0.75rem;
+}
+
+.degree {
+  font-size: 1rem;
+  font-weight: 500;
+  color: white;
+}
+
+.dateLocation {
+  font-size: 0.875rem;
+  color: rgba(255, 255, 255, 0.6);
+}
+
+.gpa {
+  font-size: 0.875rem;
+  color: #a78bfa;
+  font-weight: 500;
+}
+
+.coursework {
+  font-size: 0.875rem;
+  color: rgba(255, 255, 255, 0.7);
+  line-height: 1.5;
+}
+
+.experienceItem {
+  margin-bottom: 2rem;
+  padding-bottom: 1.5rem;
+  border-bottom: 1px solid rgba(255, 255, 255, 0.1);
+}
+
+.experienceItem:last-child {
+  border-bottom: none;
+}
+
+.jobHeader {
+  display: flex;
+  justify-content: space-between;
+  align-items: flex-start;
+  flex-wrap: wrap;
+  gap: 1rem;
+  margin-bottom: 1rem;
+}
+
+.companyName {
+  font-size: 1.25rem;
+  font-weight: 600;
+  color: #60a5fa;
+}
+
+.jobTitle {
+  font-size: 1rem;
+  font-weight: 500;
+  color: white;
+  margin-bottom: 0.25rem;
+}
+
+.jobMeta {
+  font-size: 0.875rem;
+  color: rgba(255, 255, 255, 0.6);
+  text-align: right;
+}
+
+.bulletPoints {
+  list-style: none;
+  padding: 0;
+  margin: 0;
+}
+
+.bulletPoint {
+  font-size: 0.875rem;
+  line-height: 1.6;
+  margin-bottom: 0.75rem;
+  padding-left: 1rem;
+  position: relative;
+  color: rgba(255, 255, 255, 0.8);
+}
+
+.bulletPoint::before {
+  content: "";
+  position: absolute;
+  left: 0;
+  top: 0.5rem;
+  width: 4px;
+  height: 4px;
+  border-radius: 50%;
+  background-color: #60a5fa;
+}
+
+.projectItem {
+  margin-bottom: 1.5rem;
+  padding-bottom: 1.5rem;
+  border-bottom: 1px solid rgba(255, 255, 255, 0.1);
+}
+
+.projectItem:last-child {
+  border-bottom: none;
+}
+
+.projectHeader {
+  display: flex;
+  align-items: center;
+  gap: 1rem;
+  margin-bottom: 0.75rem;
+  flex-wrap: wrap;
+}
+
+.projectName {
+  font-size: 1.125rem;
+  font-weight: 600;
+  color: #60a5fa;
+}
+
+.projectLink {
+  color: rgba(255, 255, 255, 0.6);
+  text-decoration: none;
+  font-size: 0.875rem;
+  display: flex;
+  align-items: center;
+  gap: 0.25rem;
+  transition: color 0.3s ease;
+}
+
+.projectLink:hover {
+  color: #60a5fa;
+}
+
+.skillsGrid {
+  display: grid;
+  grid-template-columns: repeat(auto-fit, minmax(200px, 1fr));
+  gap: 1.5rem;
+}
+
+.skillCategory {
+  padding: 1.5rem;
+  background: rgba(255, 255, 255, 0.05);
+  border-radius: 0.5rem;
+  border: 1px solid rgba(255, 255, 255, 0.1);
+  transition:
+    transform 0.3s ease,
+    background-color 0.3s ease;
+}
+
+.skillCategory:hover {
+  transform: translateY(-2px);
+  background: rgba(255, 255, 255, 0.08);
+}
+
+.skillCategoryTitle {
+  font-size: 1rem;
+  font-weight: 600;
+  color: #a78bfa;
+  margin-bottom: 0.75rem;
+}
+
+.skillsList {
+  font-size: 0.875rem;
+  line-height: 1.6;
+  color: rgba(255, 255, 255, 0.8);
+}
+
+.downloadButton {
+  display: inline-flex;
+  align-items: center;
+  gap: 0.5rem;
+  padding: 0.75rem 1.5rem;
+  background-color: #60a5fa;
+  color: white;
+  text-decoration: none;
+  border-radius: 0.5rem;
+  font-weight: 500;
+  transition: all 0.3s ease;
+  border: none;
+  cursor: pointer;
+  font-size: 0.875rem;
+  margin-top: 2rem;
+  margin-left: 2rem;
+}
+
+.downloadButton:hover,
+.downloadButtonHover {
+  background-color: #3b82f6;
+  transform: translateY(-2px);
+}
+
+.contactItemHover {
+  color: #60a5fa;
+}
+
+.sectionHeaderHover {
+  background-color: rgba(255, 255, 255, 0.05);
+}
+
+/* Print styles */
+@media print {
+  .container {
+    background-color: white;
+  }
+
+  .resumeHeader,
+  .section {
+    background: white;
+    border: none;
+    box-shadow: none;
+  }
+
+  .name {
+    color: #1e293b;
+    background: none;
+    -webkit-text-fill-color: #1e293b;
+  }
+
+  .sectionTitle,
+  .companyName,
+  .schoolName,
+  .projectName {
+    color: #1e293b;
+  }
+
+  .skillCategoryTitle {
+    color: #4338ca;
+  }
+
+  .contactItem,
+  .sectionContent,
+  .bulletPoint,
+  .coursework,
+  .skillsList {
+    color: #374151;
+  }
+
+  .downloadButton {
+    display: none;
+  }
+
+  .sectionHeader {
+    cursor: default;
+  }
+
+  .sectionHeader:hover {
+    background-color: transparent;
+  }
+}
+
+/* Responsive design */
+@media (max-width: 768px) {
+  .container {
+    padding: 1rem 0;
+  }
+
+  .resumeWrapper {
+    padding: 0 1rem;
+  }
+
+  .resumeHeader {
+    padding: 2rem 1rem;
+    margin-bottom: 2rem;
+  }
+
+  .name {
+    font-size: 2.5rem;
+  }
+
+  .contactInfo {
+    gap: 1rem;
+    flex-direction: column;
+    align-items: center;
+  }
+
+  .sectionHeader {
+    padding: 1rem 1.5rem;
+  }
+
+  .sectionContent {
+    padding: 0 1.5rem 1.5rem;
+  }
+
+  .degreeInfo,
+  .jobHeader,
+  .projectHeader {
+    flex-direction: column;
+    gap: 0.5rem;
+  }
+
+  .jobMeta {
+    text-align: left;
+  }
+
+  .skillsGrid {
+    grid-template-columns: 1fr;
+  }
+
+  .downloadButton {
+    margin-left: 1rem;
+  }
+}
