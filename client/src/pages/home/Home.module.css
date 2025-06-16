@@ -1,0 +1,82 @@
+.container {
+  min-height: 100vh;
+  background-color: #0f172a; /* Match the hero background */
+}
+
+/* Remove or modify header since Hero acts as the header */
+.header {
+  display: none; /* Hide original header since Hero replaces it */
+}
+
+.main {
+  /* Remove if not needed, or style for content after hero */
+  display: none;
+}
+
+/* Sections that come after the hero */
+.section {
+  min-height: 100vh;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  padding: 4rem 2rem;
+  background: linear-gradient(135deg, #1e293b 0%, #334155 100%);
+}
+
+.section:nth-child(even) {
+  background: linear-gradient(135deg, #0f172a 0%, #1e293b 100%);
+}
+
+.sectionContent {
+  max-width: 64rem;
+  margin: 0 auto;
+  text-align: center;
+  color: white;
+}
+
+.sectionContent h2 {
+  font-size: 3rem;
+  font-weight: 700;
+  margin-bottom: 2rem;
+  background: linear-gradient(135deg, #60a5fa, #a78bfa);
+  background-clip: text;
+  -webkit-background-clip: text;
+  -webkit-text-fill-color: transparent;
+}
+
+.sectionContent p {
+  font-size: 1.25rem;
+  color: rgba(255, 255, 255, 0.7);
+  line-height: 1.6;
+  max-width: 42rem;
+  margin: 0 auto;
+}
+
+.footer {
+  background-color: #0f172a;
+  color: rgba(255, 255, 255, 0.6);
+  text-align: center;
+  padding: 2rem;
+  border-top: 1px solid rgba(255, 255, 255, 0.1);
+}
+
+.footer p {
+  margin: 0;
+  font-size: 0.875rem;
+}
+
+/* Responsive adjustments */
+@media (max-width: 768px) {
+  .section {
+    padding: 2rem 1rem;
+    min-height: 80vh;
+  }
+
+  .sectionContent h2 {
+    font-size: 2rem;
+  }
+
+  .sectionContent p {
+    font-size: 1rem;
+  }
+}
