@@ -33,24 +33,6 @@ const Home: React.FC = () => {
         onDownloadResume={handleDownloadResume}
       />
 
-      {/* Add more sections later, it'll be more like a preview image of those sections. */}
-
-      {/*Mock: Projects section */}
-      <section id="projects" className={styles.section}>
-        <div className={styles.sectionContent}>
-          <h2>My Projects</h2>
-          <p>Your projects will go here...</p>
-        </div>
-      </section>
-
-      {/* Mock: About section */}
-      <section id="about" className={styles.section}>
-        <div className={styles.sectionContent}>
-          <h2>About Me</h2>
-          <p>More details about your background...</p>
-        </div>
-      </section>
-
       <footer className={styles.footer}>
         <p>&copy; 2025 Manuel Reyes Jr</p>
       </footer>

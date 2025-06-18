@@ -1,299 +1,322 @@
 .hero {
-    position: relative;
-    min-height: 100vh;
-    background: linear-gradient(135deg, #0f172a 0%, #1e3a8a 50%, #0f172a 100%);
-    overflow: hidden;
+  position: relative;
+  min-height: 100vh;
+  background: linear-gradient(135deg, #0f172a 0%, #1e3a8a 50%, #0f172a 100%);
+  overflow: hidden;
 }
 
 .backgroundOverlay {
-    position: absolute;
-    inset: 0;
+  position: absolute;
+  inset: 0;
 }
 
 .radialGradient {
-    position: absolute;
-    inset: 0;
-    background: radial-gradient(circle at center, rgba(59, 130, 246, 0.15), transparent 70%);
+  position: absolute;
+  inset: 0;
+  background: radial-gradient(
+    circle at center,
+    rgba(59, 130, 246, 0.15),
+    transparent 70%
+  );
 }
 
 .gridPattern {
-    position: absolute;
-    inset: 0;
-    background-image:
-            linear-gradient(rgba(255, 255, 255, 0.01) 1px, transparent 1px),
-            linear-gradient(90deg, rgba(255, 255, 255, 0.01) 1px, transparent 1px);
-    background-size: 60px 60px;
+  position: absolute;
+  inset: 0;
+  background-image:
+    linear-gradient(rgba(255, 255, 255, 0.01) 1px, transparent 1px),
+    linear-gradient(90deg, rgba(255, 255, 255, 0.01) 1px, transparent 1px);
+  background-size: 60px 60px;
 }
 
 .floatingElement {
-    position: absolute;
-    color: rgba(59, 130, 246, 0.2);
-    transform: translateY(10px);
-    opacity: 0;
-    transition: all 1000ms ease;
+  position: absolute;
+  color: rgba(59, 130, 246, 0.2);
+  transform: translateY(10px);
+  opacity: 0;
+  transition: all 1000ms ease;
 }
 
 .floatingElement.loaded {
-    transform: translateY(0);
-    opacity: 1;
-    animation: gentleFloat 6s ease-in-out infinite;
+  transform: translateY(0);
+  opacity: 1;
+  animation: gentleFloat 6s ease-in-out infinite;
 }
 
 .mainContent {
-    position: relative;
-    z-index: 10;
-    display: flex;
-    flex-direction: column;
-    align-items: center;
-    justify-content: center;
-    min-height: 100vh;
-    padding: 0 1.5rem;
-    text-align: center;
-    max-width: 64rem;
-    margin: 0 auto;
+  position: relative;
+  z-index: 10;
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+  justify-content: center;
+  min-height: 100vh;
+  padding: 0 1.5rem;
+  text-align: center;
+  max-width: 64rem;
+  margin: 0 auto;
+  transform: translateX(10px);
 }
 
 .contentWrapper {
-    transform: translateY(4rem);
-    opacity: 0;
-    transition: all 1000ms ease;
-    transition-delay: 200ms;
+  opacity: 0;
+  transition: all 1000ms ease;
+  transition-delay: 200ms;
+  max-width: 48rem;
+  margin: 0 auto;
+  display: flex;
+  flex-direction: column;
+  align-items: center;
 }
 
 .contentWrapper.loaded {
-    transform: translateY(0);
-    opacity: 1;
+  transform: translateY(0);
+  opacity: 1;
 }
 
 .statusBadge {
-    display: inline-flex;
-    align-items: center;
-    gap: 0.5rem;
-    padding: 0.5rem 1rem;
-    margin-bottom: 2rem;
-    background: rgba(34, 197, 94, 0.1);
-    backdrop-filter: blur(8px);
-    border: 1px solid rgba(74, 222, 128, 0.2);
-    border-radius: 9999px;
-    font-size: 0.875rem;
-    color: rgb(134, 239, 172);
+  display: inline-flex;
+  align-items: center;
+  gap: 0.5rem;
+  padding: 0.5rem 1rem;
+  margin-bottom: 2rem;
+  background: rgba(34, 197, 94, 0.1);
+  backdrop-filter: blur(8px);
+  border: 1px solid rgba(74, 222, 128, 0.2);
+  border-radius: 9999px;
+  font-size: 0.875rem;
+  color: rgb(134, 239, 172);
 }
 
 .pulsingDot {
-    width: 0.5rem;
-    height: 0.5rem;
-    background-color: rgb(74, 222, 128);
-    border-radius: 50%;
-    animation: pulse 2s infinite;
+  width: 0.5rem;
+  height: 0.5rem;
+  background-color: rgb(74, 222, 128);
+  border-radius: 50%;
+  animation: pulse 2s infinite;
 }
 
 .mainHeading {
-    font-size: 3rem;
-    font-weight: 700;
-    color: white;
-    margin-bottom: 1.5rem;
-    line-height: 1.1;
+  font-size: 3rem;
+  font-weight: 700;
+  color: white;
+  margin-bottom: 1.5rem;
+  line-height: 1.1;
 }
 
 .gradientText {
-    background: linear-gradient(135deg, #60a5fa, #a78bfa, #3b82f6);
-    background-clip: text;
-    -webkit-background-clip: text;
-    -webkit-text-fill-color: transparent;
+  background: linear-gradient(135deg, #60a5fa, #a78bfa, #3b82f6);
+  background-clip: text;
+  -webkit-background-clip: text;
+  -webkit-text-fill-color: transparent;
 }
 
 .skillContainer {
-    margin-bottom: 2rem;
-    height: 3rem;
-    display: flex;
-    align-items: center;
-    justify-content: center;
+  margin-bottom: 2rem;
+  height: 3rem;
+  display: flex;
+  align-items: center;
+  justify-content: center;
 }
 
 .currentSkill {
-    font-size: 1.25rem;
-    font-weight: 500;
-    color: rgb(147, 197, 253);
-    transition: all 500ms ease;
+  font-size: 1.25rem;
+  font-weight: 500;
+  color: rgb(147, 197, 253);
+  transition: all 500ms ease;
 }
 
 .description {
-    font-size: 1.125rem;
-    color: rgba(255, 255, 255, 0.7);
-    margin-bottom: 2.5rem;
-    max-width: 32rem;
-    line-height: 1.6;
+  font-size: 1.25rem;
+  color: rgba(255, 255, 255, 0.85);
+  margin-bottom: 2rem;
+  max-width: 40rem;
+  line-height: 1.75;
+  text-align: center;
 }
 
 .highlightsGrid {
-    display: grid;
-    grid-template-columns: 1fr;
-    gap: 1.5rem;
-    margin-bottom: 3rem;
-    max-width: 32rem;
-    margin-left: auto;
-    margin-right: auto;
+  display: grid;
+  grid-template-columns: 1fr;
+  gap: 1.5rem;
+  margin-bottom: 3rem;
+  max-width: 32rem;
+  margin-left: auto;
+  margin-right: auto;
 }
 
 .highlightCard {
-    text-align: center;
-    padding: 1rem;
-    background: rgba(255, 255, 255, 0.05);
-    backdrop-filter: blur(8px);
-    border-radius: 0.5rem;
-    border: 1px solid rgba(255, 255, 255, 0.1);
+  text-align: center;
+  padding: 1rem;
+  background: rgba(255, 255, 255, 0.05);
+  backdrop-filter: blur(8px);
+  border-radius: 0.5rem;
+  border: 1px solid rgba(255, 255, 255, 0.1);
 }
 
 .highlightNumber {
-    font-size: 1.5rem;
-    font-weight: 700;
-    margin-bottom: 0.25rem;
+  font-size: 1.5rem;
+  font-weight: 700;
+  margin-bottom: 0.25rem;
 }
 
 .highlightLabel {
-    font-size: 0.875rem;
-    color: rgba(255, 255, 255, 0.6);
+  font-size: 0.875rem;
+  color: rgba(255, 255, 255, 0.6);
 }
 
-.blueText { color: rgb(96, 165, 250); }
-.purpleText { color: rgb(167, 139, 250); }
-.greenText { color: rgb(74, 222, 128); }
+.blueText {
+  color: rgb(96, 165, 250);
+}
+.purpleText {
+  color: rgb(167, 139, 250);
+}
+.greenText {
+  color: rgb(74, 222, 128);
+}
 
 .buttonContainer {
-    display: flex;
-    flex-direction: column;
-    gap: 1rem;
-    justify-content: center;
-    align-items: center;
-    margin-bottom: 3rem;
+  display: flex;
+  flex-direction: column;
+  gap: 1rem;
+  justify-content: center;
+  align-items: center;
+  margin-bottom: 3rem;
 }
 
 .primaryButton {
-    position: relative;
-    display: flex;
-    align-items: center;
-    gap: 0.5rem;
-    padding: 1rem 2rem;
-    background: linear-gradient(135deg, #2563eb, #7c3aed);
-    border: none;
-    border-radius: 0.5rem;
-    color: white;
-    font-weight: 600;
-    font-size: 1.125rem;
-    cursor: pointer;
-    transition: all 300ms ease;
+  position: relative;
+  display: flex;
+  align-items: center;
+  gap: 0.5rem;
+  padding: 1rem 2rem;
+  background: linear-gradient(135deg, #2563eb, #7c3aed);
+  border: none;
+  border-radius: 0.5rem;
+  color: white;
+  font-weight: 600;
+  font-size: 1.125rem;
+  cursor: pointer;
+  transition: all 300ms ease;
 }
 
 .primaryButton:hover {
-    transform: scale(1.05);
-    box-shadow: 0 20px 25px -5px rgba(59, 130, 246, 0.25);
+  transform: scale(1.05);
+  box-shadow: 0 20px 25px -5px rgba(59, 130, 246, 0.25);
 }
 
 .primaryButton .chevron {
-    transition: transform 300ms ease;
+  transition: transform 300ms ease;
 }
 
 .primaryButton:hover .chevron {
-    transform: translateX(0.25rem);
+  transform: translateX(0.25rem);
 }
 
 .secondaryButton {
-    display: flex;
-    align-items: center;
-    gap: 0.5rem;
-    padding: 1rem 2rem;
-    background: rgba(255, 255, 255, 0.1);
-    backdrop-filter: blur(8px);
-    border: 1px solid rgba(255, 255, 255, 0.2);
-    border-radius: 0.5rem;
-    color: white;
-    font-weight: 600;
-    font-size: 1.125rem;
-    cursor: pointer;
-    transition: all 300ms ease;
+  display: flex;
+  align-items: center;
+  gap: 0.5rem;
+  padding: 1rem 2rem;
+  background: rgba(255, 255, 255, 0.1);
+  backdrop-filter: blur(8px);
+  border: 1px solid rgba(255, 255, 255, 0.2);
+  border-radius: 0.5rem;
+  color: white;
+  font-weight: 600;
+  font-size: 1.125rem;
+  cursor: pointer;
+  transition: all 300ms ease;
 }
 
 .secondaryButton:hover {
-    background: rgba(255, 255, 255, 0.15);
+  background: rgba(255, 255, 255, 0.15);
 }
 
 .socialLinks {
-    display: flex;
-    justify-content: center;
-    gap: 1.5rem;
-    margin-bottom: 4rem;
+  display: flex;
+  justify-content: center;
+  gap: 1.5rem;
+  margin-bottom: 4rem;
 }
 
 .socialLink {
-    padding: 0.75rem;
-    background: rgba(255, 255, 255, 0.1);
-    backdrop-filter: blur(8px);
-    border-radius: 50%;
-    color: white;
-    text-decoration: none;
-    transition: all 300ms ease;
+  padding: 0.75rem;
+  background: rgba(255, 255, 255, 0.1);
+  backdrop-filter: blur(8px);
+  border-radius: 50%;
+  color: white;
+  text-decoration: none;
+  transition: all 300ms ease;
 }
 
 .socialLink:hover {
-    background: rgba(255, 255, 255, 0.2);
+  background: rgba(255, 255, 255, 0.2);
 }
 
 .scrollIndicator {
-    animation: bounce 2s infinite;
-    color: rgba(255, 255, 255, 0.4);
-    margin: 0 auto;
+  animation: bounce 2s infinite;
+  color: rgba(255, 255, 255, 0.4);
+  margin: 0 auto;
 }
 
 /* Responsive Design */
 @media (min-width: 768px) {
-    .mainHeading {
-        font-size: 4.5rem;
-    }
+  .mainHeading {
+    font-size: 4.5rem;
+  }
 
-    .currentSkill {
-        font-size: 1.5rem;
-    }
+  .currentSkill {
+    font-size: 1.5rem;
+  }
 
-    .description {
-        font-size: 1.25rem;
-    }
+  .description {
+    font-size: 1.25rem;
+  }
 
-    .highlightsGrid {
-        grid-template-columns: repeat(3, 1fr);
-    }
+  .highlightsGrid {
+    grid-template-columns: repeat(3, 1fr);
+  }
 
-    .buttonContainer {
-        flex-direction: row;
-    }
+  .buttonContainer {
+    flex-direction: row;
+  }
 }
 
 /* Animations */
 @keyframes gentleFloat {
-    0%, 100% {
-        transform: translateY(0px);
-    }
-    50% {
-        transform: translateY(-10px);
-    }
+  0%,
+  100% {
+    transform: translateY(0px);
+  }
+  50% {
+    transform: translateY(-10px);
+  }
 }
 
 @keyframes pulse {
-    0%, 100% {
-        opacity: 1;
-    }
-    50% {
-        opacity: 0.5;
-    }
+  0%,
+  100% {
+    opacity: 1;
+  }
+  50% {
+    opacity: 0.5;
+  }
 }
 
 @keyframes bounce {
-    0%, 20%, 53%, 80%, 100% {
-        transform: translateY(0);
-    }
-    40%, 43% {
-        transform: translateY(-10px);
-    }
-    70% {
-        transform: translateY(-5px);
-    }
+  0%,
+  20%,
+  53%,
+  80%,
+  100% {
+    transform: translateY(0);
+  }
+  40%,
+  43% {
+    transform: translateY(-10px);
+  }
+  70% {
+    transform: translateY(-5px);
+  }
 }

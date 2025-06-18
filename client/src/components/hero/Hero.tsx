@@ -6,14 +6,13 @@ import {
   GraduationCap,
   ArrowDown,
   Mail,
-  Github,
-  Linkedin,
+  GithubIcon,
+  LinkedinIcon,
 } from "lucide-react";
 import styles from "./Hero.module.css";
 
 interface HeroProps {
   name?: string;
-  title?: string;
   description?: string;
   graduationYear?: string;
   gpa?: string;
@@ -26,7 +25,6 @@ interface HeroProps {
 
 const Hero: React.FC<HeroProps> = ({
   name = "Manuel Reyes Jr",
-  title = "Software Engineer",
   description = "Fresh Computer Science graduate from Hunter College with hands-on experience in full-stack development. Ready to contribute to meaningful projects and grow with an innovative team.",
   graduationYear = "2025",
   gpa = "3.4",
@@ -48,13 +46,11 @@ const Hero: React.FC<HeroProps> = ({
 
   useEffect(() => {
     setIsLoaded(true);
-
     const skillInterval = setInterval(() => {
       setCurrentSkill((prev) => (prev + 1) % skills.length);
     }, 2500);
-
     return () => clearInterval(skillInterval);
-  }, []);
+  }, [skills.length]);
 
   const floatingElements = [
     { icon: Code2, delay: 0, x: "15%", y: "25%" },
@@ -71,13 +67,11 @@ const Hero: React.FC<HeroProps> = ({
 
   return (
     <div className={styles.hero}>
-      {/* Background */}
       <div className={styles.backgroundOverlay}>
         <div className={styles.radialGradient}></div>
         <div className={styles.gridPattern}></div>
       </div>
 
-      {/* Floating Icons */}
       {floatingElements.map((element, index) => {
         const Icon = element.icon;
         return (
@@ -95,32 +89,26 @@ const Hero: React.FC<HeroProps> = ({
         );
       })}
 
-      {/* Main Content */}
       <div className={styles.mainContent}>
         <div
           className={`${styles.contentWrapper} ${isLoaded ? styles.loaded : ""}`}
         >
-          {/* Status Badge */}
           <div className={styles.statusBadge}>
             <GraduationCap size={16} />
             <span>New Graduate • Open to Work</span>
             <div className={styles.pulsingDot}></div>
           </div>
 
-          {/* Name & Introduction */}
           <h1 className={styles.mainHeading}>
             Hi, I'm <span className={styles.gradientText}>{name}</span>
           </h1>
 
-          {/* Dynamic Role */}
           <div className={styles.skillContainer}>
             <h2 className={styles.currentSkill}>{skills[currentSkill]}</h2>
           </div>
 
-          {/* Description */}
           <p className={styles.description}>{description}</p>
 
-          {/* Key Highlights */}
           <div className={styles.highlightsGrid}>
             <div className={styles.highlightCard}>
               <div className={`${styles.highlightNumber} ${styles.blueText}`}>
@@ -142,7 +130,6 @@ const Hero: React.FC<HeroProps> = ({
             </div>
           </div>
 
-          {/* Action Buttons */}
           <div className={styles.buttonContainer}>
             <button className={styles.primaryButton} onClick={onViewProjects}>
               <span>View My Projects</span>
@@ -158,7 +145,6 @@ const Hero: React.FC<HeroProps> = ({
             </button>
           </div>
 
-          {/* Contact Links */}
           <div className={styles.socialLinks}>
             <button
               className={styles.socialLink}
@@ -172,18 +158,17 @@ const Hero: React.FC<HeroProps> = ({
               onClick={() => handleSocialClick(githubUrl)}
               aria-label="GitHub"
             >
-              <Github size={20} />
+              <GithubIcon size={20} />
             </button>
             <button
               className={styles.socialLink}
               onClick={() => handleSocialClick(linkedinUrl)}
               aria-label="LinkedIn"
             >
-              <Linkedin size={20} />
+              <LinkedinIcon size={20} />
             </button>
           </div>
 
-          {/* Scroll Indicator */}
           <div className={styles.scrollIndicator}>
             <ArrowDown size={20} />
           </div>
