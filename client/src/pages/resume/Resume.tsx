@@ -115,10 +115,6 @@ const Resume = () => {
     },
   };
 
-  const handleDownload = () => {
-    window.print();
-  };
-
   return (
     <div className={styles.container}>
       <div className={styles.resumeWrapper}>
@@ -306,15 +302,18 @@ const Resume = () => {
         </Section>
 
         {/* Download */}
-        <button
-          className={`${styles.downloadButton} ${hoveredElements.download ? styles.downloadButtonHover : ""}`}
-          onMouseEnter={() => handleMouseEnter("download")}
-          onMouseLeave={() => handleMouseLeave("download")}
-          onClick={handleDownload}
-        >
-          <Download size={16} />
-          Download PDF
-        </button>
+        <div className={styles.downloadWrapper}>
+          <a
+            href="/Manuel_Reyes_jr.pdf"
+            download
+            className={`${styles.downloadButton} ${hoveredElements.download ? styles.downloadButtonHover : ""}`}
+            onMouseEnter={() => handleMouseEnter("download")}
+            onMouseLeave={() => handleMouseLeave("download")}
+          >
+            <Download size={16} />
+            Download PDF
+          </a>
+        </div>
       </div>
     </div>
   );
