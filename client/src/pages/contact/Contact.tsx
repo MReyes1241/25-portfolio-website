@@ -1,8 +1,22 @@
 import React, { useState } from "react";
 import styles from "./Contact.module.css";
 
+interface FormData {
+  name: string;
+  email: string;
+  subject: string;
+  message: string;
+}
+
+interface ApiResponse {
+  success: boolean;
+  message?: string;
+  error?: string;
+  details?: string[];
+}
+
 const Contact = () => {
-  const [formData, setFormData] = useState({
+  const [formData, setFormData] = useState<FormData>({
     name: "",
     email: "",
     subject: "",
@@ -10,7 +24,11 @@ const Contact = () => {
   });
 
   const [isSubmitting, setIsSubmitting] = useState(false);
-  const [submitStatus, setSubmitStatus] = useState("idle");
+  const [submitStatus, setSubmitStatus] = useState<"idle" | "success" | "error">("idle");
+  const [statusMessage, setStatusMessage] = useState("");
+  const [validationErrors, setValidationErrors] = useState<string[]>([]);
+
+  const API_BASE_URL = import.meta.env.VITE_API_URL || 'http://localhost:5050';
 
   const handleChange = (
     e: React.ChangeEvent<HTMLInputElement | HTMLTextAreaElement>,
@@ -20,19 +38,106 @@ const Contact = () => {
       ...prev,
       [name]: value,
     }));
+    
+    // Clear validation errors when user starts typing
+    if (validationErrors.length > 0) {
+      setValidationErrors([]);
+    }
+    
+    // Clear status when user modifies form
+    if (submitStatus !== "idle") {
+      setSubmitStatus("idle");
+      setStatusMessage("");
+    }
+  };
+
+  const validateForm = (): boolean => {
+    const errors: string[] = [];
+    
+    if (!formData.name.trim() || formData.name.trim().length < 2) {
+      errors.push("Name must be at least 2 characters long");
+    }
+    
+    if (!formData.email.trim()) {
+      errors.push("Email is required");
+    } else if (!/^[^\s@]+@[^\s@]+\.[^\s@]+$/.test(formData.email)) {
+      errors.push("Please enter a valid email address");
+    }
+    
+    if (!formData.subject.trim() || formData.subject.trim().length < 3) {
+      errors.push("Subject must be at least 3 characters long");
+    }
+    
+    if (!formData.message.trim() || formData.message.trim().length < 10) {
+      errors.push("Message must be at least 10 characters long");
+    }
+    
+    if (formData.name.length > 100) {
+      errors.push("Name must be less than 100 characters");
+    }
+    
+    if (formData.subject.length > 200) {
+      errors.push("Subject must be less than 200 characters");
+    }
+    
+    if (formData.message.length > 2000) {
+      errors.push("Message must be less than 2000 characters");
+    }
+    
+    setValidationErrors(errors);
+    return errors.length === 0;
   };
 
   const handleSubmit = async (e: React.FormEvent) => {
     e.preventDefault();
+    
+    if (!validateForm()) {
+      return;
+    }
+    
     setIsSubmitting(true);
+    setSubmitStatus("idle");
+    setStatusMessage("");
 
-    setTimeout(() => {
+    try {
+      const response = await fetch(`${API_BASE_URL}/api/contact`, {
+        method: 'POST',
+        headers: {
+          'Content-Type': 'application/json',
+        },
+        body: JSON.stringify(formData),
+      });
+
+      const data: ApiResponse = await response.json();
+
+      if (response.ok && data.success) {
+        setSubmitStatus("success");
+        setStatusMessage(data.message || "Message sent successfully! I'll get back to you soon.");
+        setFormData({ name: "", email: "", subject: "", message: "" });
+        
+        setTimeout(() => {
+          setSubmitStatus("idle");
+          setStatusMessage("");
+        }, 5000);
+      } else {
+        setSubmitStatus("error");
+        
+        if (Array.isArray(data.details) && data.details.length > 0) {
+          setValidationErrors(data.details);
+          setStatusMessage("Please fix the validation errors below.");
+        } else {
+          setValidationErrors([]); // Ensure it's reset
+          setStatusMessage(data.error || "Failed to send message. Please try again.");
+        }
+
+      }
+    } catch (error) {
+      console.error('Contact form submission error:', error);
+      setSubmitStatus("error");
+      setStatusMessage("Network error. Please check your connection and try again.");
+    } finally {
       setIsSubmitting(false);
-      setSubmitStatus("success");
-      setFormData({ name: "", email: "", subject: "", message: "" });
-
-      setTimeout(() => setSubmitStatus("idle"), 3000);
-    }, 1000);
+    }
   };
 
   return (
@@ -48,7 +153,7 @@ const Contact = () => {
       <div className={styles.main}>
         <div className={styles.formSection}>
           <h2 className={styles.formTitle}>Send me a message</h2>
-          <div className={styles.form}>
+          <form className={styles.form} onSubmit={handleSubmit}>
             <div className={styles.inputGroup}>
               <input
                 type="text"
@@ -58,6 +163,7 @@ const Contact = () => {
                 onChange={handleChange}
                 className={styles.input}
                 required
+                maxLength={100}
               />
             </div>
 
@@ -82,6 +188,7 @@ const Contact = () => {
                 onChange={handleChange}
                 className={styles.input}
                 required
+                maxLength={200}
               />
             </div>
 
@@ -94,24 +201,48 @@ const Contact = () => {
                 className={styles.textarea}
                 rows={6}
                 required
+                maxLength={2000}
               />
+              <div style={{ 
+                fontSize: '0.8rem', 
+                color: 'rgba(255, 255, 255, 0.5)', 
+                textAlign: 'right', 
+                marginTop: '0.25rem' 
+              }}>
+                {formData.message.length}/2000
+              </div>
             </div>
 
+            {validationErrors.length > 0 && (
+              <div className={styles.errorMsg}>
+                <ul style={{ margin: 0, paddingLeft: '1.5rem' }}>
+                  {validationErrors.map((error, index) => (
+                    <li key={index}>{error}</li>
+                  ))}
+                </ul>
+              </div>
+            )}
+
             <button
-              type="button"
+              type="submit"
               className={styles.submitBtn}
               disabled={isSubmitting}
-              onClick={handleSubmit}
             >
               {isSubmitting ? "Sending..." : "Send Message"}
             </button>
 
             {submitStatus === "success" && (
               <div className={styles.successMsg}>
-                ✓ Message sent successfully! I'll get back to you soon.
+                ✓ {statusMessage}
               </div>
             )}
-          </div>
+
+            {submitStatus === "error" && !validationErrors.length && (
+              <div className={styles.errorMsg}>
+                ✗ {statusMessage}
+              </div>
+            )}
+          </form>
         </div>
 
         <div className={styles.infoSection}>
@@ -149,15 +280,24 @@ const Contact = () => {
               <a
                 href="https://linkedin.com/in/manuel-reyes-jr-swe"
                 className={styles.link}
+                target="_blank"
+                rel="noopener noreferrer"
               >
                 LinkedIn
               </a>
-              <a href="https://github.com/MReyes1241" className={styles.link}>
+              <a 
+                href="https://github.com/MReyes1241" 
+                className={styles.link}
+                target="_blank"
+                rel="noopener noreferrer"
+              >
                 GitHub
               </a>
               <a
                 href="https://www.instagram.com/born_reyes?igsh=MXVtY3V3emJ0dm9pMQ=="
                 className={styles.link}
+                target="_blank"
+                rel="noopener noreferrer"
               >
                 Instagram
               </a>
