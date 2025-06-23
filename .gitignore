@@ -17,6 +17,9 @@ server/dist/
 .env.test.local
 .env.production.local
 server/.env
+client/.env
+shared/.env
+server/.env.template
 
 # Logs
 npm-debug.log*
