@@ -1,17 +1,19 @@
-# Portfolio Contact Server
+# Portfolio Server (Contact + Blog)
 
-A Node.js/Express backend server for handling contact form submissions with email notifications.
+A Node.js/Express backend server for handling contact form submissions with email notifications **and** blog post data from a PostgreSQL database.
 
 ## Features
 
-- ✅ Contact form validation
-- ✅ Rate limiting (5 requests per 15 minutes)
-- ✅ Email notifications to admin
-- ✅ Auto-reply to users
+- ✅ Contact form validation and email notifications
+- ✅ Blog post fetching by ID and category
+- ✅ Blog post view counter (increments on read)
+- ✅ Rate limiting (5 contact requests per 15 min)
 - ✅ Spam detection
 - ✅ Security middleware
 - ✅ Clean modular architecture
 - ✅ Vite-compatible frontend integration
+
+---
 
 ## Setup Instructions
 
@@ -27,16 +29,16 @@ pnpm install  # or npm install
 cp .env.template .env
 
 # Then edit it
-nano .env  
+nano .env
 ```
 
-### 3. Email Configuration
+### 3. Email Configuration (for Contact API)
 
 #### For Gmail:
-1. Enable 2-Factor Authentication
+1. Enable 2-Factor Authentication  
 2. Generate App Password:
-   - Go to Google Account → Security → 2-Step Verification → App passwords
-   - Choose "Mail" as the app, and "Other" (or your device) as the device
+   - Google Account → Security → 2-Step Verification → App passwords
+   - Choose "Mail" as app and "Other" as device  
    - Use the generated password for `EMAIL_PASS`
 
 ```env
@@ -45,64 +47,63 @@ EMAIL_PASS=your-app-password-here
 ADMIN_EMAIL=your-notification-email@gmail.com
 ```
 
-### 4. Start the Server
+### 4. PostgreSQL Setup
 
-Development mode:
+You must have a PostgreSQL database running. Create a database and a `blog_posts` table with appropriate fields.
+
+Add these to your `.env` file:
+```env
+PGHOST=localhost
+PGPORT=5432
+PGUSER=your_postgres_user
+PGPASSWORD=your_postgres_password
+PGDATABASE=portfolio_blog
+```
+
+### 5. Start the Server
+
+Development:
 ```bash
 pnpm dev
 ```
 
-Production mode:
+Production:
 ```bash
 pnpm start
 ```
 
-### 5. Frontend Configuration (Vite)
+---
 
-Add to your frontend `.env` file:
+## Frontend Configuration (Vite)
+
+Add this to your frontend `.env`:
 ```env
 VITE_API_URL=http://localhost:5050
 ```
 
-And use in code:
+Use it in code like:
 ```ts
 const API_BASE_URL = import.meta.env.VITE_API_URL;
 ```
 
+---
+
 ## API Endpoints
 
-### POST /api/contact
+### 📨 POST /api/contact
 Submit contact form data.
 
-**Request Body:**
-```json
-{
-  "name": "John Doe",
-  "email": "john@example.com",
-  "subject": "Hello",
-  "message": "Your message here"
-}
-```
+### 🩺 GET /api/health
+Health check.
 
-**Response:**
-```json
-{
-  "success": true,
-  "message": "Message sent successfully!"
-}
-```
+### 📝 GET /api/blog
+Fetch list of blog posts.  
+Supports filtering by category and tag via query params.
 
-### GET /api/health
-Health check endpoint.
+### 📝 GET /api/blog/:id
+Fetch a single blog post by ID and increment views.
 
-**Response:**
-```json
-{
-  "status": "OK",
-  "timestamp": "2024-01-01T12:00:00.000Z",
-  "uptime": 1234.56
-}
-```
+---
 
 ## Project Structure
 
@@ -110,50 +111,54 @@ Health check endpoint.
 server/
 ├── server.js              # Main server file
 ├── routes/
-│   ├── contact.js         # Contact form routes
-│   └── health.js          # Health check routes
+│   ├── contact.js         # Contact routes
+│   ├── blog.js            # Blog API routes
+│   └── health.js          # Health check
+├── db.js                  # PostgreSQL pool setup
 ├── services/
-│   └── emailServices.js   # Email handling logic
+│   └── emailServices.js   # Email logic
 ├── middleware/
-│   └── validation.js      # Input validation and spam detection
-├── .env.template          # Environment variables template
-├── .env                   # Your environment variables (create this)
-├── package.json           # Dependencies and scripts
-└── README.md              # This file
+│   └── validation.js      # Spam/input checks
+├── .env.template
+└── package.json
 ```
 
-## Email Templates
+---
 
-The server sends two types of emails:
+## Blog Features
 
-1. **Admin Notification**: Sent to you when someone submits the form
-2. **User Auto-Reply**: Confirmation sent to the person who submitted the form
+- Blog post schema includes: title, content, excerpt, author, views, created_at, updated_at, tags, read_time, category
+- `/api/blog/:id` increases the view count by 1
+- Admin page (coming soon) will allow creation and editing of posts
 
-Both are nicely formatted HTML templates with branding and quick-reply links.
+---
 
 ## Security Features
 
-- **Rate Limiting**: 5 requests per 15 minutes per IP
-- **Input Validation**: Sanitizes and validates all inputs
-- **Spam Detection**: Detects repeated characters, spammy phrases, and excess links
-- **CORS**: Configured to allow frontend (e.g., `http://localhost:5173`)
-- **Helmet**: Adds secure headers to Express responses
+- **Rate Limiting**: 5 contact submissions / 15 mins / IP
+- **Input Validation**: Sanitizes and verifies form fields
+- **Spam Detection**: Flags suspicious messages
+- **CORS**: Restricts to allowed frontend origin
+- **Helmet**: Adds secure HTTP headers
+
+---
 
 ## Troubleshooting
 
-### Email Authentication Issues
-- Use an App Password if using Gmail
-- Check for typos or whitespace in `.env`
-- Make sure `EMAIL_USER` and `EMAIL_PASS` match the account sending the email
+### Blog Returns 404
+- Make sure your DB has posts
+- Verify the post ID exists
+- Ensure PG credentials in `.env` are correct
 
 ### CORS Issues
-- Update `FRONTEND_URL` in `.env` to match your frontend's port
-- Restart the server after changing CORS settings
+- Update `FRONTEND_URL` in `.env`
+- Restart the server
 
-### Admin Email Not Arriving
-- Check spam/junk folder
-- Make sure you're not sending "from yourself to yourself" on Outlook
-- Use a different email for `ADMIN_EMAIL` (like a Gmail account)
+### Email Not Working
+- Use a working Gmail + app password
+- Double check `.env` for typos
+
+---
 
 ## Environment Variables
 
@@ -161,27 +166,36 @@ Both are nicely formatted HTML templates with branding and quick-reply links.
 |----------------|---------------------------------|---------------------------------|
 | `PORT`         | Server port                     | `5050`                          |
 | `NODE_ENV`     | Environment type                | `development`                   |
-| `FRONTEND_URL` | Frontend URL for CORS           | `http://localhost:5173`         |
-| `EMAIL_USER`   | Email account to send from      | `your-email@gmail.com`          |
-| `EMAIL_PASS`   | App password or real password   | `your-app-password`             |
-| `ADMIN_EMAIL`  | Email address to receive alerts | `you@domain.com`                |
+| `FRONTEND_URL` | Frontend domain for CORS        | `http://localhost:5173`         |
+| `EMAIL_USER`   | Sender email                    | `your-email@gmail.com`          |
+| `EMAIL_PASS`   | Gmail app password              | `your-app-password`             |
+| `ADMIN_EMAIL`  | Admin receiver address          | `you@domain.com`                |
+| `PGHOST`       | PostgreSQL host                 | `localhost`                     |
+| `PGPORT`       | PostgreSQL port                 | `5432`                          |
+| `PGUSER`       | PostgreSQL user                 | `postgres`                      |
+| `PGPASSWORD`   | PostgreSQL password             | `your-password`                 |
+| `PGDATABASE`   | PostgreSQL DB name              | `portfolio_blog`                |
+
+---
 
 ## Deployment
 
-1. Set env vars in production (`.env` or cloud secrets)
-2. Set `NODE_ENV=production`
-3. Set `FRONTEND_URL` to your deployed frontend domain
-4. Use a real mail service with proper credentials
-5. Run the server with:
+1. Add environment variables in `.env` or via hosting provider
+2. Use a real SMTP email provider
+3. Ensure your PostgreSQL database is public or in your same network
+4. Set `NODE_ENV=production` and run:
 ```bash
 pnpm start
 ```
 
+---
+
 ## Next Steps
 
-- [ ] Add email templates customization
-- [ ] Add database logging of submissions
-- [ ] Add unit tests
+- [ ] Blog Admin Panel for posting/editing/deleting
+- [ ] Email template customization
+- [ ] Blog comment support
+- [ ] Logging and analytics
 - [ ] Add TypeScript support
-- [ ] Maybe Add support for more email providers (e.g., Mailgun)
-- [ ] Add email queue system for async delivery
+- [ ] Unit and integration tests
+- [ ] Async mail queue (e.g., BullMQ)
