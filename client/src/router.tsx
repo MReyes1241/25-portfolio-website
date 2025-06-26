@@ -7,6 +7,7 @@ import Resume from "./pages/resume/Resume.tsx";
 import Contact from "./pages/contact/Contact.tsx";
 import Projects from "./pages/projects/Projects.tsx";
 import Blog from "./pages/blog/Blog.tsx";
+import BlogPostPage from "./pages/blog/BlogPostPage.tsx";
 
 export function AppRoutes() {
   return (
@@ -18,6 +19,7 @@ export function AppRoutes() {
       <Route path="/blog" element={<Blog />} />
       <Route path="/contact" element={<Contact />} />
       <Route path="*" element={<NotFound />} />
+      <Route path="/blog/:id" element={<BlogPostPage />} />
     </Routes>
   );
 }
