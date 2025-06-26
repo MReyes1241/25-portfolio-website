@@ -6,7 +6,7 @@ interface BlogPost {
   title: string;
   excerpt: string;
   content: string;
-  date: string;
+  created_at: string;
   readTime: string;
   tags: string[];
   category: string;
@@ -58,15 +58,18 @@ const Blog: React.FC = () => {
       : posts.filter((post) => post.category === selectedCategory);
   }, [posts, selectedCategory]);
 
-  const formatDate = (date: string) =>
-    new Date(date).toLocaleDateString("en-US", {
-      year: "numeric",
-      month: "long",
-      day: "numeric",
-    });
+  const formatDate = (date: string | null | undefined) => {
+    if (!date) return "Unknown";
+    const parsed = new Date(date);
+    return isNaN(parsed.getTime())
+      ? "Unknown"
+      : parsed.toLocaleDateString("en-US", {
+          year: "numeric",
+          month: "long",
+          day: "numeric",
+        });
+  };
 
-  const handleReadMore = (id: number) =>
-    setExpandedPost(expandedPost === id ? null : id);
 
   const handleBackToTop = () => {
     setExpandedPost(null);
@@ -111,7 +114,7 @@ const Blog: React.FC = () => {
             <article key={post.id} className={styles.blogCard}>
               <div className={styles.cardContent}>
                 <div className={styles.cardMeta}>
-                  <span className={styles.date}>{formatDate(post.date)}</span>
+                  <span className={styles.date}>{formatDate(post.created_at)}</span>
                   <span className={styles.readTime}>{post.readTime}</span>
                 </div>
 
@@ -146,7 +149,7 @@ const Blog: React.FC = () => {
 
                     <button
                       className={styles.readMore}
-                      onClick={() => handleReadMore(post.id)}
+                      onClick={() => window.location.href = `/blog/${post.id}`}
                     >
                       Read More
                       <svg
