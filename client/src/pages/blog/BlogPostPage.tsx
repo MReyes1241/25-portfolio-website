@@ -7,7 +7,7 @@ interface BlogPost {
   title: string;
   content: string;
   created_at: string;
-  readTime: string;
+  read_time: string;
   category: string;
   views: number;
 }
@@ -19,56 +19,51 @@ const BlogPostPage = () => {
   const [loading, setLoading] = useState(true);
   const [error, setError] = useState<string | null>(null);
 
-    // Fetch blog post
-    useEffect(() => {
-    const fetchPost = async () => {
-        try {
-        setLoading(true);
-        setError(null);
+  useEffect(() => {
+    if (!id) {
+      setError("Invalid post ID");
+      setLoading(false);
+      return;
+    }
 
+    const fetchPost = async () => {
+      try {
         const res = await fetch(`${import.meta.env.VITE_API_URL}/api/blog/${id}`);
         const contentType = res.headers.get("content-type");
 
-        if (!contentType || !contentType.includes("application/json")) {
-            throw new Error(`Expected JSON but got: ${contentType}`);
+        if (!contentType?.includes("application/json")) {
+          throw new Error(`Expected JSON but got: ${contentType}`);
         }
 
         const data = await res.json();
 
         if (data.success && data.data) {
-            setPost(data.data);
+          setPost(data.data);
         } else {
-            setError("Post not found");
+          setError("Post not found");
         }
-        } catch (err) {
+      } catch (err) {
         console.error("Failed to fetch blog post:", err);
         setError("Failed to load blog post");
-        } finally {
+      } finally {
         setLoading(false);
-        }
+      }
     };
 
-    if (id) {
-        fetchPost();
-    } else {
-        setError("Invalid post ID");
-        setLoading(false);
-    }
-    }, [id]);
+    fetchPost();
+  }, [id]);
 
-    // Increment views once after post is loaded
-    useEffect(() => {
+  useEffect(() => {
     if (!post?.id) return;
 
     const timer = setTimeout(() => {
-        fetch(`${import.meta.env.VITE_API_URL}/api/blog/${post.id}/view`, {
+      fetch(`${import.meta.env.VITE_API_URL}/api/blog/${post.id}/view`, {
         method: "PATCH",
-        });
-    }, 500); // debounce to avoid rapid re-renders
+      });
+    }, 500);
 
     return () => clearTimeout(timer);
-    }, [post?.id]);
-
+  }, [post?.id]);
 
   const formatDate = (date: string | null | undefined) => {
     if (!date) return "Unknown";
@@ -145,8 +140,8 @@ const BlogPostPage = () => {
             <span className={styles.views}>
               Views: {post.views?.toLocaleString() || 0}
             </span>
-            {post.readTime && (
-              <span className={styles.readTime}>{post.readTime}</span>
+            {post.read_time && (
+              <span className={styles.readTime}>{post.read_time}</span>
             )}
           </div>
         </div>
@@ -155,7 +150,6 @@ const BlogPostPage = () => {
       {/* Main Content */}
       <div className={styles.main}>
         <article className={styles.article}>
-          {/* Post Meta */}
           <div className={styles.postMeta}>
             <div className={styles.metaLeft}>
               <span className={styles.category}>{post.category}</span>
@@ -163,10 +157,8 @@ const BlogPostPage = () => {
             </div>
           </div>
 
-          {/* Post Title */}
           <h1 className={styles.title}>{post.title}</h1>
 
-          {/* Post Content */}
           <div
             className={styles.content}
             dangerouslySetInnerHTML={{ __html: post.content }}
@@ -174,7 +166,6 @@ const BlogPostPage = () => {
         </article>
       </div>
 
-      {/* Footer */}
       <div className={styles.footer}>
         <p>&copy; 2025 Manuel Reyes. All rights reserved.</p>
       </div>
