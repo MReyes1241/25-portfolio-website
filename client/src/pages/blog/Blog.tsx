@@ -1,4 +1,5 @@
 import React, { useState, useEffect, useMemo } from "react";
+import { useNavigate } from "react-router-dom";
 import styles from "./Blog.module.css";
 
 interface BlogPost {
@@ -6,7 +7,7 @@ interface BlogPost {
   title: string;
   excerpt: string;
   content: string;
-  created_at: string;
+  date: string;
   readTime: string;
   tags: string[];
   category: string;
@@ -16,35 +17,24 @@ const Blog: React.FC = () => {
   const [posts, setPosts] = useState<BlogPost[]>([]);
   const [loading, setLoading] = useState(true);
   const [selectedCategory, setSelectedCategory] = useState("All");
-  const [expandedPost, setExpandedPost] = useState<number | null>(null);
+  const navigate = useNavigate();
 
   useEffect(() => {
     const fetchPosts = async () => {
       try {
         const res = await fetch(`${import.meta.env.VITE_API_URL}/api/blog`);
-        const contentType = res.headers.get("content-type");
-
-        if (!contentType || !contentType.includes("application/json")) {
-          throw new Error(`Expected JSON but got: ${contentType}`);
-        }
-
         const data = await res.json();
-
-        if (data.success && data.data?.posts) {
+        if (data.success) {
           setPosts(data.data.posts);
-        } else {
-          throw new Error("Invalid blog post response structure");
         }
       } catch (err) {
-        console.error("Failed to fetch blog posts:", err);
+        console.error("Failed to fetch blog posts", err);
       } finally {
         setLoading(false);
       }
     };
 
-
     fetchPosts();
-    console.log("Fetching from:", import.meta.env.VITE_API_URL);
   }, []);
 
   const categories = useMemo(() => {
@@ -58,25 +48,16 @@ const Blog: React.FC = () => {
       : posts.filter((post) => post.category === selectedCategory);
   }, [posts, selectedCategory]);
 
-  const formatDate = (date: string | null | undefined) => {
-    if (!date) return "Unknown";
-    const parsed = new Date(date);
-    return isNaN(parsed.getTime())
-      ? "Unknown"
-      : parsed.toLocaleDateString("en-US", {
-          year: "numeric",
-          month: "long",
-          day: "numeric",
-        });
-  };
+  const formatDate = (date: string) =>
+    new Date(date).toLocaleDateString("en-US", {
+      year: "numeric",
+      month: "long",
+      day: "numeric",
+    });
 
-
-  const handleBackToTop = () => {
-    setExpandedPost(null);
-    window.scrollTo({ top: 0, behavior: "smooth" });
-  };
-
-  if (loading) return <p style={{ textAlign: "center", color: "white" }}>Loading...</p>;
+  if (loading) {
+    return <p style={{ textAlign: "center", color: "white" }}>Loading...</p>;
+  }
 
   return (
     <div className={styles.container}>
@@ -114,7 +95,7 @@ const Blog: React.FC = () => {
             <article key={post.id} className={styles.blogCard}>
               <div className={styles.cardContent}>
                 <div className={styles.cardMeta}>
-                  <span className={styles.date}>{formatDate(post.created_at)}</span>
+                  <span className={styles.date}>{formatDate(post.date)}</span>
                   <span className={styles.readTime}>{post.readTime}</span>
                 </div>
 
@@ -122,52 +103,35 @@ const Blog: React.FC = () => {
 
                 <h2 className={styles.cardTitle}>{post.title}</h2>
 
-                {expandedPost === post.id ? (
-                  <div className={styles.fullContent}>
-                    <div
-                      className={styles.content}
-                      dangerouslySetInnerHTML={{ __html: post.content }}
+                <p className={styles.cardExcerpt}>{post.excerpt}</p>
+
+                <div className={styles.cardTags}>
+                  {post.tags.map((tag, index) => (
+                    <span key={index} className={styles.tag}>
+                      {tag}
+                    </span>
+                  ))}
+                </div>
+
+                <button
+                  className={styles.readMore}
+                  onClick={() => navigate(`/blog/${post.id}`)}
+                >
+                  Read More
+                  <svg
+                    className={styles.arrow}
+                    fill="none"
+                    stroke="currentColor"
+                    viewBox="0 0 24 24"
+                  >
+                    <path
+                      strokeLinecap="round"
+                      strokeLinejoin="round"
+                      strokeWidth={2}
+                      d="M17 8l4 4m0 0l-4 4m4-4H3"
                     />
-                    <button
-                      className={styles.collapseButton}
-                      onClick={() => handleBackToTop()}
-                    >
-                      ← Back to posts
-                    </button>
-                  </div>
-                ) : (
-                  <>
-                    <p className={styles.cardExcerpt}>{post.excerpt}</p>
-
-                    <div className={styles.cardTags}>
-                      {post.tags.map((tag, index) => (
-                        <span key={index} className={styles.tag}>
-                          {tag}
-                        </span>
-                      ))}
-                    </div>
-
-                    <button
-                      className={styles.readMore}
-                      onClick={() => window.location.href = `/blog/${post.id}`}
-                    >
-                      Read More
-                      <svg
-                        className={styles.arrow}
-                        fill="none"
-                        stroke="currentColor"
-                        viewBox="0 0 24 24"
-                      >
-                        <path
-                          strokeLinecap="round"
-                          strokeLinejoin="round"
-                          strokeWidth={2}
-                          d="M17 8l4 4m0 0l-4 4m4-4H3"
-                        />
-                      </svg>
-                    </button>
-                  </>
-                )}
+                  </svg>
+                </button>
               </div>
             </article>
           ))}
