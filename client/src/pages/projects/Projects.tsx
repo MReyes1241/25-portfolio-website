@@ -12,6 +12,7 @@ import {
 } from "lucide-react";
 import styles from "./Projects.module.css";
 import { imageUrls } from "../../assets/images.ts";
+import Footer from "../../components/footer/Footer.tsx";
 
 interface Project {
   id: number;
@@ -196,152 +197,155 @@ const Projects: React.FC = () => {
   };
 
   return (
-    <div className={styles.container}>
-      <div className={styles.backgroundGlow}></div>
+    <>  
+      <div className={styles.container}>
+        <div className={styles.backgroundGlow}></div>
 
-      <div className={styles.header}>
-        <h1 className={styles.title}>
-          <span className={styles.titleGradient}>My Projects</span>
-        </h1>
-        <p className={styles.subtitle}>
-          Exploring the intersection of creativity and technology through code
-        </p>
-      </div>
+        <div className={styles.header}>
+          <h1 className={styles.title}>
+            <span className={styles.titleGradient}>My Projects</span>
+          </h1>
+          <p className={styles.subtitle}>
+            Exploring the intersection of creativity and technology through code
+          </p>
+        </div>
 
-      <div className={styles.categoryFilter}>
-        {["all", "web", "game", "app", "other"].map((category) => (
-          <button
-            key={category}
-            className={`${styles.categoryButton} ${selectedCategory === category ? styles.categoryActive : ""}`}
-            onClick={() => handleCategoryChange(category)}
-          >
-            {getCategoryIcon(category)}
-            {category.charAt(0).toUpperCase() + category.slice(1)}
-          </button>
-        ))}
-      </div>
-
-      <div className={styles.carouselContainer}>
-        <div className={styles.carousel}>
-          <button
-            className={`${styles.navButton} ${styles.navLeft}`}
-            onClick={prevProject}
-            disabled={isAnimating}
-          >
-            <ChevronLeft size={24} />
-          </button>
-
-          <div className={styles.projectsWrapper}>
-            <div
-              className={styles.projectsTrack}
-              style={{
-                transform: `translateX(-${currentIndex * 100}%)`,
-                transition: isAnimating
-                  ? "transform 0.6s cubic-bezier(0.4, 0, 0.2, 1)"
-                  : "none",
-              }}
+        <div className={styles.categoryFilter}>
+          {["all", "web", "game", "app", "other"].map((category) => (
+            <button
+              key={category}
+              className={`${styles.categoryButton} ${selectedCategory === category ? styles.categoryActive : ""}`}
+              onClick={() => handleCategoryChange(category)}
             >
-              {filteredProjects.map((project, index) => (
-                <div
-                  key={project.id}
-                  className={`${styles.projectCard} ${
-                    index === currentIndex ? styles.projectActive : ""
-                  }`}
-                >
-                  <div className={styles.projectImage}>
-                    <img src={project.image} alt={project.title} />
-                    <div className={styles.projectOverlay}>
-                      <div className={styles.projectActions}>
-                        <a
-                          href={project.githubUrl}
-                          target="_blank"
-                          rel="noopener noreferrer"
-                          className={styles.actionButton}
-                        >
-                          <Github size={20} />
-                        </a>
-                        {project.liveUrl && (
+              {getCategoryIcon(category)}
+              {category.charAt(0).toUpperCase() + category.slice(1)}
+            </button>
+          ))}
+        </div>
+
+        <div className={styles.carouselContainer}>
+          <div className={styles.carousel}>
+            <button
+              className={`${styles.navButton} ${styles.navLeft}`}
+              onClick={prevProject}
+              disabled={isAnimating}
+            >
+              <ChevronLeft size={24} />
+            </button>
+
+            <div className={styles.projectsWrapper}>
+              <div
+                className={styles.projectsTrack}
+                style={{
+                  transform: `translateX(-${currentIndex * 100}%)`,
+                  transition: isAnimating
+                    ? "transform 0.6s cubic-bezier(0.4, 0, 0.2, 1)"
+                    : "none",
+                }}
+              >
+                {filteredProjects.map((project, index) => (
+                  <div
+                    key={project.id}
+                    className={`${styles.projectCard} ${
+                      index === currentIndex ? styles.projectActive : ""
+                    }`}
+                  >
+                    <div className={styles.projectImage}>
+                      <img src={project.image} alt={project.title} />
+                      <div className={styles.projectOverlay}>
+                        <div className={styles.projectActions}>
                           <a
-                            href={project.liveUrl}
+                            href={project.githubUrl}
                             target="_blank"
                             rel="noopener noreferrer"
                             className={styles.actionButton}
                           >
-                            <ExternalLink size={20} />
+                            <Github size={20} />
                           </a>
-                        )}
-                        <button
-                          className={styles.actionButton}
-                          title="Run Emulation (Coming Soon)"
-                          disabled
-                        >
-                          <Play size={20} />
-                        </button>
-                      </div>
-                    </div>
-                  </div>
-
-                  <div className={styles.projectContent}>
-                    <div className={styles.projectHeader}>
-                      <h3 className={styles.projectTitle}>{project.title}</h3>
-                      <div className={styles.projectMeta}>
-                        <span className={styles.projectYear}>
-                          {project.year}
-                        </span>
-                        <span
-                          className={`${styles.projectStatus} ${getStatusColor(project.status)}`}
-                        >
-                          {project.status.replace("-", " ")}
-                        </span>
+                          {project.liveUrl && (
+                            <a
+                              href={project.liveUrl}
+                              target="_blank"
+                              rel="noopener noreferrer"
+                              className={styles.actionButton}
+                            >
+                              <ExternalLink size={20} />
+                            </a>
+                          )}
+                          <button
+                            className={styles.actionButton}
+                            title="Run Emulation (Coming Soon)"
+                            disabled
+                          >
+                            <Play size={20} />
+                          </button>
+                        </div>
                       </div>
                     </div>
 
-                    <p className={styles.projectDescription}>
-                      {index === currentIndex
-                        ? project.longDescription
-                        : project.description}
-                    </p>
+                    <div className={styles.projectContent}>
+                      <div className={styles.projectHeader}>
+                        <h3 className={styles.projectTitle}>{project.title}</h3>
+                        <div className={styles.projectMeta}>
+                          <span className={styles.projectYear}>
+                            {project.year}
+                          </span>
+                          <span
+                            className={`${styles.projectStatus} ${getStatusColor(project.status)}`}
+                          >
+                            {project.status.replace("-", " ")}
+                          </span>
+                        </div>
+                      </div>
 
-                    <div className={styles.projectTechnologies}>
-                      {project.technologies.map((tech) => (
-                        <span key={tech} className={styles.techTag}>
-                          {tech}
-                        </span>
-                      ))}
+                      <p className={styles.projectDescription}>
+                        {index === currentIndex
+                          ? project.longDescription
+                          : project.description}
+                      </p>
+
+                      <div className={styles.projectTechnologies}>
+                        {project.technologies.map((tech) => (
+                          <span key={tech} className={styles.techTag}>
+                            {tech}
+                          </span>
+                        ))}
+                      </div>
                     </div>
                   </div>
-                </div>
-              ))}
+                ))}
+              </div>
             </div>
+
+            <button
+              className={`${styles.navButton} ${styles.navRight}`}
+              onClick={nextProject}
+              disabled={isAnimating}
+            >
+              <ChevronRight size={24} />
+            </button>
           </div>
 
-          <button
-            className={`${styles.navButton} ${styles.navRight}`}
-            onClick={nextProject}
-            disabled={isAnimating}
-          >
-            <ChevronRight size={24} />
-          </button>
+          <div className={styles.indicators}>
+            {filteredProjects.map((_, index) => (
+              <button
+                key={index}
+                className={`${styles.indicator} ${index === currentIndex ? styles.indicatorActive : ""}`}
+                onClick={() => goToProject(index)}
+              />
+            ))}
+          </div>
         </div>
 
-        <div className={styles.indicators}>
-          {filteredProjects.map((_, index) => (
-            <button
-              key={index}
-              className={`${styles.indicator} ${index === currentIndex ? styles.indicatorActive : ""}`}
-              onClick={() => goToProject(index)}
-            />
-          ))}
+        <div className={styles.projectCounter}>
+          <span className={styles.currentProject}>{currentIndex + 1}</span>
+          <span className={styles.totalProjects}>
+            / {filteredProjects.length}
+          </span>
         </div>
       </div>
-
-      <div className={styles.projectCounter}>
-        <span className={styles.currentProject}>{currentIndex + 1}</span>
-        <span className={styles.totalProjects}>
-          / {filteredProjects.length}
-        </span>
-      </div>
-    </div>
+      <Footer />
+    </>
   );
 };
 

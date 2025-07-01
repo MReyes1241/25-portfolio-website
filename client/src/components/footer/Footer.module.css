@@ -1,0 +1,382 @@
+/* Main footer container */
+.footer {
+  position: relative;
+  background: linear-gradient(135deg, #0f172a 0%, #1e3a8a 50%, #1e293b 100%);
+  color: white;
+  overflow: hidden;
+  margin-top: 3rem;
+}
+
+/* Animated background effects */
+.backgroundEffects {
+  position: absolute;
+  inset: 0;
+  opacity: 0.1;
+  pointer-events: none;
+}
+
+.floatingOrb {
+  position: absolute;
+  border-radius: 50%;
+  filter: blur(20px);
+}
+
+.orb1 {
+  top: 40px;
+  left: 40px;
+  width: 128px;
+  height: 128px;
+  background: #3b82f6;
+  animation: pulse 2s infinite;
+}
+
+.orb2 {
+  bottom: 80px;
+  right: 80px;
+  width: 96px;
+  height: 96px;
+  background: #8b5cf6;
+  animation: bounce 3s infinite;
+}
+
+.orb3 {
+  top: 50%;
+  left: 33%;
+  width: 64px;
+  height: 64px;
+  background: #06b6d4;
+  animation: ping 4s infinite;
+}
+
+/* Progress bar */
+.progressBar {
+  position: absolute;
+  top: 0;
+  left: 0;
+  height: 4px;
+  background: linear-gradient(90deg, #3b82f6, #8b5cf6, #06b6d4);
+  transition: width 0.3s ease-out;
+}
+
+/* Container and content */
+.container {
+  position: relative;
+  z-index: 10;
+  max-width: 1200px;
+  margin: 0 auto;
+  padding: 48px 24px;
+}
+
+.content {
+  transition: all 1s ease-out;
+  transform: translateY(32px);
+  opacity: 0;
+}
+
+.content.visible {
+  transform: translateY(0);
+  opacity: 1;
+}
+
+/* Main content grid */
+.mainContent {
+  display: grid;
+  grid-template-columns: 1fr;
+  gap: 32px;
+  margin-bottom: 32px;
+}
+
+@media (min-width: 768px) {
+  .mainContent {
+    grid-template-columns: repeat(3, 1fr);
+  }
+}
+
+/* Brand section */
+.brandSection {
+  display: flex;
+  flex-direction: column;
+  gap: 16px;
+}
+
+.brandTitle {
+  font-size: 1.5rem;
+  font-weight: bold;
+  background: linear-gradient(90deg, #60a5fa, #a78bfa);
+  background-clip: text;
+  -webkit-background-clip: text;
+  -webkit-text-fill-color: transparent;
+  margin: 0;
+}
+
+.brandDescription {
+  color: #cbd5e1;
+  line-height: 1.6;
+  margin: 0;
+}
+
+.brandTagline {
+  display: flex;
+  align-items: center;
+  gap: 8px;
+  font-size: 0.875rem;
+  color: #94a3b8;
+}
+
+.locationIcon {
+  color: #60a5fa;
+  flex-shrink: 0;
+}
+
+/* Quick links section */
+.quickLinksSection {
+  display: flex;
+  flex-direction: column;
+  gap: 16px;
+}
+
+.sectionTitle {
+  font-size: 1.125rem;
+  font-weight: 600;
+  color: #e2e8f0;
+  margin: 0;
+}
+
+.quickLinksList {
+  list-style: none;
+  padding: 0;
+  margin: 0;
+  display: flex;
+  flex-direction: column;
+  gap: 8px;
+}
+
+.quickLink {
+  color: #94a3b8;
+  text-decoration: none;
+  transition: all 0.3s ease;
+  display: inline-block;
+}
+
+.quickLink:hover {
+  color: white;
+  transform: translateX(8px);
+}
+
+/* Connect section */
+.connectSection {
+  display: flex;
+  flex-direction: column;
+  gap: 16px;
+}
+
+.connectDescription {
+  color: #94a3b8;
+  font-size: 0.875rem;
+  margin: 0;
+}
+
+.socialLinks {
+  display: flex;
+  gap: 16px;
+}
+
+.socialLink {
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  width: 48px;
+  height: 48px;
+  background: rgba(30, 41, 59, 0.5);
+  border: 1px solid rgba(51, 65, 85, 0.5);
+  border-radius: 50%;
+  color: #94a3b8;
+  text-decoration: none;
+  transition: all 0.3s ease;
+  backdrop-filter: blur(4px);
+}
+
+.socialLink:hover {
+  transform: scale(1.1) rotate(12deg);
+  background: rgba(51, 65, 85, 0.5);
+}
+
+.socialLink.emailLink:hover {
+  color: #f87171;
+}
+
+.socialLink.githubLink:hover {
+  color: #a78bfa;
+}
+
+.socialLink.linkedinLink:hover {
+  color: #60a5fa;
+}
+
+/* Remove old social icon styles */
+
+/* Divider */
+.divider {
+  position: relative;
+  margin: 32px 0;
+}
+
+.dividerLine {
+  width: 100%;
+  height: 1px;
+  background: #374151;
+}
+
+.dividerIcon {
+  position: absolute;
+  top: 50%;
+  left: 50%;
+  transform: translate(-50%, -50%);
+  background: linear-gradient(90deg, #0f172a, #1e3a8a);
+  padding: 0 16px;
+}
+
+.codeIcon {
+  color: #6b7280;
+  animation: pulse 2s infinite;
+}
+
+/* Bottom section */
+.bottomSection {
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+  gap: 16px;
+}
+
+@media (min-width: 768px) {
+  .bottomSection {
+    flex-direction: row;
+    justify-content: space-between;
+  }
+}
+
+.copyright {
+  display: flex;
+  align-items: center;
+  gap: 8px;
+  color: #94a3b8;
+  font-size: 0.875rem;
+  flex-wrap: wrap;
+  justify-content: center;
+}
+
+@media (min-width: 768px) {
+  .copyright {
+    justify-content: flex-start;
+  }
+}
+
+/* Back to top button */
+.backToTop {
+  display: flex;
+  align-items: center;
+  gap: 8px;
+  padding: 8px 16px;
+  background: linear-gradient(90deg, #2563eb, #7c3aed);
+  border: none;
+  border-radius: 9999px;
+  color: white;
+  font-size: 0.875rem;
+  font-weight: 500;
+  cursor: pointer;
+  transition: all 0.3s ease;
+  box-shadow: 0 4px 6px -1px rgba(0, 0, 0, 0.1);
+}
+
+.backToTop:hover {
+  background: linear-gradient(90deg, #3b82f6, #8b5cf6);
+  transform: scale(1.05);
+  box-shadow: 0 10px 15px -3px rgba(126, 58, 237, 0.25);
+}
+
+.arrowIcon {
+  transition: transform 0.3s ease;
+  flex-shrink: 0;
+}
+
+.backToTop:hover .arrowIcon {
+  animation: bounce 1s infinite;
+}
+
+/* Floating particles */
+.particles {
+  position: absolute;
+  inset: 0;
+  pointer-events: none;
+}
+
+.particle {
+  position: absolute;
+  width: 4px;
+  height: 4px;
+  background: white;
+  border-radius: 50%;
+  opacity: 0.3;
+  animation: ping 3s infinite;
+}
+
+/* Animations */
+@keyframes pulse {
+  0%, 100% {
+    opacity: 1;
+  }
+  50% {
+    opacity: 0.5;
+  }
+}
+
+@keyframes bounce {
+  0%, 100% {
+    transform: translateY(0);
+  }
+  50% {
+    transform: translateY(-25%);
+  }
+}
+
+@keyframes ping {
+  0% {
+    transform: scale(1);
+    opacity: 1;
+  }
+  75%, 100% {
+    transform: scale(2);
+    opacity: 0;
+  }
+}
+
+/* Responsive adjustments */
+@media (max-width: 768px) {
+  .container {
+    padding: 32px 16px;
+  }
+  
+  .brandTitle {
+    font-size: 1.25rem;
+  }
+  
+  .socialLinks {
+    justify-content: center;
+  }
+  
+  .orb1, .orb2 {
+    width: 64px;
+    height: 64px;
+  }
+  
+  .orb1 {
+    top: 20px;
+    left: 20px;
+  }
+  
+  .orb2 {
+    bottom: 40px;
+    right: 40px;
+  }
+}
