@@ -7,7 +7,7 @@ interface BlogPost {
   title: string;
   excerpt: string;
   content: string;
-  date: string;
+  created_at: string;
   readTime: string;
   tags: string[];
   category: string;
@@ -48,17 +48,20 @@ const Blog: React.FC = () => {
       : posts.filter((post) => post.category === selectedCategory);
   }, [posts, selectedCategory]);
 
-  const formatDate = (date: string) =>
-    new Date(date).toLocaleDateString("en-US", {
-      year: "numeric",
-      month: "long",
-      day: "numeric",
-    });
-
+  const formatDate = (date: string) => {
+    const parsed = new Date(date);
+    return isNaN(parsed.getTime())
+      ? "Unknown"
+      : parsed.toLocaleDateString("en-US", {
+          year: "numeric",
+          month: "long",
+          day: "numeric",
+        });
+  };
   if (loading) {
-    return <p style={{ textAlign: "center", color: "white" }}>Loading...</p>;
+    return <div className={styles.loading}>Loading...</div>;
   }
-
+  
   return (
     <div className={styles.container}>
       <div className={styles.header}>
@@ -95,7 +98,7 @@ const Blog: React.FC = () => {
             <article key={post.id} className={styles.blogCard}>
               <div className={styles.cardContent}>
                 <div className={styles.cardMeta}>
-                  <span className={styles.date}>{formatDate(post.date)}</span>
+                  <span className={styles.date}>{formatDate(post.created_at)}</span>
                   <span className={styles.readTime}>{post.readTime}</span>
                 </div>
 
