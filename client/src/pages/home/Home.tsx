@@ -1,6 +1,7 @@
 import React from "react";
 import Hero from "../../components/hero/Hero.tsx";
 import styles from "./Home.module.css";
+import Footer from "../../components/footer/Footer.tsx";
 
 const Home: React.FC = () => {
   const handleViewProjects = () => {
@@ -8,7 +9,6 @@ const Home: React.FC = () => {
     if (projectsSection) {
       projectsSection.scrollIntoView({ behavior: "smooth" });
     } else {
-      // If projects section doesn't exist on this page, you could navigate to a projects page
       console.log("Navigate to projects page");
     }
   };
@@ -33,9 +33,7 @@ const Home: React.FC = () => {
         onDownloadResume={handleDownloadResume}
       />
 
-      <footer className={styles.footer}>
-        <p>&copy; 2025 Manuel Reyes Jr</p>
-      </footer>
+      <Footer />
     </div>
   );
 };
