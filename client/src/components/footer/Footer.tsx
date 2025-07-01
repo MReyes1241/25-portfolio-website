@@ -1,5 +1,5 @@
-import React, { useState, useEffect } from 'react';
-import { Mail, Github, Linkedin, ArrowUp, MapPin, Code2, Braces } from 'lucide-react';
+import { useState, useEffect } from 'react';
+import { Mail, Github, Linkedin, ArrowUp, MapPin, Braces } from 'lucide-react';
 import styles from './Footer.module.css';
 
 const Footer = () => {
