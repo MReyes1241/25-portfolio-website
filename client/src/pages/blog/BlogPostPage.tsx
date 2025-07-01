@@ -1,6 +1,8 @@
 import { useParams, useNavigate } from "react-router-dom";
 import { useEffect, useState } from "react";
 import styles from "./BlogPostPage.module.css";
+import MarkdownPreview from '@uiw/react-markdown-preview';
+import '@uiw/react-markdown-preview/markdown.css';
 
 interface BlogPost {
   id: number;
@@ -159,10 +161,13 @@ const BlogPostPage = () => {
 
           <h1 className={styles.title}>{post.title}</h1>
 
-          <div
+          <MarkdownPreview
+            source={post.content}
             className={styles.content}
-            dangerouslySetInnerHTML={{ __html: post.content }}
+            style={{ backgroundColor: 'transparent', padding: '1rem' }}
+            wrapperElement={{ 'data-color-mode': 'dark' }}
           />
+
         </article>
       </div>
 
