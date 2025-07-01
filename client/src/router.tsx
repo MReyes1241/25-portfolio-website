@@ -10,6 +10,9 @@ import Blog from "./pages/blog/Blog.tsx";
 import BlogPostPage from "./pages/blog/BlogPostPage.tsx";
 import AdminLogin from "./pages/admin/AdminLogin.tsx";
 import AdminDashboard from "./pages/admin/AdminDashboard.tsx";
+import BlogAdminIndex from "./pages/admin/blog/index.tsx";
+import BlogAdminCreate from "./pages/admin/blog/create.tsx";
+import AdminBlogEdit from "./pages/admin/blog/Edit.tsx";
 
 export function AppRoutes() {
   return (
@@ -24,6 +27,9 @@ export function AppRoutes() {
       <Route path="/blog/:id" element={<BlogPostPage />} />
       <Route path="/admin/login" element={<AdminLogin />} />
       <Route path="/admin/dashboard" element={<AdminDashboard />} />
+      <Route path="/admin/blog" element={<BlogAdminIndex />} />
+      <Route path="/admin/blog/create" element={<BlogAdminCreate />} />
+      <Route path="/admin/blog/edit/:id" element={<AdminBlogEdit />} />
     </Routes>
   );
 }
