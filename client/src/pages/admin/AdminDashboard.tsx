@@ -44,12 +44,15 @@ const AdminDashboard = () => {
     { label: 'Conversion Rate', value: '3.2%', change: '-2%', trend: 'down' },
   ];
 
-  const managementItems = [
-    { title: 'Users', description: 'Manage user accounts and permissions', icon: 'users' },
-    { title: 'Content', description: 'Edit and manage website content', icon: 'content' },
-    { title: 'Analytics', description: 'View detailed analytics and reports', icon: 'analytics' },
-    { title: 'Settings', description: 'Configure system settings', icon: 'settings' },
-  ];
+    const managementItems = [
+        {
+            title: 'Blog',
+            description: 'Manage blog posts',
+            icon: 'content',
+            path: '/admin/blog',
+        },
+    ];
+
 
   const getIcon = (iconType: string) => {
     switch (iconType) {
@@ -140,12 +143,13 @@ const AdminDashboard = () => {
                   <h3 className={styles.cardTitle}>{item.title}</h3>
                 </div>
                 <p className={styles.cardDescription}>{item.description}</p>
-                <button className={styles.cardButton}>
-                  Manage
-                  <svg className={styles.arrowIcon} fill="none" stroke="currentColor" viewBox="0 0 24 24">
-                    <path strokeLinecap="round" strokeLinejoin="round" strokeWidth={2} d="M9 5l7 7-7 7" />
-                  </svg>
+                <button className={styles.cardButton} onClick={() => navigate(item.path)}>
+                    Manage
+                    <svg className={styles.arrowIcon} fill="none" stroke="currentColor" viewBox="0 0 24 24">
+                        <path strokeLinecap="round" strokeLinejoin="round" strokeWidth={2} d="M9 5l7 7-7 7" />
+                    </svg>
                 </button>
+
               </div>
             ))}
           </div>
