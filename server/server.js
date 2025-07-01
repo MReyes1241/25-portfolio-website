@@ -11,6 +11,8 @@ app.set('trust proxy', 1);
 const app = express();
 const PORT = process.env.PORT || 5050;
 
+app.set('trust proxy', 1);
+
 app.use(helmet());
 
 // CORS configuration
