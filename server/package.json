@@ -1,6 +1,7 @@
 {
   "name": "portfolio-contact-server",
   "version": "1.0.0",
+  "type": "module",
   "description": "Backend server for portfolio contact form",
   "main": "server.js",
   "scripts": {
@@ -27,6 +28,8 @@
     "express-rate-limit": "^7.1.5",
     "express-validator": "^7.2.1",
     "helmet": "^7.1.0",
+    "js-yaml": "^4.1.0",
+    "node-fetch": "^3.3.2",
     "nodemailer": "^6.9.7",
     "pg": "^8.16.2",
     "validator": "^13.11.0"
