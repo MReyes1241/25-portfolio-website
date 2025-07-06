@@ -50,10 +50,12 @@ app.use(globalLimiter);
 const contactRoutes = require('./routes/contact');
 const healthRoutes = require('./routes/health');
 const blogRoutes = require('./routes/blog');
+const projectsRoutes = require('./routes/projects');
 
 app.use('/api/contact', contactRoutes);
 app.use('/api/health', healthRoutes);
 app.use('/api/blog', blogRoutes);
+app.use('/api/projects', projectsRoutes);
 
 // Root endpoint
 app.get('/', (req, res) => {
