@@ -1,84 +1,143 @@
-import express from 'express';
-import { createClient } from '@supabase/supabase-js';
-import dotenv from 'dotenv';
-
-dotenv.config();
+const express = require('express');
+const rateLimit = require('express-rate-limit');
+const supabase = require('../supabaseClient');
 
 const router = express.Router();
 
-const supabase = createClient(
-  process.env.SUPABASE_URL,
-  process.env.SUPABASE_SERVICE_KEY
-);
+// Rate limiting
+const readLimiter = rateLimit({
+  windowMs: 15 * 60 * 1000,
+  max: 100,
+  message: { success: false, message: 'Too many requests, please try again later.' },
+});
 
-// GET /api/projects?featured=true&category=Web%20Development
-router.get('/', async (req, res) => {
-  const { featured, category } = req.query;
-  let query = supabase.from('projects').select('*');
+const writeLimiter = rateLimit({
+  windowMs: 15 * 60 * 1000,
+  max: 10,
+  message: { success: false, message: 'Too many write requests, please try again later.' },
+});
 
-  if (featured === 'true') {
-    query = query.eq('featured', true);
+// GET /api/projects
+router.get('/', readLimiter, async (req, res) => {
+  try {
+    const { featured, category } = req.query;
+
+    let query = supabase.from('projects').select('*');
+
+    if (featured === 'true') {
+      query = query.eq('featured', true);
+    }
+
+    // Updated category filtering to handle array format
+    if (category) {
+      // Since categories are stored as arrays in your database, we need to use contains
+      // But we need to match the exact category format from your database
+      const categoryMap = {
+        'web': 'Web Development',
+        'mobile': 'Mobile Development',
+        'game': 'Game Development',
+        'app': 'Application Development',
+        'config': 'Configuration',
+        'other': 'Other'
+      };
+      
+      const dbCategory = categoryMap[category.toLowerCase()] || category;
+      query = query.contains('category', [dbCategory]);
+    }
+
+    const { data, error } = await query.order('created_at', { ascending: false });
+
+    if (error) throw error;
+
+    res.json({
+      success: true,
+      projects: data,
+      total: data.length,
+    });
+  } catch (error) {
+    console.error('Projects fetch error:', error);
+    res.status(500).json({ success: false, message: 'Failed to fetch projects' });
   }
-
-  if (category) {
-    query = query.contains('category', [category]);
-  }
-
-  const { data, error } = await query.order('created_at', { ascending: false });
-
-  if (error) return res.status(500).json({ error: error.message });
-  res.json(data);
 });
 
 // GET /api/projects/:id
-router.get('/:id', async (req, res) => {
+router.get('/:id', readLimiter, async (req, res) => {
   const { id } = req.params;
 
-  const { data, error } = await supabase
-    .from('projects')
-    .select('*')
-    .eq('id', id)
-    .single();
+  try {
+    const { data, error } = await supabase
+      .from('projects')
+      .select('*')
+      .eq('id', id)
+      .single();
 
-  if (error) return res.status(404).json({ error: 'Project not found' });
-  res.json(data);
+    if (error || !data) {
+      return res.status(404).json({ success: false, message: 'Project not found' });
+    }
+
+    res.json({ success: true, project: data });
+  } catch (error) {
+    console.error('Project fetch error:', error);
+    res.status(500).json({ success: false, message: 'Failed to fetch project' });
+  }
 });
 
 // POST /api/projects
-router.post('/', async (req, res) => {
-  const { data, error } = await supabase
-    .from('projects')
-    .insert(req.body)
-    .select()
-    .single();
+router.post('/', writeLimiter, async (req, res) => {
+  try {
+    const { data, error } = await supabase
+      .from('projects')
+      .insert(req.body)
+      .select()
+      .single();
 
-  if (error) return res.status(400).json({ error: error.message });
-  res.status(201).json(data);
+    if (error) throw error;
+
+    res.status(201).json({ success: true, project: data });
+  } catch (error) {
+    console.error('Project creation error:', error);
+    res.status(400).json({ success: false, message: 'Failed to create project' });
+  }
 });
 
 // PATCH /api/projects/:id
-router.patch('/:id', async (req, res) => {
+router.patch('/:id', writeLimiter, async (req, res) => {
   const { id } = req.params;
 
-  const { data, error } = await supabase
-    .from('projects')
-    .update(req.body)
-    .eq('id', id)
-    .select()
-    .single();
+  try {
+    const { data, error } = await supabase
+      .from('projects')
+      .update(req.body)
+      .eq('id', id)
+      .select()
+      .single();
 
-  if (error) return res.status(400).json({ error: error.message });
-  res.json(data);
+    if (error) throw error;
+
+    res.json({ success: true, project: data });
+  } catch (error) {
+    console.error('Project update error:', error);
+    res.status(400).json({ success: false, message: 'Failed to update project' });
+  }
 });
 
 // DELETE /api/projects/:id
-router.delete('/:id', async (req, res) => {
+router.delete('/:id', writeLimiter, async (req, res) => {
   const { id } = req.params;
 
-  const { error } = await supabase.from('projects').delete().eq('id', id);
+  try {
+    const { error } = await supabase
+      .from('projects')
+      .delete()
+      .eq('id', id);
 
-  if (error) return res.status(400).json({ error: error.message });
-  res.status(204).end();
+    if (error) throw error;
+
+    res.status(204).end();
+  } catch (error) {
+    console.error('Project deletion error:', error);
+    res.status(400).json({ success: false, message: 'Failed to delete project' });
+  }
 });
 
-export default router;
+module.exports = router;
