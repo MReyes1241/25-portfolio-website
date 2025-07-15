@@ -19,7 +19,6 @@ interface Project {
   id: number;
   title: string;
   description: string;
-  longDescription: string | null;
   image_url: string | null;
   technologies: string[];
   github_url: string;
@@ -44,17 +43,12 @@ const Projects: React.FC = () => {
         const data = await res.json();
         
         if (data.success && Array.isArray(data.projects)) {
-          const activeProjects = data.projects.filter(
-            (project: Project) => {
-              // Handle status as array or string
-              const statusArray = Array.isArray(project.status) 
-                ? project.status 
-                : [project.status];
-              return statusArray.includes("active");
-            }
+          // Filter for featured projects instead of active ones
+          const featuredProjects = data.projects.filter(
+            (project: Project) => project.featured === true
           );
           
-          setProjectsData(activeProjects);
+          setProjectsData(featuredProjects);
         }
       } catch (error) {
         console.error("Failed to fetch projects:", error);
@@ -187,7 +181,7 @@ const Projects: React.FC = () => {
       <div className={styles.container}>
         <div className={styles.loadingWrapper}>
           <div className={styles.loader}></div>
-          <p className={styles.loadingText}>Loading projects...</p>
+          <p className={styles.loadingText}>Loading featured projects...</p>
         </div>
       </div>
     );
@@ -200,10 +194,10 @@ const Projects: React.FC = () => {
 
         <div className={styles.header}>
           <h1 className={styles.title}>
-            <span className={styles.titleGradient}>My Projects</span>
+            <span className={styles.titleGradient}>Featured Projects</span>
           </h1>
           <p className={styles.subtitle}>
-            Exploring the intersection of creativity and technology through code
+            Showcasing my most notable work - handpicked projects that demonstrate my skills and creativity
           </p>
         </div>
 
@@ -236,7 +230,10 @@ const Projects: React.FC = () => {
             <div className={styles.projectsWrapper}>
               {filteredProjects.length === 0 ? (
                 <div className={styles.noProjects}>
-                  <p>No projects found in this category.</p>
+                  <p>No featured projects found in this category.</p>
+                  <p className={styles.noProjectsSubtext}>
+                    Projects marked as "featured" will appear here.
+                  </p>
                 </div>
               ) : (
                 <div
@@ -321,9 +318,7 @@ const Projects: React.FC = () => {
                         </div>
 
                         <p className={styles.projectDescription}>
-                          {index === currentIndex
-                            ? project.longDescription || project.description
-                            : project.description}
+                          {project.description}
                         </p>
 
                         <div className={styles.projectTechnologies}>
