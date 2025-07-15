@@ -108,6 +108,7 @@ app.listen(PORT, () => {
   console.log(`📧 Contact API: http://localhost:${PORT}/api/contact`);
   console.log(`📝 Blog API: http://localhost:${PORT}/api/blog`);
   console.log(`🔍 Health Check: http://localhost:${PORT}/api/health`);
+  console.log(`🌍 Projects API: http://localhost:${PORT}/api/projects`);
   console.log(`🌐 Environment: ${process.env.NODE_ENV || 'development'}`);
 });
 
