@@ -50,10 +50,12 @@ app.use(globalLimiter);
 const contactRoutes = require('./routes/contact');
 const healthRoutes = require('./routes/health');
 const blogRoutes = require('./routes/blog');
+const projectsRoutes = require('./routes/projects');
 
 app.use('/api/contact', contactRoutes);
 app.use('/api/health', healthRoutes);
 app.use('/api/blog', blogRoutes);
+app.use('/api/projects', projectsRoutes);
 
 // Root endpoint
 app.get('/', (req, res) => {
@@ -106,6 +108,7 @@ app.listen(PORT, () => {
   console.log(`📧 Contact API: http://localhost:${PORT}/api/contact`);
   console.log(`📝 Blog API: http://localhost:${PORT}/api/blog`);
   console.log(`🔍 Health Check: http://localhost:${PORT}/api/health`);
+  console.log(`🌍 Projects API: http://localhost:${PORT}/api/projects`);
   console.log(`🌐 Environment: ${process.env.NODE_ENV || 'development'}`);
 });
 
