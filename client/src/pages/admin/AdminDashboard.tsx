@@ -7,6 +7,12 @@ import styles from './AdminDashboard.module.css';
 const AdminDashboard = () => {
   const [user, setUser] = useState<User | null>(null);
   const [isLoading, setIsLoading] = useState(true);
+  const [stats, setStats] = useState({
+    totalProjects: 0,
+    featuredProjects: 0,
+    totalBlogs: 0,
+    publishedBlogs: 0
+  });
   const navigate = useNavigate();
 
   useEffect(() => {
@@ -20,6 +26,94 @@ const AdminDashboard = () => {
     });
   }, [navigate]);
 
+  useEffect(() => {
+    const fetchStats = async () => {
+      try {
+        // Fetch projects stats
+        const { data: projects, error: projectsError } = await supabase
+          .from('projects')
+          .select('id, featured');
+
+        if (projectsError) {
+          console.error('Error fetching projects:', projectsError);
+        }
+
+        // Fetch blog_posts stats - specifically get id and published columns
+        const { data: blogPosts, error: blogPostsError } = await supabase
+          .from('blog_posts')
+          .select('id, published');
+
+        if (blogPostsError) {
+          console.error('Error fetching blog posts:', blogPostsError);
+        } else {
+          console.log('Blog posts data:', blogPosts);
+        }
+
+        // Count published blogs
+        let publishedCount = 0;
+        if (blogPosts && Array.isArray(blogPosts)) {
+          publishedCount = blogPosts.filter(post => {
+            return post.published === 'true' || post.published === true;
+          }).length;
+        }
+
+        const newStats = {
+          totalProjects: projects?.length || 0,
+          featuredProjects: projects?.filter(p => p.featured).length || 0,
+          totalBlogs: blogPosts?.length || 0,
+          publishedBlogs: publishedCount
+        };
+
+        setStats(newStats);
+
+        // Debug logging
+        console.log('Stats updated:', newStats);
+        console.log('Raw blog posts:', blogPosts);
+
+      } catch (error) {
+        console.error('Error fetching stats:', error);
+        setStats({
+          totalProjects: 0,
+          featuredProjects: 0,
+          totalBlogs: 0,
+          publishedBlogs: 0
+        });
+      }
+    };
+
+    if (user) {
+      fetchStats();
+      
+      // Set up real-time subscriptions to update stats when data changes
+      const projectsSubscription = supabase
+        .channel('projects-changes')
+        .on('postgres_changes', 
+          { event: '*', schema: 'public', table: 'projects' }, 
+          () => {
+            console.log('Projects changed, refetching stats...');
+            fetchStats();
+          }
+        )
+        .subscribe();
+
+      const blogPostsSubscription = supabase
+        .channel('blog-posts-changes')
+        .on('postgres_changes', 
+          { event: '*', schema: 'public', table: 'blog_posts' }, 
+          () => {
+            console.log('Blog posts changed, refetching stats...');
+            fetchStats();
+          }
+        )
+        .subscribe();
+
+      return () => {
+        projectsSubscription.unsubscribe();
+        blogPostsSubscription.unsubscribe();
+      };
+    }
+  }, [user]);
+
   const handleLogout = async () => {
     await supabase.auth.signOut();
     navigate('/admin/login');
@@ -28,133 +122,141 @@ const AdminDashboard = () => {
   if (isLoading) {
     return (
       <div className={styles.container}>
-        <div className={styles.loadingWrapper}>
+        <div className={styles.loading}>
           <div className={styles.spinner}></div>
-          <p>Loading dashboard...</p>
+          <p>Loading...</p>
         </div>
       </div>
     );
   }
 
-  // Mock data for dashboard stats
-  const stats = [
-    { label: 'Total Users', value: '1,234', change: '+12%', trend: 'up' },
-    { label: 'Active Sessions', value: '89', change: '+5%', trend: 'up' },
-    { label: 'Total Revenue', value: '$12,345', change: '+18%', trend: 'up' },
-    { label: 'Conversion Rate', value: '3.2%', change: '-2%', trend: 'down' },
-  ];
-
-    const managementItems = [
-        {
-            title: 'Blog',
-            description: 'Manage blog posts',
-            icon: 'content',
-            path: '/admin/blog',
-        },
-    ];
-
-
-  const getIcon = (iconType: string) => {
-    switch (iconType) {
-      case 'users':
-        return (
-          <svg className={styles.cardIcon} fill="none" stroke="currentColor" viewBox="0 0 24 24">
-            <path strokeLinecap="round" strokeLinejoin="round" strokeWidth={2} d="M12 4.354a4 4 0 110 5.292M15 21H3v-1a6 6 0 0112 0v1zm0 0h6v-1a6 6 0 00-9-5.197m13.5-9a2.5 2.5 0 11-5 0 2.5 2.5 0 015 0z" />
-          </svg>
-        );
-      case 'content':
-        return (
-          <svg className={styles.cardIcon} fill="none" stroke="currentColor" viewBox="0 0 24 24">
-            <path strokeLinecap="round" strokeLinejoin="round" strokeWidth={2} d="M9 12h6m-6 4h6m2 5H7a2 2 0 01-2-2V5a2 2 0 012-2h5.586a1 1 0 01.707.293l5.414 5.414a1 1 0 01.293.707V19a2 2 0 01-2 2z" />
-          </svg>
-        );
-      case 'analytics':
-        return (
-          <svg className={styles.cardIcon} fill="none" stroke="currentColor" viewBox="0 0 24 24">
-            <path strokeLinecap="round" strokeLinejoin="round" strokeWidth={2} d="M9 19v-6a2 2 0 00-2-2H5a2 2 0 00-2 2v6a2 2 0 002 2h2a2 2 0 002-2zm0 0V9a2 2 0 012-2h2a2 2 0 012 2v10m-6 0a2 2 0 002 2h2a2 2 0 002-2m0 0V5a2 2 0 012-2h2a2 2 0 012 2v14a2 2 0 01-2 2h-2a2 2 0 01-2-2z" />
-          </svg>
-        );
-      case 'settings':
-        return (
-          <svg className={styles.cardIcon} fill="none" stroke="currentColor" viewBox="0 0 24 24">
-            <path strokeLinecap="round" strokeLinejoin="round" strokeWidth={2} d="M10.325 4.317c.426-1.756 2.924-1.756 3.35 0a1.724 1.724 0 002.573 1.066c1.543-.94 3.31.826 2.37 2.37a1.724 1.724 0 001.065 2.572c1.756.426 1.756 2.924 0 3.35a1.724 1.724 0 00-1.066 2.573c.94 1.543-.826 3.31-2.37 2.37a1.724 1.724 0 00-2.572 1.065c-.426 1.756-2.924 1.756-3.35 0a1.724 1.724 0 00-2.573-1.066c-1.543.94-3.31-.826-2.37-2.37a1.724 1.724 0 00-1.065-2.572c-1.756-.426-1.756-2.924 0-3.35a1.724 1.724 0 001.066-2.573c-.94-1.543.826-3.31 2.37-2.37.996.608 2.296.07 2.572-1.065z" />
-            <path strokeLinecap="round" strokeLinejoin="round" strokeWidth={2} d="M15 12a3 3 0 11-6 0 3 3 0 016 0z" />
-          </svg>
-        );
-      default:
-        return null;
-    }
-  };
-
   return (
     <div className={styles.container}>
-      <div className={styles.backgroundEffects}>
-        <div className={styles.blurCircle1}></div>
-        <div className={styles.blurCircle2}></div>
-      </div>
-
+      {/* Header */}
       <header className={styles.header}>
-        <div className={styles.headerContent}>
-          <div className={styles.welcomeSection}>
-            <h1 className={styles.title}>Admin Dashboard</h1>
-            {user && <p className={styles.welcomeText}>Welcome back, {user.email}</p>}
-          </div>
-          <button onClick={handleLogout} className={styles.logoutButton}>
-            <svg className={styles.logoutIcon} fill="none" stroke="currentColor" viewBox="0 0 24 24">
-              <path strokeLinecap="round" strokeLinejoin="round" strokeWidth={2} d="M17 16l4-4m0 0l-4-4m4 4H7m6 4v1a3 3 0 01-3 3H6a3 3 0 01-3-3V7a3 3 0 013-3h4a3 3 0 013 3v1" />
-            </svg>
-            Sign Out
-          </button>
+        <div>
+          <h1 className={styles.title}>Admin Dashboard</h1>
+          <p className={styles.subtitle}>Welcome back, {user?.email}</p>
         </div>
+        <button onClick={handleLogout} className={styles.logoutBtn}>
+          <svg width="20" height="20" fill="currentColor" viewBox="0 0 24 24">
+            <path d="M16 17l5-5-5-5M21 12H9M9 21H5a2 2 0 01-2-2V5a2 2 0 012-2h4"/>
+          </svg>
+          Sign Out
+        </button>
       </header>
 
-      <main className={styles.main}>
-        <section className={styles.statsSection}>
-          <h2 className={styles.sectionTitle}>Overview</h2>
-          <div className={styles.statsGrid}>
-            {stats.map((stat, index) => (
-              <div key={index} className={styles.statCard}>
-                <div className={styles.statContent}>
-                  <p className={styles.statLabel}>{stat.label}</p>
-                  <p className={styles.statValue}>{stat.value}</p>
-                  <div className={`${styles.statChange} ${styles[stat.trend]}`}>
-                    <svg className={styles.trendIcon} fill="none" stroke="currentColor" viewBox="0 0 24 24">
-                      {stat.trend === 'up' ? (
-                        <path strokeLinecap="round" strokeLinejoin="round" strokeWidth={2} d="M13 7h8m0 0v8m0-8l-8 8-4-4-6 6" />
-                      ) : (
-                        <path strokeLinecap="round" strokeLinejoin="round" strokeWidth={2} d="M13 17h8m0 0V9m0 8l-8-8-4 4-6-6" />
-                      )}
-                    </svg>
-                    {stat.change}
-                  </div>
-                </div>
-              </div>
-            ))}
+      {/* Stats Overview */}
+      <section className={styles.statsSection}>
+        <h2 className={styles.sectionTitle}>Overview</h2>
+        <div className={styles.statsGrid}>
+          <div className={styles.statCard}>
+            <div className={styles.statIcon}>
+              <svg width="24" height="24" fill="currentColor" viewBox="0 0 24 24">
+                <path d="M19 3H5c-1.1 0-2 .9-2 2v14c0 1.1.9 2 2 2h14c1.1 0 2-.9 2-2V5c0-1.1-.9-2-2-2zm-5 14H7v-2h7v2zm3-4H7v-2h10v2zm0-4H7V7h10v2z"/>
+              </svg>
+            </div>
+            <div>
+              <p className={styles.statNumber}>{stats.totalProjects}</p>
+              <p className={styles.statLabel}>Total Projects</p>
+            </div>
           </div>
-        </section>
 
-        <section className={styles.managementSection}>
-          <h2 className={styles.sectionTitle}>Management</h2>
-          <div className={styles.managementGrid}>
-            {managementItems.map((item, index) => (
-              <div key={index} className={styles.managementCard}>
-                <div className={styles.cardHeader}>
-                  {getIcon(item.icon)}
-                  <h3 className={styles.cardTitle}>{item.title}</h3>
-                </div>
-                <p className={styles.cardDescription}>{item.description}</p>
-                <button className={styles.cardButton} onClick={() => navigate(item.path)}>
-                    Manage
-                    <svg className={styles.arrowIcon} fill="none" stroke="currentColor" viewBox="0 0 24 24">
-                        <path strokeLinecap="round" strokeLinejoin="round" strokeWidth={2} d="M9 5l7 7-7 7" />
-                    </svg>
-                </button>
-
-              </div>
-            ))}
+          <div className={styles.statCard}>
+            <div className={styles.statIcon}>
+              <svg width="24" height="24" fill="currentColor" viewBox="0 0 24 24">
+                <path d="M12 2l3.09 6.26L22 9.27l-5 4.87 1.18 6.88L12 17.77l-6.18 3.25L7 14.14 2 9.27l6.91-1.01L12 2z"/>
+              </svg>
+            </div>
+            <div>
+              <p className={styles.statNumber}>{stats.featuredProjects}</p>
+              <p className={styles.statLabel}>Featured Projects</p>
+            </div>
           </div>
-        </section>
-      </main>
+
+          <div className={styles.statCard}>
+            <div className={styles.statIcon}>
+              <svg width="24" height="24" fill="currentColor" viewBox="0 0 24 24">
+                <path d="M14 2H6c-1.1 0-2 .9-2 2v16c0 1.1.89 2 2 2h12c1.1 0 2-.9 2-2V8l-6-6zm4 18H6V4h7v5h5v11z"/>
+              </svg>
+            </div>
+            <div>
+              <p className={styles.statNumber}>{stats.totalBlogs}</p>
+              <p className={styles.statLabel}>Total Blogs</p>
+            </div>
+          </div>
+
+          <div className={styles.statCard}>
+            <div className={styles.statIcon}>
+              <svg width="24" height="24" fill="currentColor" viewBox="0 0 24 24">
+                <path d="M12 2C6.48 2 2 6.48 2 12s4.48 10 10 10 10-4.48 10-10S17.52 2 12 2zm-2 15l-5-5 1.41-1.41L10 14.17l7.59-7.59L19 8l-9 9z"/>
+              </svg>
+            </div>
+            <div>
+              <p className={styles.statNumber}>{stats.publishedBlogs}</p>
+              <p className={styles.statLabel}>Published Blogs</p>
+            </div>
+          </div>
+        </div>
+      </section>
+
+      {/* Management Cards */}
+      <section className={styles.managementSection}>
+        <h2 className={styles.sectionTitle}>Management</h2>
+        <div className={styles.managementGrid}>
+          <div 
+            className={styles.managementCard}
+            onClick={() => navigate('/admin/projects')}
+          >
+            <div className={styles.cardIcon}>
+              <svg width="32" height="32" fill="currentColor" viewBox="0 0 24 24">
+                <path d="M19 3H5c-1.1 0-2 .9-2 2v14c0 1.1.9 2 2 2h14c1.1 0 2-.9 2-2V5c0-1.1-.9-2-2-2zm-5 14H7v-2h7v2zm3-4H7v-2h10v2zm0-4H7V7h10v2z"/>
+              </svg>
+            </div>
+            <h3 className={styles.cardTitle}>Projects</h3>
+            <p className={styles.cardDescription}>Manage your portfolio projects</p>
+            <div className={styles.cardArrow}>
+              <svg width="20" height="20" fill="currentColor" viewBox="0 0 24 24">
+                <path d="M8.59 16.59L13.17 12 8.59 7.41 10 6l6 6-6 6-1.41-1.41z"/>
+              </svg>
+            </div>
+          </div>
+
+          <div 
+            className={styles.managementCard}
+            onClick={() => navigate('/admin/blog')}
+          >
+            <div className={styles.cardIcon}>
+              <svg width="32" height="32" fill="currentColor" viewBox="0 0 24 24">
+                <path d="M14 2H6c-1.1 0-2 .9-2 2v16c0 1.1.89 2 2 2h12c1.1 0 2-.9 2-2V8l-6-6zm4 18H6V4h7v5h5v11z"/>
+              </svg>
+            </div>
+            <h3 className={styles.cardTitle}>Blog</h3>
+            <p className={styles.cardDescription}>Create and manage blog posts</p>
+            <div className={styles.cardArrow}>
+              <svg width="20" height="20" fill="currentColor" viewBox="0 0 24 24">
+                <path d="M8.59 16.59L13.17 12 8.59 7.41 10 6l6 6-6 6-1.41-1.41z"/>
+              </svg>
+            </div>
+          </div>
+        </div>
+      </section>
+
+      {/* Quick Actions */}
+      <section className={styles.quickActionsSection}>
+        <h2 className={styles.sectionTitle}>Quick Actions</h2>
+        <div className={styles.quickActions}>
+          <button 
+            className={styles.quickActionBtn}
+            onClick={() => navigate('/admin/blog/create')}
+          >
+            <svg width="20" height="20" fill="currentColor" viewBox="0 0 24 24">
+              <path d="M19 13h-6v6h-2v-6H5v-2h6V5h2v6h6v2z"/>
+            </svg>
+            New Blog Post
+          </button>
+        </div>
+      </section>
     </div>
   );
 };
