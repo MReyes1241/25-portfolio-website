@@ -4,6 +4,31 @@
   margin: 0 auto;
 }
 
+.backButton {
+  display: inline-flex;
+  align-items: center;
+  gap: 0.5rem;
+  background: rgba(30, 41, 59, 0.9);
+  border: 1px solid rgba(255, 255, 255, 0.2);
+  color: rgba(255, 255, 255, 0.9);
+  padding: 0.75rem 1.5rem;
+  border-radius: 8px;
+  font-weight: 500;
+  font-size: 0.875rem;
+  cursor: pointer;
+  transition: all 0.3s ease;
+  text-decoration: none;
+  backdrop-filter: blur(10px);
+  margin-bottom: 2rem;
+}
+
+.backButton:hover {
+  background: rgba(30, 41, 59, 1);
+  border-color: rgba(96, 165, 250, 0.5);
+  color: rgba(96, 165, 250, 0.9);
+  transform: translateY(-1px);
+}
+
 .title {
   font-size: 2rem;
   margin-bottom: 1rem;

@@ -13,6 +13,8 @@ import AdminDashboard from "./pages/admin/AdminDashboard.tsx";
 import BlogAdminIndex from "./pages/admin/blog/index.tsx";
 import BlogAdminCreate from "./pages/admin/blog/create.tsx";
 import AdminBlogEdit from "./pages/admin/blog/Edit.tsx";
+import AdminProjectIndex from "./pages/admin/projects/index.tsx";
+import AdminProjectEdit from "./pages/admin/projects/edit.tsx";
 
 export function AppRoutes() {
   return (
@@ -30,6 +32,8 @@ export function AppRoutes() {
       <Route path="/admin/blog" element={<BlogAdminIndex />} />
       <Route path="/admin/blog/create" element={<BlogAdminCreate />} />
       <Route path="/admin/blog/edit/:id" element={<AdminBlogEdit />} />
+      <Route path="/admin/projects" element={<AdminProjectIndex />} />
+      <Route path="/admin/projects/edit/:id" element={<AdminProjectEdit />} />
     </Routes>
   );
 }
