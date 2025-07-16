@@ -99,6 +99,25 @@
   gap: 16px;
 }
 
+.brandHeader {
+  display: flex;
+  align-items: center;
+  gap: 12px;
+}
+
+.logo {
+  width: 40px;
+  height: 40px;
+  object-fit: contain;
+  filter: drop-shadow(0 0 8px rgba(96, 165, 250, 0.3));
+  transition: all 0.3s ease;
+}
+
+.logo:hover {
+  transform: scale(1.05);
+  filter: drop-shadow(0 0 12px rgba(96, 165, 250, 0.5));
+}
+
 .brandTitle {
   font-size: 1.5rem;
   font-weight: bold;
@@ -213,8 +232,6 @@
   color: #60a5fa;
 }
 
-/* Remove old social icon styles */
-
 /* Divider */
 .divider {
   position: relative;
@@ -237,8 +254,17 @@
 }
 
 .codeIcon {
-  color: #6b7280;
+  width: 24px;
+  height: 24px;
+  object-fit: contain;
+  filter: drop-shadow(0 2px 4px rgba(96, 165, 250, 0.3));
   animation: pulse 2s infinite;
+  transition: all 0.3s ease;
+}
+
+.codeIcon:hover {
+  transform: scale(1.1);
+  filter: drop-shadow(0 4px 8px rgba(96, 165, 250, 0.5));
 }
 
 /* Bottom section */
@@ -378,5 +404,14 @@
   .orb2 {
     bottom: 40px;
     right: 40px;
+  }
+  
+  .logo {
+    width: 32px;
+    height: 32px;
+  }
+  
+  .brandHeader {
+    gap: 8px;
   }
 }

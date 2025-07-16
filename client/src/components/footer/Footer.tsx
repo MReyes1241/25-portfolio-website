@@ -1,6 +1,8 @@
 import { useState, useEffect } from 'react';
-import { Mail, Github, Linkedin, ArrowUp, MapPin, Braces } from 'lucide-react';
+import { Mail, Github, Linkedin, ArrowUp, MapPin } from 'lucide-react';
 import styles from './Footer.module.css';
+import { imageUrls } from '../../assets/images';
+
 
 const Footer = () => {
   const [isVisible, setIsVisible] = useState(false);
@@ -145,7 +147,11 @@ const Footer = () => {
           <div className={styles.divider}>
             <div className={styles.dividerLine}></div>
             <div className={styles.dividerIcon}>
-              <Braces className={styles.codeIcon} size={20} />
+              <img 
+                src={imageUrls.logo_half.src} 
+                alt={imageUrls.logo_half.alt}
+                className={styles.codeIcon}
+              />
             </div>
           </div>
           
