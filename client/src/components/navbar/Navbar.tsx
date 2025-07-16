@@ -1,6 +1,7 @@
 import React, { useState } from "react";
 import { Link, useLocation } from "react-router-dom";
 import { Home, User, FolderOpen, FileText, Mail, Book } from "lucide-react";
+import { imageUrls } from "../../assets/images";
 import styles from "./Navbar.module.css";
 
 const Navbar: React.FC = () => {
@@ -29,6 +30,11 @@ const Navbar: React.FC = () => {
       <div className={styles.navContainer}>
         {/* Logo/Brand */}
         <Link to="/" className={styles.navLogo} onClick={closeMenu}>
+          <img 
+            src={imageUrls.logo_half.src} 
+            alt={imageUrls.logo_half.alt}
+            className={styles.navLogoImage}
+          />
           <span className={styles.logoText}>Manuel Reyes jr.</span>
         </Link>
 

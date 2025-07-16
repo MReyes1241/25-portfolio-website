@@ -23,15 +23,32 @@
 
 /* Logo */
 .navLogo {
+    display: flex;
+    align-items: center;
+    gap: 0.75rem;
     text-decoration: none;
     color: #2563eb;
     font-weight: 700;
     font-size: 1.5rem;
-    transition: color 0.3s ease;
+    transition: all 0.3s ease;
 }
 
 .navLogo:hover {
     color: #1d4ed8;
+    transform: scale(1.02);
+}
+
+.navLogoImage {
+    width: 40px;
+    height: 40px;
+    object-fit: contain;
+    transition: all 0.3s ease;
+    filter: drop-shadow(0 2px 4px rgba(37, 99, 235, 0.2));
+}
+
+.navLogo:hover .navLogoImage {
+    transform: rotate(5deg) scale(1.05);
+    filter: drop-shadow(0 4px 8px rgba(37, 99, 235, 0.3));
 }
 
 .logoText {
@@ -39,6 +56,8 @@
     -webkit-background-clip: text;
     -webkit-text-fill-color: transparent;
     background-clip: text;
+    font-weight: 700;
+    font-size: 1.2rem;
 }
 
 /* Desktop Navigation */
@@ -270,6 +289,13 @@
     .navToggle.active .bar:nth-child(3) {
         background-color: #60a5fa;
     }
+
+    .logoText {
+        background: linear-gradient(135deg, #60a5fa, #a78bfa);
+        -webkit-background-clip: text;
+        -webkit-text-fill-color: transparent;
+        background-clip: text;
+    }
 }
 
 /* Responsive Design */
@@ -284,6 +310,15 @@
 
     .navContainer {
         padding: 0 1rem;
+    }
+
+    .navLogoImage {
+        width: 32px;
+        height: 32px;
+    }
+
+    .logoText {
+        font-size: 1rem;
     }
 }
 
