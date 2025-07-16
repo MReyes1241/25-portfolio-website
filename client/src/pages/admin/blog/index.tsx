@@ -49,17 +49,13 @@ const AdminBlogList = () => {
   return (
     <div className={styles.container}>
       <button
-        onClick={() => navigate(-1)}
-        style={{
-          background: 'none',
-          border: 'none',
-          color: '#60a5fa',
-          fontSize: '1rem',
-          marginBottom: '1rem',
-          cursor: 'pointer'
-        }}
+        onClick={() => navigate('/admin/dashboard')}
+        className={styles.backButton}
       >
-        ← Back
+        <svg width="16" height="16" fill="currentColor" viewBox="0 0 24 24">
+          <path d="M7 16l-4-4m0 0l4-4m-4 4h18" strokeWidth="2" stroke="currentColor" fill="none" strokeLinecap="round" strokeLinejoin="round"/>
+        </svg>
+        Back to Dashboard
       </button>
 
       <h1 className={styles.title}>Manage Blog Posts</h1>
