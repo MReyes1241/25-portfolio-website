@@ -49,7 +49,7 @@ const Resume = () => {
       email: "Manuelreyes1241@outlook.com",
       linkedin: "linkedin.com/in/manuel-reyes-jr-swe",
       github: "github.com/MReyes1241",
-      website: "#",
+      website: "www.reyesjr.com",
     },
     education: {
       school: "Hunter College - City University of New York",
