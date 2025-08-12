@@ -15,6 +15,7 @@ import {
 import { useState } from "react";
 import styles from "./Resume.module.css";
 import Footer from "../../components/footer/Footer";
+import { resumeData } from "../../data/resumeData";
 
 const Resume = () => {
   const [expandedSections, setExpandedSections] = useState({
@@ -41,79 +42,6 @@ const Resume = () => {
 
   const handleMouseLeave = (element: string) => {
     setHoveredElements((prev) => ({ ...prev, [element]: false }));
-  };
-
-  const resumeData = {
-    name: "Manuel Reyes Jr",
-    contact: {
-      email: "Manuelreyes1241@outlook.com",
-      linkedin: "linkedin.com/in/manuel-reyes-jr-swe",
-      github: "github.com/MReyes1241",
-      website: "www.reyesjr.com",
-    },
-    education: {
-      school: "Hunter College - City University of New York",
-      degree: "Bachelor of Arts in Computer Science",
-      minor: "Minor in Mathematics",
-      location: "New York, NY",
-      dates: "Aug. 2021 – May 2025",
-      gpa: "3.4",
-      coursework:
-        "Operating Systems, Data Structures, Algorithms, Computer Architecture, Software Engineering, Artificial Intelligence",
-    },
-    experience: [
-      {
-        company: "Patina Network",
-        title: "Software Engineering Intern",
-        dates: "Jun. 2024 – Aug. 2024",
-        location: "New York, NY",
-        github: "github.com/arklian/patina",
-        points: [
-          "Created a streamlined workflow for handling images used across the website by writing a shell script to upload images stored in a source-of-truth Google Drive folder to Digital Ocean Spaces S3 buckets through their REST APIs and auto-generating a mapping of images to their URLs that are used in the TypeScript.",
-          "Added version control and multiple environment support to the image handling workflow, letting developers change images in development without effecting the live website and allowing production rollbacks.",
-          "Built OCI Docker images of our Spring Boot backend and deployed them to virtual machines in DigitalOcean.",
-          "Collaborated cross-functionally with UI/UX designers to bring their Figma mocks to life using React, TypeScript, and Mantine UI over several iterations while ensuring a mobile-friendly responsive user interface.",
-          "Managed tasks and projects in Linear, a Jira-like work tracking tool, to coordinate work across the team.",
-          "Engaged in code reviews on Gerrit, with merges blocked by approvals from other engineers and CI tests.",
-          "Coded following a strict style guide, utilizing auto-formatters and linters to maintain high code quality.",
-          "Worked in an Agile team environment with frequent stand-ups, 1:1s and weekly retrospectives.",
-        ],
-      },
-      {
-        company: "Hunter College",
-        title: "Undergraduate Teaching Assistant",
-        dates: "Feb. 2023 – May. 2025",
-        location: "New York, NY",
-        points: [
-          "Supported students in Python, MIPS, and C++ courses by guiding them through assignments, debugging code, and preparing for exams.",
-          "Assisted the professor with grading, provided detailed feedback, conducted tutoring sessions and code reviews, and offered advice to help students navigate course material and improve their understanding.",
-        ],
-      },
-    ],
-    projects: [
-      {
-        name: "Splitsy App",
-        github: "github.com/Riyuanliu/Splitsy",
-        date: "Feb 2024",
-        points: [
-          'Collaborated in a team of three to build "Splitsy," an iOS app that simplifies bill splitting.',
-          "Built the app's user interface using Swift and SwiftUI, ensuring a seamless user experience.",
-          "Used OCR to scan receipts to automate the calculation of individual payment shares.",
-        ],
-      },
-    ],
-    skills: {
-      Languages:
-        "Python, Java, C/C++, SQL, JavaScript, TypeScript, Swift, MIPS, Bash/Zsh/Shell",
-      Frontend:
-        "HTML/CSS, React, Vue, Mantine UI, JSON, Node.js, npm/pnpm, Vite, ESLint, Prettier",
-      "Backend/Cloud":
-        "Spring, PHP, Flask, Kotlin, Gradle, Docker, DigitalOcean, AWS",
-      Tools:
-        "Figma, VS Code, PyCharm, IntelliJ, Sublime Merge, pgAdmin, Postman, Linear, Notion",
-      Other:
-        "Git/Github, MacOS, Linux, Windows Terminal, REST API, CLI, CI/CD, GitHub Actions",
-    },
   };
 
   return (
