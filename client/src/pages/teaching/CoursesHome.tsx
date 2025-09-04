@@ -60,7 +60,7 @@ const CoursesHome: React.FC = () => {
           path: '/teaching/csci133/unit1',
           status: 'available'
         }
-        // Only include available units - add more as you create them
+        // Add more units as needed
       ]
     }
     // Add more courses as needed
