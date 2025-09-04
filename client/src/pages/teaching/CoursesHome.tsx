@@ -47,7 +47,7 @@ const CoursesHome: React.FC = () => {
       semester: 'Fall',
       year: '2025',
       institution: 'Hunter College',
-      totalStudents: 45,
+      totalStudents: 30,
       color: {
         primary: '#60a5fa',
         secondary: '#3b82f6'
