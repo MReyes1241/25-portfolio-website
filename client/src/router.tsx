@@ -16,6 +16,7 @@ import AdminBlogEdit from "./pages/admin/blog/Edit.tsx";
 import AdminProjectIndex from "./pages/admin/projects/index.tsx";
 import AdminProjectEdit from "./pages/admin/projects/edit.tsx";
 import CSCI133Unit1 from "./pages/teaching/csci133/unit1/CSCI133Unit1.tsx";
+import CSCI133Unit2 from "./pages/teaching/csci133/unit2/CSCI133Unit2.tsx";
 import CourseHome from "./pages/teaching/CoursesHome.tsx";
 
 export function AppRoutes() {
@@ -29,6 +30,7 @@ export function AppRoutes() {
       <Route path="/contact" element={<Contact />} />
       <Route path="/teaching" element={<CourseHome />} />
       <Route path="/teaching/csci133/unit1" element={<CSCI133Unit1 />} />
+      <Route path="/teaching/csci133/unit2" element={<CSCI133Unit2 />} />
       <Route path="*" element={<NotFound />} />
       <Route path="/blog/:id" element={<BlogPostPage />} />
       <Route path="/admin/login" element={<AdminLogin />} />
