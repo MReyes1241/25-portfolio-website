@@ -1,4 +1,3 @@
-// src/pages/courses/CoursesHome.tsx
 import React, { useState } from 'react';
 import { Link } from 'react-router-dom';
 import { ChevronDown, ChevronRight, Users, ExternalLink } from 'lucide-react';
@@ -57,13 +56,20 @@ const CoursesHome: React.FC = () => {
           id: 'unit1',
           title: 'Unit 1: Python Fundamentals',
           description: 'Getting started with Python, variables, strings, lists, and basic control structures',
-          path: '/teaching/csci133/unit1',
+          path: '/hunter/csci133/unit1',
+          status: 'available'
+        },
+        {
+          id: 'unit2',
+          title: 'Unit 2: Functions, Files, and Text Processing',
+          description: 'Built-in functions, file I/O, string methods, and advanced data processing techniques',
+          path: '/teaching/csci133/unit2',
           status: 'available'
         }
-        // Add more units as needed
+        // Add more units later
       ]
     }
-    // Add more courses as needed
+    // Add more courses later if needed
   ];
 
   return (
