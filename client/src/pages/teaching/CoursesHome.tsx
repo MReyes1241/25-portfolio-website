@@ -56,7 +56,7 @@ const CoursesHome: React.FC = () => {
           id: 'unit1',
           title: 'Unit 1: Python Fundamentals',
           description: 'Getting started with Python, variables, strings, lists, and basic control structures',
-          path: '/hunter/csci133/unit1',
+          path: '/teaching/csci133/unit1',
           status: 'available'
         },
         {
