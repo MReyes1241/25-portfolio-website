@@ -1,6 +1,6 @@
 import React, { useState } from 'react';
-import { ChevronDown, ChevronRight, Play, Code, BookOpen, FileText, Database } from 'lucide-react';
-import styles from '../unit2/CSCI133Unit2.module.css'; // Reusing the same styles
+import { ChevronDown, ChevronRight, Play, Code, BookOpen, Database } from 'lucide-react';
+import styles from '../unit2/CSCI133Unit2.module.css';
 
 interface Lesson {
   id: string;
