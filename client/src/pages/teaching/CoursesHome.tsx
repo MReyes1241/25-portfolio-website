@@ -65,6 +65,13 @@ const CoursesHome: React.FC = () => {
           description: 'Built-in functions, file I/O, string methods, and advanced data processing techniques',
           path: '/teaching/csci133/unit2',
           status: 'available'
+        },
+        {
+          id: 'unit3',
+          title: 'Unit 3: Data Structures and Algorithms',
+          description: 'Lists, dictionaries, sets, tuples, and basic algorithms for searching and sorting',
+          path: '/teaching/csci133/unit3',
+          status: 'available'
         }
         // Add more units later
       ]
