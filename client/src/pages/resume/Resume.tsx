@@ -16,6 +16,7 @@ import { useState } from "react";
 import styles from "./Resume.module.css";
 import Footer from "../../components/footer/Footer";
 import { resumeData } from "../../data/resumeData";
+import { supabase } from "../../lib/supabaseClient";
 
 const Resume = () => {
   const [expandedSections, setExpandedSections] = useState({
@@ -42,6 +43,20 @@ const Resume = () => {
 
   const handleMouseLeave = (element: string) => {
     setHoveredElements((prev) => ({ ...prev, [element]: false }));
+  };
+
+  const handleDownloadResume = () => {
+    const { data } = supabase.storage
+      .from('resumes')
+      .getPublicUrl('Manuel_Reyes_jr (v3).pdf');
+    
+    const link = document.createElement('a');
+    link.href = data.publicUrl;
+    link.download = 'Manuel_Reyes_Jr_Resume.pdf';
+    link.target = '_blank';
+    document.body.appendChild(link);
+    link.click();
+    document.body.removeChild(link);
   };
 
   return (
@@ -141,36 +156,46 @@ const Resume = () => {
             onHover={() => handleMouseEnter("experienceHeader")}
             onLeave={() => handleMouseLeave("experienceHeader")}
           >
-            {resumeData.experience.map((job, index) => (
-              <div key={index} className={styles.experienceItem}>
-                <div className={styles.jobHeader}>
-                  <div>
-                    <div className={styles.companyName}>{job.company}</div>
-                    <div className={styles.jobTitle}>{job.title}</div>
-                    {job.github && (
-                      <a
-                        href={`https://${job.github}`}
-                        target="_blank"
-                        rel="noopener noreferrer"
-                        className={styles.projectLink}
-                      >
-                        <ExternalLink size={12} />
-                        {job.github}
-                      </a>
+            {resumeData.experience.map((company, index) => (
+              <div key={index} className={styles.companyGroup}>
+                <div className={styles.companyHeader}>
+                  <div className={styles.companyName}>{company.company}</div>
+                  <div className={styles.companyMeta}>
+                    {company.totalDuration && (
+                      <div className={styles.totalDuration}>{company.totalDuration}</div>
                     )}
-                  </div>
-                  <div className={styles.jobMeta}>
-                    <div>{job.dates}</div>
-                    <div>{job.location}</div>
+                    <div>{company.location}</div>
                   </div>
                 </div>
-                <ul className={styles.bulletPoints}>
-                  {job.points.map((point, i) => (
-                    <li key={i} className={styles.bulletPoint}>
-                      {point}
-                    </li>
-                  ))}
-                </ul>
+                
+                {company.positions.map((position, posIndex) => (
+                  <div key={posIndex} className={styles.positionItem}>
+                    <div className={styles.positionHeader}>
+                      <div>
+                        <div className={styles.jobTitle}>{position.title}</div>
+                        {position.github && (
+                          <a
+                            href={`https://${position.github}`}
+                            target="_blank"
+                            rel="noopener noreferrer"
+                            className={styles.projectLink}
+                          >
+                            <ExternalLink size={12} />
+                            {position.github}
+                          </a>
+                        )}
+                      </div>
+                      <div className={styles.positionDates}>{position.dates}</div>
+                    </div>
+                    <ul className={styles.bulletPoints}>
+                      {position.points.map((point, i) => (
+                        <li key={i} className={styles.bulletPoint}>
+                          {point}
+                        </li>
+                      ))}
+                    </ul>
+                  </div>
+                ))}
               </div>
             ))}
           </Section>
@@ -233,16 +258,15 @@ const Resume = () => {
 
           {/* Download */}
           <div className={styles.downloadWrapper}>
-            <a
-              href="/Manuel_Reyes_jr.pdf"
-              download
+            <button
+              onClick={handleDownloadResume}
               className={`${styles.downloadButton} ${hoveredElements.download ? styles.downloadButtonHover : ""}`}
               onMouseEnter={() => handleMouseEnter("download")}
               onMouseLeave={() => handleMouseLeave("download")}
             >
               <Download size={16} />
               Download PDF
-            </a>
+            </button>
           </div>
         </div>
       </div>
