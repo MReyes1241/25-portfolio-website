@@ -72,7 +72,14 @@ const CoursesHome: React.FC = () => {
           description: 'Lists, dictionaries, sets, tuples, and basic algorithms for searching and sorting',
           path: '/teaching/csci133/unit3',
           status: 'available'
-        }
+        },
+        {
+          id: 'unit4',
+          title: 'Unit 4: Object-Oriented Programming',
+          description: 'Modules, random number generation, statistical simulations, and probability analysis through computational experiments.',
+          path: '/teaching/csci133/unit4',
+          status: 'available'
+        },
         // Add more units later
       ]
     }
