@@ -75,9 +75,16 @@ const CoursesHome: React.FC = () => {
         },
         {
           id: 'unit4',
-          title: 'Unit 4: Object-Oriented Programming',
-          description: 'Modules, random number generation, statistical simulations, and probability analysis through computational experiments.',
+          title: 'Unit 4: Modules and Simulations',
+          description: 'Creating reusable modules, random number generation, statistical simulations, and probability analysis through computational experiments',
           path: '/teaching/csci133/unit4',
+          status: 'available'
+        },
+        {
+          id: 'unit5',
+          title: 'Unit 5: File Systems and Directory Navigation',
+          description: 'Working with the OS module, navigating directories, handling file operations, and understanding recursion through file system exploration',
+          path: '/teaching/csci133/unit5',
           status: 'available'
         },
         // Add more units later
