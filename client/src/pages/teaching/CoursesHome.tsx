@@ -87,6 +87,13 @@ const CoursesHome: React.FC = () => {
           path: '/teaching/csci133/unit5',
           status: 'available'
         },
+        {
+          id: 'unit6',
+          title: 'Unit 6: Object-Oriented Programming',
+          description: 'Classes, objects, inheritance, and encapsulation in Python',
+          path: '/teaching/csci133/unit6',
+          status: 'available'
+        },
         // Add more units later
       ]
     }
