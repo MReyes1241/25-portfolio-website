@@ -89,7 +89,7 @@ const CoursesHome: React.FC = () => {
         },
         {
           id: 'unit6',
-          title: 'Unit 6: Object-Oriented Programming',
+          title: 'Unit 6: Data Processing and Logical Operators',
           description: 'Classes, objects, inheritance, and encapsulation in Python',
           path: '/teaching/csci133/unit6',
           status: 'available'
