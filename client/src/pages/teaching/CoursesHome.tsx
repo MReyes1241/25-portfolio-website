@@ -90,8 +90,15 @@ const CoursesHome: React.FC = () => {
         {
           id: 'unit6',
           title: 'Unit 6: Data Processing and Logical Operators',
-          description: 'Classes, objects, inheritance, and encapsulation in Python',
+          description: 'Reading from the web, persisting data with shelve, list comprehensions, and applying logical operators to data analysis',
           path: '/teaching/csci133/unit6',
+          status: 'available'
+        },
+        {
+          id: 'unit7',
+          title: 'Unit 7: Higher-Order Functions and Functional Programming',
+          description: 'Functions as first-class objects, passing functions as arguments, creating closures, and building sophisticated programs with functional programming techniques',
+          path: '/teaching/csci133/unit7',
           status: 'available'
         },
         // Add more units later
