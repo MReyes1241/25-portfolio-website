@@ -101,6 +101,13 @@ const CoursesHome: React.FC = () => {
           path: '/teaching/csci133/unit7',
           status: 'available'
         },
+        {
+          id: 'unit8',
+          title: 'Unit 8: Graphical User Interfaces with tkinter',
+          description: 'Building interactive desktop applications with windows, buttons, and event-driven programming using Python\'s tkinter library',
+          path: '/teaching/csci133/unit8',
+          status: 'available'
+        },
         // Add more units later
       ]
     }

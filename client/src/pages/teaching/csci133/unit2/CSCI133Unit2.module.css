@@ -639,6 +639,45 @@
   border-radius: 50%;
 }
 
+.difficultyBadge {
+  margin-left: auto;
+  padding: 0.25rem 0.6rem;
+  border-radius: 999px;
+  font-size: 0.75rem;
+  font-weight: 600;
+  text-transform: capitalize;
+  border: 1px solid transparent;
+}
+
+.beginner {
+  color: #8fe6a1;
+  background: rgba(24, 160, 88, 0.1);
+  border-color: rgba(24, 160, 88, 0.35);
+}
+
+.intermediate {
+  color: #ffd479;
+  background: rgba(227, 160, 8, 0.12);
+  border-color: rgba(227, 160, 8, 0.35);
+}
+
+.advanced {
+  color: #f39fb6;
+  background: rgba(214, 51, 108, 0.12);
+  border-color: rgba(214, 51, 108, 0.35);
+}
+
+.solutionButton {
+  margin-top: 0.75rem;
+  align-self: flex-start;
+  padding: 0.5rem 0.8rem;
+  border-radius: 0.5rem;
+  background: rgba(148, 163, 184, 0.12);
+  border: 1px solid rgba(148, 163, 184, 0.25);
+  color: #e2e8f0;
+  font-weight: 600;
+}
+
 /* Responsive Design */
 @media (max-width: 1200px) {
   .main {
