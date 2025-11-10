@@ -1,3 +1,4 @@
+// src/pages/CSCI133Unit8.tsx
 import React, { useState } from 'react';
 import {
   ChevronDown,
@@ -46,15 +47,13 @@ const CSCI133Unit8: React.FC = () => {
         <div className={styles.lessonContent}>
           <p>
             Up until now, all our programs have run in the <strong>command line</strong> or <strong>IDLE shell</strong>.
-            Users type input, hit Enter, and see text output. But most programs you use daily have a 
+            Users type input, hit Enter, and see text output. But most programs you use daily have a
             <strong> graphical user interface (GUI)</strong> with windows, buttons, and interactive elements.
           </p>
-
           <p>
             In Python, we can create GUIs using the <code className={styles.inlineCode}>tkinter</code> module.
             Tkinter is Python's standard GUI library and comes pre-installed with Python.
           </p>
-
           <div className={styles.conceptBox}>
             <h4 className={styles.conceptTitle}>What You'll Learn</h4>
             <ul>
@@ -64,7 +63,6 @@ const CSCI133Unit8: React.FC = () => {
               <li>How GUIs use an "event loop" to wait for user interactions</li>
             </ul>
           </div>
-
           <div className={styles.codeExample}>
             <h4 className={styles.codeTitle}>
               <Code className={styles.codeIcon} />
@@ -86,7 +84,6 @@ pick.pack()
 mainloop()`}</code>
             </pre>
           </div>
-
           <div className={styles.infoBox}>
             <h4 className={styles.infoTitle}>Understanding the Code</h4>
             <p><strong>Line 1:</strong> <code className={styles.inlineCode}>from tkinter import *</code> imports everything from the tkinter module.</p>
@@ -99,26 +96,24 @@ mainloop()`}</code>
             <p><strong>Line 10:</strong> <code className={styles.inlineCode}>pick.pack()</code> adds the button to the window</p>
             <p><strong>Line 13:</strong> <code className={styles.inlineCode}>mainloop()</code> starts the event loop - the program waits for user actions</p>
           </div>
-
           <div className={styles.warningBox}>
             <h4 className={styles.warningTitle}>Important: The Event Loop</h4>
             <p>
-              The <code className={styles.inlineCode}>mainloop()</code> function is crucial. It keeps your window 
-              open and responsive, constantly checking for user interactions. Without it, your window would appear 
-              and immediately close. Think of it as a <code className={styles.inlineCode}>while True:</code> loop 
+              The <code className={styles.inlineCode}>mainloop()</code> function is crucial. It keeps your window
+              open and responsive, constantly checking for user interactions. Without it, your window would appear
+              and immediately close. Think of it as a <code className={styles.inlineCode}>while True:</code> loop
               that checks "Did the user click anything? Did they type anything?" over and over.
             </p>
           </div>
-
           <div className={styles.codeExample}>
             <h4 className={styles.codeTitle}>
               <Code className={styles.codeIcon} />
               Running Your GUI Program
             </h4>
             <p>
-              To run a tkinter program, you can't just run it from IDLE like before. You need to save your 
-              program as a <code className={styles.inlineCode}>.py</code> file and double-click it, or run 
-              it from the command line. On Windows, you might want to change the extension to 
+              To run a tkinter program, you can't just run it from IDLE like before. You need to save your
+              program as a <code className={styles.inlineCode}>.py</code> file and double-click it, or run
+              it from the command line. On Windows, you might want to change the extension to
               <code className={styles.inlineCode}>.pyw</code> to run it without showing a console window.
             </p>
           </div>
@@ -135,11 +130,10 @@ mainloop()`}</code>
             After you create your window and widgets, you need to tell Python to wait for the user to do something.
             This is where <code className={styles.inlineCode}>mainloop()</code> comes in.
           </p>
-
           <div className={styles.conceptBox}>
             <h4 className={styles.conceptTitle}>The Event Loop Concept</h4>
             <p>
-              In a command-line program, code runs from top to bottom, then exits. In a GUI program, we need the 
+              In a command-line program, code runs from top to bottom, then exits. In a GUI program, we need the
               window to stay open and responsive. The event loop continuously checks:
             </p>
             <ul>
@@ -149,11 +143,10 @@ mainloop()`}</code>
               <li>Does anything need to be redrawn?</li>
             </ul>
             <p>
-              When something happens, the event loop triggers the appropriate response (like calling the function 
+              When something happens, the event loop triggers the appropriate response (like calling the function
               you specified in <code className={styles.inlineCode}>command</code>).
             </p>
           </div>
-
           <div className={styles.codeExample}>
             <h4 className={styles.codeTitle}>
               <Code className={styles.codeIcon} />
@@ -171,7 +164,6 @@ while True:
     # ... and so on`}</code>
             </pre>
           </div>
-
           <div className={styles.infoBox}>
             <h4 className={styles.infoTitle}>Multiple Events</h4>
             <p>
@@ -185,20 +177,19 @@ while True:
               <li><strong>Timer events</strong> - Scheduled actions that happen automatically</li>
             </ul>
             <p>
-              In our simple program, we only specified what happens when the button is clicked (the 
-              <code className={styles.inlineCode}>command</code> property). All other event responses are 
+              In our simple program, we only specified what happens when the button is clicked (the
+              <code className={styles.inlineCode}>command</code> property). All other event responses are
               handled by default behaviors built into tkinter.
             </p>
           </div>
-
           <div className={styles.warningBox}>
             <h4 className={styles.warningTitle}>Running from IDLE vs Double-Click</h4>
             <p>
-              <strong>From IDLE:</strong> If you run a tkinter program from within IDLE, IDLE itself is also a 
+              <strong>From IDLE:</strong> If you run a tkinter program from within IDLE, IDLE itself is also a
               tkinter program, and they can interfere with each other. You might see strange behavior.
             </p>
             <p>
-              <strong>Recommended:</strong> Save your program and run it by double-clicking the file icon, or 
+              <strong>Recommended:</strong> Save your program and run it by double-clicking the file icon, or
               run it from the terminal/command prompt. This gives it its own process and event loop.
             </p>
           </div>
@@ -215,12 +206,10 @@ while True:
             A single button isn't very useful. Real programs have multiple widgets organized in a logical layout.
             Two fundamental widgets for building GUIs are:
           </p>
-
           <ul>
             <li><strong>Label</strong> - Displays text or images (non-interactive)</li>
             <li><strong>Frame</strong> - A container that groups other widgets together</li>
           </ul>
-
           <div className={styles.codeExample}>
             <h4 className={styles.codeTitle}>
               <Code className={styles.codeIcon} />
@@ -231,33 +220,29 @@ while True:
 
 root = Tk()
 
-# Create labels
 status = Label(root)
 status['text'] = 'Shapes Frame'
 status.pack()
 
-# Another label with different styling
 info = Label(root)
 info['text'] = 'Click a button to draw a shape'
-info['fg'] = 'blue'  # Foreground color (text color)
-info['bg'] = 'light gray'  # Background color
+info['fg'] = 'blue'
+info['bg'] = 'light gray'
 info.pack()
 
 mainloop()`}</code>
             </pre>
           </div>
-
           <div className={styles.conceptBox}>
             <h4 className={styles.conceptTitle}>Label Properties</h4>
             <ul>
-              <li><code className={styles.inlineCode}>text</code> - The text to display</li>
-              <li><code className={styles.inlineCode}>fg</code> - Foreground (text) color</li>
-              <li><code className={styles.inlineCode}>bg</code> - Background color</li>
-              <li><code className={styles.inlineCode}>font</code> - Font family and size</li>
-              <li><code className={styles.inlineCode}>width/height</code> - Size of the label</li>
+              <li><code className={styles.inlineCode}>text</code></li>
+              <li><code className={styles.inlineCode}>fg</code></li>
+              <li><code className={styles.inlineCode}>bg</code></li>
+              <li><code className={styles.inlineCode}>font</code></li>
+              <li><code className={styles.inlineCode}>width/height</code></li>
             </ul>
           </div>
-
           <div className={styles.codeExample}>
             <h4 className={styles.codeTitle}>
               <Code className={styles.codeIcon} />
@@ -268,19 +253,15 @@ mainloop()`}</code>
 
 root = Tk()
 
-# Create a frame for status info at the top
 status = Frame(root)
 status.pack()
 
-# Add labels to the status frame
 Label(status, text='Number of shapes:').pack(side=LEFT)
 Label(status, text='0').pack(side=LEFT)
 
-# Create a frame for action buttons
 action = Frame(root)
 action.pack()
 
-# Add buttons to the action frame
 Button(action, text='Circle').pack(side=LEFT)
 Button(action, text='Square').pack(side=LEFT)
 Button(action, text='Triangle').pack(side=LEFT)
@@ -288,7 +269,6 @@ Button(action, text='Triangle').pack(side=LEFT)
 mainloop()`}</code>
             </pre>
           </div>
-
           <div className={styles.infoBox}>
             <h4 className={styles.infoTitle}>The pack() Geometry Manager</h4>
             <p>
@@ -302,7 +282,6 @@ mainloop()`}</code>
               <li><code className={styles.inlineCode}>pack(side=BOTTOM)</code> - Stack vertically upward</li>
             </ul>
           </div>
-
           <div className={styles.codeExample}>
             <h4 className={styles.codeTitle}>
               <Code className={styles.codeIcon} />
@@ -314,7 +293,6 @@ mainloop()`}</code>
 root = Tk()
 root.title('Card Game')
 
-# Top frame for game status
 status_frame = Frame(root)
 status_frame.pack()
 
@@ -322,11 +300,9 @@ Label(status_frame, text='Cards in deck:').pack(side=LEFT)
 deck_count = Label(status_frame, text='52')
 deck_count.pack(side=LEFT)
 
-# Middle frame for the card
 card_frame = Frame(root, bg='green', width=200, height=300)
 card_frame.pack()
 
-# Bottom frame for actions
 action_frame = Frame(root)
 action_frame.pack()
 
@@ -336,13 +312,12 @@ Button(action_frame, text='Shuffle').pack(side=LEFT)
 mainloop()`}</code>
             </pre>
           </div>
-
           <div className={styles.warningBox}>
             <h4 className={styles.warningTitle}>Don't Mix pack() and grid()</h4>
             <p>
-              Tkinter has multiple geometry managers (<code className={styles.inlineCode}>pack</code>, 
+              Tkinter has multiple geometry managers (<code className={styles.inlineCode}>pack</code>,
               <code className={styles.inlineCode}>grid</code>, <code className={styles.inlineCode}>place</code>).
-              <strong>Never mix them in the same container!</strong> Pick one and stick with it for all widgets 
+              <strong>Never mix them in the same container!</strong> Pick one and stick with it for all widgets
               in that container, or your program will crash.
             </p>
           </div>
@@ -356,11 +331,10 @@ mainloop()`}</code>
       content: (
         <div className={styles.lessonContent}>
           <p>
-            So far, our GUIs can only display information. To make them truly interactive, we need widgets that 
-            accept user input. The <strong>Entry widget</strong> is a single-line text input field - like a 
+            So far, our GUIs can only display information. To make them truly interactive, we need widgets that
+            accept user input. The <strong>Entry widget</strong> is a single-line text input field - like a
             text box on a website.
           </p>
-
           <div className={styles.codeExample}>
             <h4 className={styles.codeTitle}>
               <Code className={styles.codeIcon} />
@@ -371,13 +345,11 @@ mainloop()`}</code>
 
 root = Tk()
 
-# Create an entry widget
 name_input = Entry(root)
 name_input.pack()
 
-# Create a button that uses the entry's value
 def greet():
-    user_name = name_input.get()  # Get the text from the entry
+    user_name = name_input.get()
     print(f'Hello, {user_name}!')
 
 Button(root, text='Greet Me', command=greet).pack()
@@ -385,16 +357,14 @@ Button(root, text='Greet Me', command=greet).pack()
 mainloop()`}</code>
             </pre>
           </div>
-
           <div className={styles.conceptBox}>
             <h4 className={styles.conceptTitle}>Entry Widget Methods</h4>
             <ul>
               <li><code className={styles.inlineCode}>entry.get()</code> - Returns the current text as a string</li>
-              <li><code className={styles.inlineCode}>entry.insert(0, 'text')</code> - Inserts text at position 0 (beginning)</li>
+              <li><code className={styles.inlineCode}>entry.insert(0, 'text')</code> - Inserts text at position 0</li>
               <li><code className={styles.inlineCode}>entry.delete(0, END)</code> - Clears all text</li>
             </ul>
           </div>
-
           <div className={styles.codeExample}>
             <h4 className={styles.codeTitle}>
               <Code className={styles.codeIcon} />
@@ -406,18 +376,13 @@ mainloop()`}</code>
 root = Tk()
 root.title('Login Form')
 
-# Create a frame to organize label and entry
 frame = Frame(root)
 frame.pack()
 
-# Label on the left
 Label(frame, text='Username:').pack(side=LEFT)
-
-# Entry on the right
 username = Entry(frame)
 username.pack(side=LEFT)
 
-# Button to submit
 def login():
     name = username.get()
     if name:
@@ -430,21 +395,19 @@ Button(root, text='Login', command=login).pack()
 mainloop()`}</code>
             </pre>
           </div>
-
           <div className={styles.infoBox}>
             <h4 className={styles.infoTitle}>Accessing Entry Values in Functions</h4>
             <p>
-              Notice that the entry widget (<code className={styles.inlineCode}>username</code>) is created in 
-              the main program, but we access it inside the <code className={styles.inlineCode}>login()</code> 
+              Notice that the entry widget (<code className={styles.inlineCode}>username</code>) is created in
+              the main program, but we access it inside the <code className={styles.inlineCode}>login()</code>
               function. This works because:
             </p>
             <ul>
               <li>The entry widget exists in the outer scope</li>
-              <li>The function can access variables from outer scopes (this is a closure!)</li>
-              <li>The function isn't called until the button is clicked, by which time the entry exists</li>
+              <li>The function can access variables from outer scopes</li>
+              <li>The function isn't called until the button is clicked</li>
             </ul>
           </div>
-
           <div className={styles.codeExample}>
             <h4 className={styles.codeTitle}>
               <Code className={styles.codeIcon} />
@@ -456,25 +419,21 @@ mainloop()`}</code>
 root = Tk()
 root.title('Simple Calculator')
 
-# First number
 frame1 = Frame(root)
 frame1.pack()
 Label(frame1, text='Number 1:').pack(side=LEFT)
 num1 = Entry(frame1)
 num1.pack(side=LEFT)
 
-# Second number
 frame2 = Frame(root)
 frame2.pack()
 Label(frame2, text='Number 2:').pack(side=LEFT)
 num2 = Entry(frame2)
 num2.pack(side=LEFT)
 
-# Result label
 result = Label(root, text='Result will appear here')
 result.pack()
 
-# Add button
 def add_numbers():
     try:
         a = float(num1.get())
@@ -488,13 +447,11 @@ Button(root, text='Add', command=add_numbers).pack()
 mainloop()`}</code>
             </pre>
           </div>
-
           <div className={styles.warningBox}>
             <h4 className={styles.warningTitle}>Remember: Entry.get() Returns Strings</h4>
             <p>
-              <code className={styles.inlineCode}>entry.get()</code> always returns a string, even if the user 
-              typed numbers. If you need a number, convert it with <code className={styles.inlineCode}>int()</code> 
-              or <code className={styles.inlineCode}>float()</code>. Use try/except to handle invalid input gracefully!
+              <code className={styles.inlineCode}>entry.get()</code> always returns a string, even if the user
+              typed numbers. Convert with <code className={styles.inlineCode}>int()</code> or <code className={styles.inlineCode}>float()</code>.
             </p>
           </div>
         </div>
@@ -507,10 +464,9 @@ mainloop()`}</code>
       content: (
         <div className={styles.lessonContent}>
           <p>
-            Static GUIs are boring. Real applications need to update based on user actions. In this part, we'll 
+            Static GUIs are boring. Real applications need to update based on user actions. In this part, we'll
             build a stock trading game that updates displays in real-time as the user buys and sells shares.
           </p>
-
           <div className={styles.conceptBox}>
             <h4 className={styles.conceptTitle}>Key Concept: Updating Widget Properties</h4>
             <p>
@@ -519,13 +475,9 @@ mainloop()`}</code>
             <pre className={styles.codeBlock}>
               <code>{`label['text'] = 'New text'
 button['bg'] = 'red'
-entry.delete(0, END)  # Clear the entry`}</code>
+entry.delete(0, END)`}</code>
             </pre>
-            <p>
-              When you change a property, the GUI updates automatically - you don't need to call anything special.
-            </p>
           </div>
-
           <div className={styles.codeExample}>
             <h4 className={styles.codeTitle}>
               <Code className={styles.codeIcon} />
@@ -534,13 +486,11 @@ entry.delete(0, END)  # Clear the entry`}</code>
             <pre className={styles.codeBlock}>
               <code>{`from tkinter import *
 
-# Game state (global variables)
 numberShares = 0
 account = 10000
 sharePrice = 97
 
 def update():
-    """Updates all displays to reflect current state"""
     shares['text'] = f'You own {numberShares} shares'
     cash['text'] = f'Cash balance: \${account:.0f}'
     totalWorth = account + numberShares * sharePrice
@@ -548,7 +498,6 @@ def update():
     price['text'] = f'\${sharePrice:.2f}/share'
 
 def doBuy():
-    """Buy 10 shares if player has enough money"""
     global account, numberShares
     if account >= 10 * sharePrice:
         numberShares += 10
@@ -556,18 +505,15 @@ def doBuy():
         update()
 
 def doSell():
-    """Sell 10 shares if player owns enough"""
     global account, numberShares
     if numberShares >= 10:
         numberShares -= 10
         account += 10 * sharePrice
         update()
 
-# Create window
 root = Tk()
 root.title('Stock Trading Game')
 
-# Status frame (shows player's position)
 status = Frame(root)
 status.pack()
 
@@ -580,7 +526,6 @@ worth.pack()
 price = Label(status, text='$97.00/share')
 price.pack()
 
-# Action frame (buy/sell buttons)
 action = Frame(root)
 action.pack()
 
@@ -595,74 +540,31 @@ buy.pack(side=LEFT)
 mainloop()`}</code>
             </pre>
           </div>
-
           <div className={styles.infoBox}>
             <h4 className={styles.infoTitle}>Breaking Down the Update Pattern</h4>
             <p>
               This program uses a common GUI pattern:
             </p>
             <ol>
-              <li><strong>State variables</strong> (<code className={styles.inlineCode}>numberShares</code>, 
+              <li><strong>State variables</strong> (<code className={styles.inlineCode}>numberShares</code>,
                   <code className={styles.inlineCode}>account</code>) store the program's data</li>
-              <li><strong>Display widgets</strong> (<code className={styles.inlineCode}>shares</code>, 
+              <li><strong>Display widgets</strong> (<code className={styles.inlineCode}>shares</code>,
                   <code className={styles.inlineCode}>cash</code>) show the data to the user</li>
-              <li><strong>Action functions</strong> (<code className={styles.inlineCode}>doBuy</code>, 
+              <li><strong>Action functions</strong> (<code className={styles.inlineCode}>doBuy</code>,
                   <code className={styles.inlineCode}>doSell</code>) modify the state</li>
-              <li><strong>Update function</strong> (<code className={styles.inlineCode}>update</code>) 
+              <li><strong>Update function</strong> (<code className={styles.inlineCode}>update</code>)
                   refreshes all displays to match the current state</li>
             </ol>
           </div>
-
           <div className={styles.warningBox}>
             <h4 className={styles.warningTitle}>Global Variables in GUI Programs</h4>
             <p>
-              In the <code className={styles.inlineCode}>doBuy()</code> and <code className={styles.inlineCode}>doSell()</code> 
-              functions, we use <code className={styles.inlineCode}>global account, numberShares</code>. This tells 
+              In the <code className={styles.inlineCode}>doBuy()</code> and <code className={styles.inlineCode}>doSell()</code>
+              functions, we use <code className={styles.inlineCode}>global account, numberShares</code>. This tells
               Python we want to modify the global variables, not create local ones with the same names.
             </p>
             <p>
-              We DON'T need global for the widget variables (<code className={styles.inlineCode}>shares</code>, 
-              <code className={styles.inlineCode}>cash</code>) because we're not reassigning them - we're just 
-              changing their properties with <code className={styles.inlineCode}>shares['text']</code>.
-            </p>
-          </div>
-
-          <div className={styles.codeExample}>
-            <h4 className={styles.codeTitle}>
-              <Code className={styles.codeIcon} />
-              Adding the doBuy and doSell Functions
-            </h4>
-            <pre className={styles.codeBlock}>
-              <code>{`def doBuy():
-    global account, numberShares
-    # Check if player has enough money for 10 shares
-    if account >= 10 * sharePrice:
-        numberShares += 10
-        account -= 10 * sharePrice
-        update()
-
-def doSell():
-    global account, numberShares
-    # Check if player owns at least 10 shares
-    if numberShares >= 10:
-        numberShares -= 10
-        account += 10 * sharePrice
-        update()`}</code>
-            </pre>
-          </div>
-
-          <div className={styles.conceptBox}>
-            <h4 className={styles.conceptTitle}>Exercise: What Happens Without Checks?</h4>
-            <p>
-              What would happen if we removed the <code className={styles.inlineCode}>if</code> statements?
-            </p>
-            <ul>
-              <li>In <code className={styles.inlineCode}>doBuy()</code>: Account could go negative (buying on credit!)</li>
-              <li>In <code className={styles.inlineCode}>doSell()</code>: Could sell shares the player doesn't own (short selling!)</li>
-            </ul>
-            <p>
-              These checks ensure the player follows the game rules. In real applications, validation like this 
-              prevents bugs and maintains data integrity.
+              We don't need global for the widget variables because we're just modifying their properties.
             </p>
           </div>
         </div>
@@ -675,11 +577,9 @@ def doSell():
       content: (
         <div className={styles.lessonContent}>
           <p>
-            So far, our GUIs only respond to direct user actions (button clicks). But what if we want something 
-            to happen automatically over time? The <code className={styles.inlineCode}>after()</code> method lets 
+            The <code className={styles.inlineCode}>after()</code> method lets
             us schedule functions to run after a delay.
           </p>
-
           <div className={styles.codeExample}>
             <h4 className={styles.codeTitle}>
               <Code className={styles.codeIcon} />
@@ -693,32 +593,24 @@ def say_hello():
 
 root = Tk()
 
-# Call say_hello() after 2000 milliseconds (2 seconds)
 root.after(2000, say_hello)
 
 mainloop()`}</code>
             </pre>
           </div>
-
           <div className={styles.conceptBox}>
             <h4 className={styles.conceptTitle}>after() Syntax</h4>
             <pre className={styles.codeBlock}>
               <code>{`widget.after(delay_milliseconds, function_to_call)
-
-# Or with a widget method:
-root.after(2000, fn)      # Call fn after 2 seconds
-label.after(500, fn)       # Call fn after 0.5 seconds`}</code>
+root.after(2000, fn)
+label.after(500, fn)`}</code>
             </pre>
-            <p>
-              <strong>Important:</strong> Delay is in <strong>milliseconds</strong>, not seconds!
-            </p>
             <ul>
               <li>1000 milliseconds = 1 second</li>
               <li>500 milliseconds = 0.5 seconds</li>
               <li>5000 milliseconds = 5 seconds</li>
             </ul>
           </div>
-
           <div className={styles.codeExample}>
             <h4 className={styles.codeTitle}>
               <Code className={styles.codeIcon} />
@@ -741,44 +633,19 @@ def update():
 
 def changePrice():
     global sharePrice
-    # Change price randomly: -$2 to +$2
     sharePrice += random.random() * 4 - 2
     update()
-    # Schedule the next price change in 2 seconds
     root.after(2000, changePrice)
 
-# ... rest of the code (doBuy, doSell, etc.) ...
-
-root = Tk()
-# ... create all widgets ...
-
-# Start the price changes
-changePrice()
-
-mainloop()`}</code>
+root = Tk()`}</code>
             </pre>
           </div>
-
           <div className={styles.infoBox}>
             <h4 className={styles.infoTitle}>Understanding the Recursive Pattern</h4>
-            <p>
-              Look at the <code className={styles.inlineCode}>changePrice()</code> function. At the end, 
-              it schedules <em>itself</em> to run again after 2 seconds:
-            </p>
             <pre className={styles.codeBlock}>
               <code>{`root.after(2000, changePrice)`}</code>
             </pre>
-            <p>
-              This creates a repeating timer:
-            </p>
-            <ol>
-              <li>changePrice() runs, changes the price, updates display</li>
-              <li>It schedules itself to run again in 2 seconds</li>
-              <li>2 seconds later, it runs again (step 1)</li>
-              <li>This continues indefinitely</li>
-            </ol>
           </div>
-
           <div className={styles.codeExample}>
             <h4 className={styles.codeTitle}>
               <Code className={styles.codeIcon} />
@@ -842,65 +709,10 @@ sell.pack(side=LEFT)
 buy = Button(action, text='buy', command=doBuy)
 buy.pack(side=LEFT)
 
-# Start price changes
 changePrice()
 
 mainloop()`}</code>
             </pre>
-          </div>
-
-          <div className={styles.warningBox}>
-            <h4 className={styles.warningTitle}>Important Notes About after()</h4>
-            <ul>
-              <li>
-                <strong>The event loop must be running:</strong> <code className={styles.inlineCode}>after()</code> 
-                only works if <code className={styles.inlineCode}>mainloop()</code> has been called. 
-                The event loop is what checks "Is it time to call this function yet?"
-              </li>
-              <li>
-                <strong>It's not exact timing:</strong> If you schedule a function for 2000ms, it will run 
-                <em>at least</em> 2000ms later, possibly slightly more if other code is running.
-              </li>
-              <li>
-                <strong>To stop scheduled calls:</strong> Save the return value of <code className={styles.inlineCode}>after()</code> 
-                and use <code className={styles.inlineCode}>after_cancel(id)</code> to cancel it.
-              </li>
-            </ul>
-          </div>
-
-          <div className={styles.codeExample}>
-            <h4 className={styles.codeTitle}>
-              <Code className={styles.codeIcon} />
-              Bonus: Canceling Scheduled Actions
-            </h4>
-            <pre className={styles.codeBlock}>
-              <code>{`def changePrice():
-    global sharePrice, timer_id
-    sharePrice += random.random() * 4 - 2
-    update()
-    # Save the timer ID so we can cancel it later
-    timer_id = root.after(2000, changePrice)
-
-def stopChanges():
-    global timer_id
-    if timer_id:
-        root.after_cancel(timer_id)
-        print('Price changes stopped')
-
-# Add a stop button
-Button(root, text='Stop Price Changes', command=stopChanges).pack()`}</code>
-            </pre>
-          </div>
-
-          <div className={styles.conceptBox}>
-            <h4 className={styles.conceptTitle}>Common Uses for after()</h4>
-            <ul>
-              <li><strong>Animations:</strong> Moving objects smoothly across the screen</li>
-              <li><strong>Auto-updates:</strong> Refreshing data from a file or network</li>
-              <li><strong>Game loops:</strong> Running game logic at regular intervals</li>
-              <li><strong>Countdowns:</strong> Timers that count down and trigger actions</li>
-              <li><strong>Delayed validation:</strong> Waiting for the user to stop typing before checking input</li>
-            </ul>
           </div>
         </div>
       )
@@ -912,19 +724,17 @@ Button(root, text='Stop Price Changes', command=stopChanges).pack()`}</code>
       content: (
         <div className={styles.lessonContent}>
           <p>
-            GUI programs often need to share data between different functions (event handlers). This brings up 
-            the question of <strong>variable scope</strong> - which variables can be accessed from where?
+            GUI programs often need to share data between different functions (event handlers). This brings up
+            the question of <strong>variable scope</strong>.
           </p>
-
           <div className={styles.conceptBox}>
             <h4 className={styles.conceptTitle}>Three Types of Variable Scope in GUI Programs</h4>
             <ol>
-              <li><strong>Local variables</strong> - Defined inside a function, only accessible within that function</li>
-              <li><strong>Global variables</strong> - Defined at the module level, accessible everywhere</li>
-              <li><strong>Widget variables</strong> - References to GUI widgets, behave like global variables</li>
+              <li>Local variables</li>
+              <li>Global variables</li>
+              <li>Widget variables</li>
             </ol>
           </div>
-
           <div className={styles.codeExample}>
             <h4 className={styles.codeTitle}>
               <Code className={styles.codeIcon} />
@@ -941,34 +751,20 @@ def decade(start):
     for year in range(start, start+10):
         nextYear(year)
 
-# Main program
 year = 1832
 nextYear(year)
 print()
 decade(1492)
 print()
-print(year)  # What will this print?`}</code>
+print(year)`}</code>
             </pre>
           </div>
-
           <div className={styles.infoBox}>
             <h4 className={styles.infoTitle}>What Happens?</h4>
             <p>
-              This program uses three completely separate variables, all named <code className={styles.inlineCode}>year</code>:
-            </p>
-            <ol>
-              <li>The <code className={styles.inlineCode}>year</code> in the main program (value 1832)</li>
-              <li>The <code className={styles.inlineCode}>year</code> parameter in <code className={styles.inlineCode}>nextYear()</code></li>
-              <li>The <code className={styles.inlineCode}>year</code> in the <code className={styles.inlineCode}>decade()</code> loop</li>
-            </ol>
-            <p>
-              When <code className={styles.inlineCode}>nextYear()</code> increments <code className={styles.inlineCode}>year</code>, 
-              it only affects its own local copy. The original <code className={styles.inlineCode}>year</code> in 
-              the main program stays 1832. That's why the final <code className={styles.inlineCode}>print(year)</code> 
-              outputs 1833 (from the <code className={styles.inlineCode}>nextYear()</code> call), not anything else.
+              The local variable changes do not affect the outer variable unless you reassign with <code className={styles.inlineCode}>global</code>.
             </p>
           </div>
-
           <div className={styles.codeExample}>
             <h4 className={styles.codeTitle}>
               <Code className={styles.codeIcon} />
@@ -982,37 +778,20 @@ def nextYear(year):
     print('***', year, '***')
 
 def makeItBeNextYear():
-    global year  # NOW we're modifying the module-level variable
+    global year
     year += 1
 
 year = 1832
 nextYear(year)
-print(year)  # Still 1832
-
+print(year)
 makeItBeNextYear()
-print(year)  # Now it's 1833!`}</code>
+print(year)`}</code>
             </pre>
           </div>
-
           <div className={styles.warningBox}>
             <h4 className={styles.warningTitle}>When to Use global</h4>
-            <p>
-              You only need <code className={styles.inlineCode}>global</code> when you want to <strong>reassign</strong> 
-              a module-level variable. You DON'T need it for:
-            </p>
-            <ul>
-              <li><strong>Reading</strong> a global variable's value</li>
-              <li><strong>Calling methods</strong> on a global object (like <code className={styles.inlineCode}>list.append()</code>)</li>
-              <li><strong>Modifying properties</strong> of a widget (like <code className={styles.inlineCode}>label['text'] = ...</code>)</li>
-            </ul>
-            <p>
-              You DO need it for:
-            </p>
-            <ul>
-              <li><strong>Reassigning</strong> a variable (like <code className={styles.inlineCode}>year = year + 1</code> or <code className={styles.inlineCode}>year += 1</code>)</li>
-            </ul>
+            <p>Use it only when reassigning a module-level variable.</p>
           </div>
-
           <div className={styles.codeExample}>
             <h4 className={styles.codeTitle}>
               <Code className={styles.codeIcon} />
@@ -1021,24 +800,20 @@ print(year)  # Now it's 1833!`}</code>
             <pre className={styles.codeBlock}>
               <code>{`from tkinter import *
 
-# Game state variables
 account = 10000
 numberShares = 0
 sharePrice = 97
 
-# Widget variables
 shares_label = None
 cash_label = None
 
 def doBuy():
-    global account, numberShares  # NEED global - we're reassigning these
-    # shares_label is NOT in global - we're just modifying its properties
-    
+    global account, numberShares
     if account >= 10 * sharePrice:
-        account = account - 10 * sharePrice  # Reassignment!
-        numberShares = numberShares + 10     # Reassignment!
-        shares_label['text'] = f'Shares: {numberShares}'  # Just modifying a property
-        cash_label['text'] = f'Cash: \${account:.0f}'     # Just modifying a property
+        account = account - 10 * sharePrice
+        numberShares = numberShares + 10
+        shares_label['text'] = f'Shares: {numberShares}'
+        cash_label['text'] = f'Cash: \${account:.0f}'
 
 root = Tk()
 shares_label = Label(root)
@@ -1051,51 +826,12 @@ Button(root, text='Buy', command=doBuy).pack()
 mainloop()`}</code>
             </pre>
           </div>
-
           <div className={styles.conceptBox}>
             <h4 className={styles.conceptTitle}>Summary: Global Variables in GUI Programs</h4>
-            <p>
-              In the stock trading game, we have global variables because:
-            </p>
             <ul>
-              <li><strong>The widgets</strong> (<code className={styles.inlineCode}>shares</code>, 
-                  <code className={styles.inlineCode}>cash</code>) are created in the main program</li>
-              <li><strong>The event handlers</strong> (<code className={styles.inlineCode}>doBuy</code>, 
-                  <code className={styles.inlineCode}>doSell</code>) need to access these widgets</li>
-              <li><strong>Game state</strong> (<code className={styles.inlineCode}>account</code>, 
-                  <code className={styles.inlineCode}>numberShares</code>) persists across multiple function calls</li>
+              <li>Use global for reassignment</li>
+              <li>Modifying widget properties does not require global</li>
             </ul>
-            <p>
-              The <code className={styles.inlineCode}>global</code> statement only applies when we're 
-              <strong>reassigning</strong> the variable (changing what it refers to). Modifying widget properties 
-              doesn't require <code className={styles.inlineCode}>global</code> because we're not changing what 
-              the variable refers to - we're changing a property of the object it refers to.
-            </p>
-          </div>
-
-          <div className={styles.infoBox}>
-            <h4 className={styles.infoTitle}>An Alternative: Using Dictionaries</h4>
-            <p>
-              Some programmers avoid global variables by storing all game state in a dictionary:
-            </p>
-            <pre className={styles.codeBlock}>
-              <code>{`# Instead of global variables:
-game_state = {
-    'account': 10000,
-    'shares': 0,
-    'price': 97
-}
-
-def doBuy():
-    # No global needed - we're not reassigning game_state
-    if game_state['account'] >= 10 * game_state['price']:
-        game_state['account'] -= 10 * game_state['price']
-        game_state['shares'] += 10`}</code>
-            </pre>
-            <p>
-              This works because we're modifying the <em>contents</em> of the dictionary, not reassigning 
-              the <code className={styles.inlineCode}>game_state</code> variable itself.
-            </p>
           </div>
         </div>
       )
@@ -1109,19 +845,27 @@ def doBuy():
       difficulty: 'beginner',
       starter: `from tkinter import *
 
-# Your code here
+root = Tk()
+root.title('Hello World')
 
-`,
+label = Label(root, text='Hello, World!')
+label.pack()
+
+def say_hello():
+    pass
+
+button = Button(root, text='Click Me', command=say_hello)
+button.pack()
+
+mainloop()`,
       solution: `from tkinter import *
 
 root = Tk()
 root.title('Hello World')
 
-# Create a label
 label = Label(root, text='Hello, World!')
 label.pack()
 
-# Create a button
 def say_hello():
     print('Button clicked!')
 
@@ -1136,24 +880,34 @@ mainloop()`
       difficulty: 'beginner',
       starter: `from tkinter import *
 
-# Your code here
+root = Tk()
+root.title('Name Greeter')
 
-`,
+Label(root, text='Enter your name:').pack()
+name_entry = Entry(root)
+name_entry.pack()
+
+greeting = Label(root, text='')
+greeting.pack()
+
+def greet():
+    pass
+
+Button(root, text='Greet Me', command=greet).pack()
+
+mainloop()`,
       solution: `from tkinter import *
 
 root = Tk()
 root.title('Name Greeter')
 
-# Entry for name
 Label(root, text='Enter your name:').pack()
 name_entry = Entry(root)
 name_entry.pack()
 
-# Label for greeting
 greeting = Label(root, text='')
 greeting.pack()
 
-# Button to greet
 def greet():
     name = name_entry.get()
     if name:
@@ -1173,12 +927,34 @@ mainloop()`
 
 count = 0
 
-# Your code here
+def update_display():
+    pass
 
-`,
+def increment():
+    pass
+
+def decrement():
+    pass
+
+root = Tk()
+root.title('Counter')
+
+label = Label(root, text=f'Count: {count}', font=('Arial', 24))
+label.pack()
+
+frame = Frame(root)
+frame.pack()
+
+Button(frame, text='-', command=decrement, width=10).pack(side=LEFT)
+Button(frame, text='+', command=increment, width=10).pack(side=LEFT)
+
+mainloop()`,
       solution: `from tkinter import *
 
 count = 0
+
+def update_display():
+    label['text'] = f'Count: {count}'
 
 def increment():
     global count
@@ -1189,9 +965,6 @@ def decrement():
     global count
     count -= 1
     update_display()
-
-def update_display():
-    label['text'] = f'Count: {count}'
 
 root = Tk()
 root.title('Counter')
@@ -1213,9 +986,33 @@ mainloop()`
       difficulty: 'intermediate',
       starter: `from tkinter import *
 
-# Your code here
+def celsius_to_fahrenheit():
+    pass
 
-`,
+def fahrenheit_to_celsius():
+    pass
+
+root = Tk()
+root.title('Temperature Converter')
+
+c_frame = Frame(root)
+c_frame.pack()
+Label(c_frame, text='Celsius:').pack(side=LEFT)
+celsius_entry = Entry(c_frame, width=15)
+celsius_entry.pack(side=LEFT)
+Button(c_frame, text='→ F', command=celsius_to_fahrenheit).pack(side=LEFT)
+
+f_frame = Frame(root)
+f_frame.pack()
+Label(f_frame, text='Fahrenheit:').pack(side=LEFT)
+fahrenheit_entry = Entry(f_frame, width=15)
+fahrenheit_entry.pack(side=LEFT)
+Button(f_frame, text='→ C', command=fahrenheit_to_celsius).pack(side=LEFT)
+
+result = Label(root, text='Enter a temperature and click a button', fg='blue')
+result.pack()
+
+mainloop()`,
       solution: `from tkinter import *
 
 def celsius_to_fahrenheit():
@@ -1241,7 +1038,6 @@ def fahrenheit_to_celsius():
 root = Tk()
 root.title('Temperature Converter')
 
-# Celsius frame
 c_frame = Frame(root)
 c_frame.pack()
 Label(c_frame, text='Celsius:').pack(side=LEFT)
@@ -1249,7 +1045,6 @@ celsius_entry = Entry(c_frame, width=15)
 celsius_entry.pack(side=LEFT)
 Button(c_frame, text='→ F', command=celsius_to_fahrenheit).pack(side=LEFT)
 
-# Fahrenheit frame
 f_frame = Frame(root)
 f_frame.pack()
 Label(f_frame, text='Fahrenheit:').pack(side=LEFT)
@@ -1257,7 +1052,6 @@ fahrenheit_entry = Entry(f_frame, width=15)
 fahrenheit_entry.pack(side=LEFT)
 Button(f_frame, text='→ C', command=fahrenheit_to_celsius).pack(side=LEFT)
 
-# Result label
 result = Label(root, text='Enter a temperature and click a button', fg='blue')
 result.pack()
 
@@ -1269,16 +1063,42 @@ mainloop()`
       difficulty: 'intermediate',
       starter: `from tkinter import *
 
-# Your code here
+def calculate(operation):
+    pass
 
-`,
+root = Tk()
+root.title('Calculator')
+
+frame1 = Frame(root)
+frame1.pack()
+Label(frame1, text='Number 1:').pack(side=LEFT)
+entry1 = Entry(frame1, width=15)
+entry1.pack(side=LEFT)
+
+frame2 = Frame(root)
+frame2.pack()
+Label(frame2, text='Number 2:').pack(side=LEFT)
+entry2 = Entry(frame2, width=15)
+entry2.pack(side=LEFT)
+
+button_frame = Frame(root)
+button_frame.pack()
+
+Button(button_frame, text='+', command=lambda: calculate('add'), width=5).pack(side=LEFT)
+Button(button_frame, text='-', command=lambda: calculate('subtract'), width=5).pack(side=LEFT)
+Button(button_frame, text='×', command=lambda: calculate('multiply'), width=5).pack(side=LEFT)
+Button(button_frame, text='÷', command=lambda: calculate('divide'), width=5).pack(side=LEFT)
+
+result_label = Label(root, text='Enter numbers and select operation', font=('Arial', 12))
+result_label.pack()
+
+mainloop()`,
       solution: `from tkinter import *
 
 def calculate(operation):
     try:
         num1 = float(entry1.get())
         num2 = float(entry2.get())
-        
         if operation == 'add':
             result = num1 + num2
             op_symbol = '+'
@@ -1294,7 +1114,6 @@ def calculate(operation):
                 return
             result = num1 / num2
             op_symbol = '÷'
-        
         result_label['text'] = f'{num1} {op_symbol} {num2} = {result}'
     except ValueError:
         result_label['text'] = 'Error: Invalid input'
@@ -1302,21 +1121,18 @@ def calculate(operation):
 root = Tk()
 root.title('Calculator')
 
-# Number 1
 frame1 = Frame(root)
 frame1.pack()
 Label(frame1, text='Number 1:').pack(side=LEFT)
 entry1 = Entry(frame1, width=15)
 entry1.pack(side=LEFT)
 
-# Number 2
 frame2 = Frame(root)
 frame2.pack()
 Label(frame2, text='Number 2:').pack(side=LEFT)
 entry2 = Entry(frame2, width=15)
 entry2.pack(side=LEFT)
 
-# Buttons
 button_frame = Frame(root)
 button_frame.pack()
 
@@ -1325,7 +1141,6 @@ Button(button_frame, text='-', command=lambda: calculate('subtract'), width=5).p
 Button(button_frame, text='×', command=lambda: calculate('multiply'), width=5).pack(side=LEFT)
 Button(button_frame, text='÷', command=lambda: calculate('divide'), width=5).pack(side=LEFT)
 
-# Result
 result_label = Label(root, text='Enter numbers and select operation', font=('Arial', 12))
 result_label.pack()
 
@@ -1338,16 +1153,8 @@ mainloop()`
       starter: `from tkinter import *
 from datetime import datetime
 
-# Your code here
-
-`,
-      solution: `from tkinter import *
-from datetime import datetime
-
 def update_time():
-    current_time = datetime.now().strftime('%H:%M:%S')
-    time_label['text'] = current_time
-    root.after(1000, update_time)  # Update every 1000ms (1 second)
+    pass
 
 root = Tk()
 root.title('Digital Clock')
@@ -1355,7 +1162,23 @@ root.title('Digital Clock')
 time_label = Label(root, font=('Arial', 48), fg='blue')
 time_label.pack(padx=20, pady=20)
 
-# Start the clock
+update_time()
+
+mainloop()`,
+      solution: `from tkinter import *
+from datetime import datetime
+
+def update_time():
+    current_time = datetime.now().strftime('%H:%M:%S')
+    time_label['text'] = current_time
+    root.after(1000, update_time)
+
+root = Tk()
+root.title('Digital Clock')
+
+time_label = Label(root, font=('Arial', 48), fg='blue')
+time_label.pack(padx=20, pady=20)
+
 update_time()
 
 mainloop()`
@@ -1367,28 +1190,11 @@ mainloop()`
       starter: `from tkinter import *
 import random
 
-# Your code here
-
-`,
-      solution: `from tkinter import *
-import random
-
 def change_color():
-    # Generate random RGB values
-    r = random.randint(0, 255)
-    g = random.randint(0, 255)
-    b = random.randint(0, 255)
-    
-    # Convert to hex color format
-    color = f'#{r:02x}{g:02x}{b:02x}'
-    
-    root['bg'] = color
-    label['bg'] = color
-    label['text'] = f'Color: {color}'
+    pass
 
 def auto_change():
-    change_color()
-    root.after(2000, auto_change)  # Change every 2 seconds
+    pass
 
 root = Tk()
 root.title('Color Changer')
@@ -1399,7 +1205,34 @@ label.pack()
 
 Button(root, text='Change Color Now', command=change_color).pack()
 
-# Start auto-changing
+auto_change()
+
+mainloop()`,
+      solution: `from tkinter import *
+import random
+
+def change_color():
+    r = random.randint(0, 255)
+    g = random.randint(0, 255)
+    b = random.randint(0, 255)
+    color = f'#{r:02x}{g:02x}{b:02x}'
+    root['bg'] = color
+    label['bg'] = color
+    label['text'] = f'Color: {color}'
+
+def auto_change():
+    change_color()
+    root.after(2000, auto_change)
+
+root = Tk()
+root.title('Color Changer')
+
+label = Label(root, text='Click button or wait for auto-change', 
+              font=('Arial', 14), padx=20, pady=20)
+label.pack()
+
+Button(root, text='Change Color Now', command=change_color).pack()
+
 auto_change()
 
 mainloop()`
@@ -1411,9 +1244,38 @@ mainloop()`
       starter: `from tkinter import *
 import random
 
-# Your code here
+def new_game():
+    pass
 
-`,
+def check_guess():
+    pass
+
+target = random.randint(1, 100)
+attempts = 0
+
+root = Tk()
+root.title('Number Guessing Game')
+
+Label(root, text='Guess the Number!', font=('Arial', 16, 'bold')).pack(pady=10)
+attempts_label = Label(root, text='Attempts: 0', font=('Arial', 12))
+attempts_label.pack()
+
+entry_frame = Frame(root)
+entry_frame.pack(pady=10)
+Label(entry_frame, text='Your guess:').pack(side=LEFT)
+guess_entry = Entry(entry_frame, width=10)
+guess_entry.pack(side=LEFT)
+
+button_frame = Frame(root)
+button_frame.pack(pady=5)
+Button(button_frame, text='Submit Guess', command=check_guess, width=15).pack(side=LEFT, padx=5)
+Button(button_frame, text='New Game', command=new_game, width=15).pack(side=LEFT, padx=5)
+
+feedback = Label(root, text='Guess a number between 1 and 100', 
+                font=('Arial', 12), wraplength=300, pady=10)
+feedback.pack()
+
+mainloop()`,
       solution: `from tkinter import *
 import random
 
@@ -1431,7 +1293,6 @@ def check_guess():
         guess = int(guess_entry.get())
         attempts += 1
         attempts_label['text'] = f'Attempts: {attempts}'
-        
         if guess < target:
             feedback['text'] = f'{guess} is too low! Try again.'
             feedback['fg'] = 'blue'
@@ -1441,40 +1302,32 @@ def check_guess():
         else:
             feedback['text'] = f'Correct! You won in {attempts} attempts!'
             feedback['fg'] = 'green'
-        
         guess_entry.delete(0, END)
     except ValueError:
         feedback['text'] = 'Please enter a valid number'
         feedback['fg'] = 'red'
 
-# Initialize game
 target = random.randint(1, 100)
 attempts = 0
 
 root = Tk()
 root.title('Number Guessing Game')
 
-# Instructions
 Label(root, text='Guess the Number!', font=('Arial', 16, 'bold')).pack(pady=10)
-
-# Attempts counter
 attempts_label = Label(root, text='Attempts: 0', font=('Arial', 12))
 attempts_label.pack()
 
-# Entry frame
 entry_frame = Frame(root)
 entry_frame.pack(pady=10)
 Label(entry_frame, text='Your guess:').pack(side=LEFT)
 guess_entry = Entry(entry_frame, width=10)
 guess_entry.pack(side=LEFT)
 
-# Buttons
 button_frame = Frame(root)
 button_frame.pack(pady=5)
 Button(button_frame, text='Submit Guess', command=check_guess, width=15).pack(side=LEFT, padx=5)
 Button(button_frame, text='New Game', command=new_game, width=15).pack(side=LEFT, padx=5)
 
-# Feedback
 feedback = Label(root, text='Guess a number between 1 and 100', 
                 font=('Arial', 12), wraplength=300, pady=10)
 feedback.pack()
@@ -1489,9 +1342,36 @@ mainloop()`
 
 tasks = []
 
-# Your code here
+def add_task():
+    pass
 
-`,
+def toggle_task(index):
+    pass
+
+def delete_task(index):
+    pass
+
+def update_display():
+    pass
+
+root = Tk()
+root.title('Todo List')
+
+add_frame = Frame(root)
+add_frame.pack(pady=10)
+
+Label(add_frame, text='New Task:').pack(side=LEFT)
+task_entry = Entry(add_frame, width=30)
+task_entry.pack(side=LEFT, padx=5)
+Button(add_frame, text='Add', command=add_task).pack(side=LEFT)
+
+count_label = Label(root, text='Total tasks: 0 | Completed: 0')
+count_label.pack()
+
+tasks_frame = Frame(root)
+tasks_frame.pack(fill='both', expand=True, padx=10, pady=10)
+
+mainloop()`,
       solution: `from tkinter import *
 
 tasks = []
@@ -1512,39 +1392,23 @@ def delete_task(index):
     update_display()
 
 def update_display():
-    # Clear existing task widgets
     for widget in tasks_frame.winfo_children():
         widget.destroy()
-    
-    # Display all tasks
     for i, task in enumerate(tasks):
         frame = Frame(tasks_frame, relief='raised', borderwidth=1)
         frame.pack(fill='x', padx=5, pady=2)
-        
-        # Checkbox (toggle done status)
         check_text = '✓' if task['done'] else '○'
-        check_button = Button(frame, text=check_text, width=2,
-                            command=lambda idx=i: toggle_task(idx))
-        check_button.pack(side=LEFT)
-        
-        # Task text
-        text_style = {'font': ('Arial', 12)}
+        Button(frame, text=check_text, width=2, command=lambda idx=i: toggle_task(idx)).pack(side=LEFT)
+        style = {'font': ('Arial', 12)}
         if task['done']:
-            text_style['fg'] = 'gray'
-        label = Label(frame, text=task['text'], **text_style)
-        label.pack(side=LEFT, padx=10)
-        
-        # Delete button
-        delete_button = Button(frame, text='X', fg='red',
-                              command=lambda idx=i: delete_task(idx))
-        delete_button.pack(side=RIGHT)
-    
+            style['fg'] = 'gray'
+        Label(frame, text=task['text'], **style).pack(side=LEFT, padx=10)
+        Button(frame, text='X', fg='red', command=lambda idx=i: delete_task(idx)).pack(side=RIGHT)
     count_label['text'] = f'Total tasks: {len(tasks)} | Completed: {sum(1 for t in tasks if t["done"])}'
 
 root = Tk()
 root.title('Todo List')
 
-# Add task section
 add_frame = Frame(root)
 add_frame.pack(pady=10)
 
@@ -1553,11 +1417,9 @@ task_entry = Entry(add_frame, width=30)
 task_entry.pack(side=LEFT, padx=5)
 Button(add_frame, text='Add', command=add_task).pack(side=LEFT)
 
-# Task count
 count_label = Label(root, text='Total tasks: 0 | Completed: 0')
 count_label.pack()
 
-# Tasks display area
 tasks_frame = Frame(root)
 tasks_frame.pack(fill='both', expand=True, padx=10, pady=10)
 
@@ -1569,38 +1431,12 @@ mainloop()`
       difficulty: 'advanced',
       starter: `from tkinter import *
 
-# Ball position and velocity
-x, y = 50, 50
-dx, dy = 3, 2
-
-# Your code here
-
-`,
-      solution: `from tkinter import *
-
-# Ball properties
 x, y = 50, 50
 dx, dy = 3, 2
 ball_size = 20
 
 def move_ball():
-    global x, y, dx, dy
-    
-    # Move the ball
-    x += dx
-    y += dy
-    
-    # Bounce off walls
-    if x <= 0 or x >= 380:
-        dx = -dx
-    if y <= 0 or y >= 380:
-        dy = -dy
-    
-    # Update ball position on canvas
-    canvas.coords(ball, x, y, x + ball_size, y + ball_size)
-    
-    # Schedule next move
-    root.after(16, move_ball)  # ~60 FPS (16ms per frame)
+    pass
 
 root = Tk()
 root.title('Bouncing Ball')
@@ -1608,10 +1444,36 @@ root.title('Bouncing Ball')
 canvas = Canvas(root, width=400, height=400, bg='white')
 canvas.pack()
 
-# Create the ball
 ball = canvas.create_oval(x, y, x + ball_size, y + ball_size, fill='red')
 
-# Start animation
+move_ball()
+
+mainloop()`,
+      solution: `from tkinter import *
+
+x, y = 50, 50
+dx, dy = 3, 2
+ball_size = 20
+
+def move_ball():
+    global x, y, dx, dy
+    x += dx
+    y += dy
+    if x <= 0 or x >= 380:
+        dx = -dx
+    if y <= 0 or y >= 380:
+        dy = -dy
+    canvas.coords(ball, x, y, x + ball_size, y + ball_size)
+    root.after(16, move_ball)
+
+root = Tk()
+root.title('Bouncing Ball')
+
+canvas = Canvas(root, width=400, height=400, bg='white')
+canvas.pack()
+
+ball = canvas.create_oval(x, y, x + ball_size, y + ball_size, fill='red')
+
 move_ball()
 
 mainloop()`
@@ -1639,7 +1501,6 @@ mainloop()`
                 </span>
               </div>
               <p className={styles.exerciseDescription}>{exercise.description}</p>
-              
               <button
                 onClick={() => toggleSection(`exercise-${title}-${index}`)}
                 className={styles.expandButton}
@@ -1647,7 +1508,6 @@ mainloop()`
                 {expandedSections[`exercise-${title}-${index}`] ? 'Hide' : 'Show'} Starter Code
                 {expandedSections[`exercise-${title}-${index}`] ? <ChevronDown size={16} /> : <ChevronRight size={16} />}
               </button>
-
               {expandedSections[`exercise-${title}-${index}`] && (
                 <div className={styles.codeSection}>
                   <div className={styles.codeExample}>
@@ -1659,14 +1519,12 @@ mainloop()`
                       <code>{exercise.starter}</code>
                     </pre>
                   </div>
-
                   <button
                     onClick={() => toggleSection(`solution-${title}-${index}`)}
                     className={styles.solutionButton}
                   >
                     {expandedSections[`solution-${title}-${index}`] ? 'Hide' : 'Show'} Solution
                   </button>
-
                   {expandedSections[`solution-${title}-${index}`] && (
                     <div className={styles.codeExample}>
                       <h5 className={styles.codeTitle}>
@@ -1697,7 +1555,6 @@ mainloop()`
 
   return (
     <div className={styles.container}>
-      {/* Header */}
       <div className={styles.header}>
         <div className={styles.headerContent}>
           <h1 className={styles.title}>Unit 8: Graphical User Interfaces with tkinter</h1>
@@ -1707,7 +1564,6 @@ mainloop()`
         </div>
       </div>
 
-      {/* Tab Navigation */}
       <div className={styles.tabs}>
         <button
           className={`${styles.tab} ${activeTab === 'overview' ? styles.activeTab : ''}`}
@@ -1732,7 +1588,6 @@ mainloop()`
         </button>
       </div>
 
-      {/* Tab Content */}
       <div className={styles.content}>
         {activeTab === 'overview' && (
           <div className={styles.overviewContent}>
