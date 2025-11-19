@@ -108,6 +108,13 @@ const CoursesHome: React.FC = () => {
           path: '/teaching/csci133/unit8',
           status: 'available'
         },
+        {
+          id: 'unit9',
+          title: 'Unit 9: Object-Oriented Programming',
+          description: 'Understanding classes and objects, encapsulation, inheritance, and polymorphism to design robust software systems',
+          path: '/teaching/csci133/unit9',
+          status: 'available'
+        },
         // Add more units later
       ]
     }
