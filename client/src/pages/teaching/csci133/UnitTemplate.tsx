@@ -47,6 +47,16 @@ export interface UnitTemplateProps {
 
 const escapeTpl = (s?: string) => (s ?? '').replace(/\$\{/g, '\\${');
 
+const parseMarkdown = (text: string): React.ReactNode => {
+  const parts = text.split(/(\*\*.*?\*\*)/g);
+  return parts.map((part, index) => {
+    if (part.startsWith('**') && part.endsWith('**')) {
+      return <strong key={index}>{part.slice(2, -2)}</strong>;
+    }
+    return part;
+  });
+};
+
 const UnitTemplate: React.FC<UnitTemplateProps> = ({
   unitTitle,
   unitSubtitle,
@@ -98,18 +108,18 @@ const UnitTemplate: React.FC<UnitTemplateProps> = ({
           <div className={styles.tabContent}>
             <section className={styles.overviewSection}>
               <h2 className={styles.sectionTitle}>Unit Overview</h2>
-              {overview.intro && <p className={styles.progressDescription}>{overview.intro}</p>}
+              {overview.intro && <p className={styles.progressDescription}>{parseMarkdown(overview.intro)}</p>}
               <div className={styles.overviewGrid}>
                 <div className={styles.objectivesCard}>
                   <h3 className={styles.cardTitle}>Learning Objectives</h3>
                   <ul className={styles.objectivesList}>
-                    {overview.objectives.map((o, i) => <li key={i}>{o}</li>)}
+                    {overview.objectives.map((o, i) => <li key={i}>{parseMarkdown(o)}</li>)}
                   </ul>
                 </div>
                 <div className={styles.prerequisitesCard}>
                   <h3 className={styles.cardTitle}>Prerequisites</h3>
                   <ul className={styles.objectivesList}>
-                    {overview.prerequisites.map((p, i) => <li key={i}>{p}</li>)}
+                    {overview.prerequisites.map((p, i) => <li key={i}>{parseMarkdown(p)}</li>)}
                   </ul>
                 </div>
               </div>
@@ -119,7 +129,7 @@ const UnitTemplate: React.FC<UnitTemplateProps> = ({
                   <h3 className={styles.tipTitle}>{overview.whyTitle || 'Why This Unit Matters'}</h3>
                   {overview.whyBullets && (
                     <ul className={styles.conceptList}>
-                      {overview.whyBullets.map((b, i) => <li key={i}>{b}</li>)}
+                      {overview.whyBullets.map((b, i) => <li key={i}>{parseMarkdown(b)}</li>)}
                     </ul>
                   )}
                 </div>
@@ -136,7 +146,7 @@ const UnitTemplate: React.FC<UnitTemplateProps> = ({
                       <div className={styles.progressContent}>
                         <div className={styles.progressTitle}>{p.title}</div>
                         {p.description && (
-                          <p className={styles.progressDescription}>{p.description}</p>
+                          <p className={styles.progressDescription}>{parseMarkdown(p.description)}</p>
                         )}
                       </div>
                     </div>
@@ -170,12 +180,12 @@ const UnitTemplate: React.FC<UnitTemplateProps> = ({
                       <div className={styles.lessonContent}>
                         {lsn.body ?? (
                           <>
-                            {lsn.paragraphs?.map((p, i) => <p key={i}>{p}</p>)}
+                            {lsn.paragraphs?.map((p, i) => <p key={i}>{parseMarkdown(p)}</p>)}
                             {lsn.infos && (
                               <div className={styles.infoBox}>
                                 <h4 className={styles.infoTitle}>Info</h4>
                                 <ul className={styles.conceptList}>
-                                  {lsn.infos.map((x, i) => <li key={i}>{x}</li>)}
+                                  {lsn.infos.map((x, i) => <li key={i}>{parseMarkdown(x)}</li>)}
                                 </ul>
                               </div>
                             )}
@@ -183,7 +193,7 @@ const UnitTemplate: React.FC<UnitTemplateProps> = ({
                               <div className={styles.warningBox}>
                                 <h4 className={styles.warningTitle}>Heads up</h4>
                                 <ul className={styles.conceptList}>
-                                  {lsn.warnings.map((x, i) => <li key={i}>{x}</li>)}
+                                  {lsn.warnings.map((x, i) => <li key={i}>{parseMarkdown(x)}</li>)}
                                 </ul>
                               </div>
                             )}
@@ -191,7 +201,7 @@ const UnitTemplate: React.FC<UnitTemplateProps> = ({
                               <div className={styles.tipBox}>
                                 <h4 className={styles.tipTitle}>Tips</h4>
                                 <ul className={styles.conceptList}>
-                                  {lsn.tips.map((x, i) => <li key={i}>{x}</li>)}
+                                  {lsn.tips.map((x, i) => <li key={i}>{parseMarkdown(x)}</li>)}
                                 </ul>
                               </div>
                             )}
@@ -228,7 +238,7 @@ const UnitTemplate: React.FC<UnitTemplateProps> = ({
                       >
                         <div className={styles.lessonHeaderContent}>
                           <h3 className={styles.lessonTitle}>{ex.title}</h3>
-                          <p className={styles.lessonDescription}>{ex.description}</p>
+                          <p className={styles.lessonDescription}>{parseMarkdown(ex.description)}</p>
                         </div>
                         <span className={`${styles.difficultyBadge} ${styles[ex.difficulty]}`}>
                           {ex.difficulty}
