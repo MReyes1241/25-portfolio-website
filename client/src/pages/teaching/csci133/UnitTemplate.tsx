@@ -178,7 +178,23 @@ const UnitTemplate: React.FC<UnitTemplateProps> = ({
                   {open && (
                     <div className={styles.lessonBody}>
                       <div className={styles.lessonContent}>
-                        {lsn.body ?? (
+                        {lsn.body ? (
+                          typeof lsn.body === 'string' ? (
+                            lsn.body.split('\n\n').map((paragraph, i) => {
+                              if (paragraph.startsWith('### ')) {
+                                return <h3 key={i}>{parseMarkdown(paragraph.substring(4))}</h3>;
+                              } else if (paragraph.startsWith('## ')) {
+                                return <h2 key={i}>{parseMarkdown(paragraph.substring(3))}</h2>;
+                              } else if (paragraph.startsWith('# ')) {
+                                return <h1 key={i}>{parseMarkdown(paragraph.substring(2))}</h1>;
+                              } else {
+                                return <p key={i}>{parseMarkdown(paragraph)}</p>;
+                              }
+                            })
+                          ) : (
+                            lsn.body
+                          )
+                        ) : (
                           <>
                             {lsn.paragraphs?.map((p, i) => <p key={i}>{parseMarkdown(p)}</p>)}
                             {lsn.infos && (
