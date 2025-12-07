@@ -121,8 +121,14 @@ const CoursesHome: React.FC = () => {
           description: 'Explore cooperation and competition through game theory simulations. Build evolutionary models using the Prisoner\'s Dilemma',
           path: '/teaching/csci133/unit10',
           status: 'available'
+        },
+        {
+          id: 'unit11',
+          title: 'Unit 11: Final Project',
+          description: 'Integrate learned concepts to design and implement a comprehensive programming project',
+          path: '/teaching/csci133/unit11',
+          status: 'available'
         }
-        // Add more units later
       ]
     }
     // Add more courses later if needed
