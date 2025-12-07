@@ -420,42 +420,41 @@ def doGeneration(population, numberOfEncounters):
       summary: "Implement more sophisticated player types including mirror players that copy opponents' previous behavior.",
       paragraphs: [
         "Now let's introduce a third kind of player: a 'mirror' player that reflects the behavior of players it encounters. If you're nice to a mirror player, it will be nice back next time. If you're nasty, it will be nasty back. The first time it meets you, it gives you the benefit of the doubt and is automatically nice.",
-        "The key is that mirror players use their memory to look up what happened in the last encounter with this specific player."
+        "Here's the code (place it between the **MeanPlayer** class and the **#Counter** function):"
       ],
       code: [
         {
           title: "MirrorPlayer: Tit-for-Tat Strategy",
           code: `class MirrorPlayer(Player):
-    """
-    A player that copies the other player's last move.
-    
-    Strategy: Start nice, then do whatever the opponent 
-    did in the previous encounter.
-    """
-    
     def __init__(self):
         Player.__init__(self)
         self.name += ' (mirror)'
     
     def respondsTo(self, otherName):
-        """
-        Return the other player's last action against me.
-        If we haven't met before, be nice.
-        
-        Args:
-            otherName: Name of the encountered player
-            
-        Returns:
-            'nice' or 'nasty'
-        """
         if otherName in self.memory:
-            # Get the most recent encounter
-            lastEncounter = self.memory[otherName][-1]
-            # Return what they did (second element)
-            return lastEncounter[1]
+            return self.memory[otherName][-1][1]
         else:
-            # First encounter - be nice
             return 'nice'`
+        },
+        {
+          title: "Experiment 1: Balanced Population",
+          code: `allPlayers = makePopulation([[FriendlyPlayer, 6],
+                             [MeanPlayer, 6],
+                             [MirrorPlayer, 6]
+                            ])`
+        },
+        {
+          title: "Experiment 2: One Bad Apple with Mirror",
+          code: `allPlayers = makePopulation([[FriendlyPlayer, 16],
+                             [MeanPlayer, 1],
+                             [MirrorPlayer, 1]
+                            ])`
+        },
+        {
+          title: "Experiment 3: Mostly Mean Population",
+          code: `allPlayers = makePopulation([[MeanPlayer, 14],
+                             [MirrorPlayer, 4]
+                            ])`
         }
       ],
       tips: [
@@ -465,18 +464,11 @@ def doGeneration(population, numberOfEncounters):
         "Mirror players implement the famous 'tit-for-tat' strategy"
       ],
       infos: [
+        "**How It Works**: As usual, the name of the encountered player is passed to the **respondsTo** function. This time, though, it's used to look up the record of previous encounters with this player. Recall that the value **self.memory[otherName]** (of the **Player** class) will be a list like **[['nice', 'nasty'], ['nasty', 'nasty']]**. The last element of this list, **self.memory[otherName][-1]**, will be a record of the most recent encounter. The second element of this, **self.memory[otherName][-1][1]**, is how the other player acted in this encounter.",
         "**Tit-for-Tat**: This strategy was the winner of Robert Axelrod's famous computer tournaments. It's simple, nice (starts cooperatively), retaliatory (punishes defection), and forgiving (returns to cooperation when opponent does).",
-        "**Memory Structure**: Recall that self.memory[otherName] is a list like this: [['nice', 'nasty'], ['nasty', 'nasty']]. The first element of each pair is our action, the second is their action."
-      ],
-      body: `
-When a mirror player meets either a friendly player or another mirror player, both are nice and they cooperate to win 30 points each.
-
-When a mirror player meets a mean player, the mean player takes advantage in the first encounter, but thereafter the mirror player is nasty back and doesn't continue to lose points.
-
-Mirror players do well with nice players and mirror players—two-thirds of the population. Mean players do well only with nice players. As the population from the mean players have no one left to exploit and they themselves die out.
-
-What's left is a population of mirror players who are nice to each other. They work together rather than relying on exploitation. **Evolution favors cooperation!**
-      `
+        "**Experimental Results**: When mirror players meet friendly or other mirrors, both are nice (30 points each). When mirrors meet mean players, the mean player exploits once, then the mirror defends (0 points after). As the population evolves, mirror players and mean players have no one left to exploit and the mean players die out. **What's left is a population of mirror players who are nice to each other—Evolution favors cooperation!**",
+        "**Multiple Stable States**: Try running Experiment 3 at least 10 times. You should find that it's possible for two very different 'worlds' to result from the same initial conditions—sometimes cooperative players dominate, other times exploitation strategies persist. This mirrors real biological systems where multiple stable states can exist."
+      ]
     },
     {
       id: '8',
@@ -555,35 +547,12 @@ What's left is a population of mirror players who are nice to each other. They w
       ],
       infos: [
         "**Strategic Complexity**: Probing players represent a more sophisticated strategy: gather information, then exploit. This works well in repeated-encounter environments where you meet the same individuals multiple times.",
-        "**Real-World Parallels**: Many animals and humans use similar probing strategies: test an opponent's response, learn their behavior pattern, then adjust your strategy accordingly."
-      ],
-      body: `
-### Experimental Results
-
-When you run experiments with probing players, you'll find interesting dynamics:
-
-**Experiment 1:** Initial population of 6 friendly, 6 mean, and 6 mirror players
-- Mirror players meet friendly or other mirrors → both are nice (30 points each)
-- Mirror players meet mean → mean exploits once, then mirror defends (0 points after)
-- Mean players can only exploit friendly players
-
-Result: Mean players die out first, mirror players thrive
-
-**Experiment 2:** Add probing players (6 of each type: friendly, mean, mirror, probing)
-- Probers identify and exploit friendly players
-- Probers cooperate with mirrors and other probers
-- Mean players still get eliminated
-
-Result: **Cooperation wins out**. Even with sophisticated exploitation attempts, cooperative strategies (mirrors and probers cooperating with each other) dominate.
-
-### The Lesson
-
-This simulation reveals a profound insight: **evolution can favor cooperation over pure selfishness**. When interactions are repeated and individuals can remember past encounters, strategies that balance cooperation with protection from exploitation succeed.
-
-The mirror player's tit-for-tat strategy is remarkably robust: it's nice, forgiving, retaliatory when needed, and clear in its pattern. It invites cooperation while defending against exploitation.
-
-Try running the simulation at least 10 times. You should find that it's possible for two very different "worlds" to result from the same initial conditions—sometimes cooperative players dominate, other times exploitation strategies persist. This mirrors real biological systems where multiple stable states can exist.
-      `
+        "**Real-World Parallels**: Many animals and humans use similar probing strategies: test an opponent's response, learn their behavior pattern, then adjust your strategy accordingly.",
+        "**Experiment 1**: Initial population of 6 friendly, 6 mean, and 6 mirror players. Mirror players meet friendly or other mirrors → both are nice (30 points each). Mirror players meet mean → mean exploits once, then mirror defends (0 points after). Result: Mean players die out first, mirror players thrive.",
+        "**Experiment 2**: Add probing players (6 of each type: friendly, mean, mirror, probing). Probers identify and exploit friendly players. Probers cooperate with mirrors and other probers. Result: **Cooperation wins out**. Even with sophisticated exploitation attempts, cooperative strategies (mirrors and probers cooperating with each other) dominate.",
+        "**The Lesson**: This simulation reveals a profound insight: **evolution can favor cooperation over pure selfishness**. When interactions are repeated and individuals can remember past encounters, strategies that balance cooperation with protection from exploitation succeed. The mirror player's tit-for-tat strategy is remarkably robust: it's nice, forgiving, retaliatory when needed, and clear in its pattern.",
+        "**Multiple Stable States**: Try running the simulation at least 10 times. You should find that it's possible for two very different 'worlds' to result from the same initial conditions—sometimes cooperative players dominate, other times exploitation strategies persist. This mirrors real biological systems where multiple stable states can exist."
+      ]
     }
   ];
 
