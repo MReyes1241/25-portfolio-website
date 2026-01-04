@@ -1,4 +1,5 @@
-import React, { useState, useEffect } from "react";
+import React, { useState, useMemo, useEffect } from "react";
+import { useProjects } from "../../hooks/useApi";
 import {
   ChevronLeft,
   ChevronRight,
@@ -15,50 +16,17 @@ import {
 import styles from "./Projects.module.css";
 import Footer from "../../components/footer/Footer.tsx";
 
-interface Project {
-  id: number;
-  title: string;
-  description: string;
-  image_url: string | null;
-  technologies: string[];
-  github_url: string;
-  live_url?: string | null;
-  category: string[] | string;
-  featured: boolean;
-  year: number;
-  status: string[] | string;
-}
 
 const Projects: React.FC = () => {
   const [currentIndex, setCurrentIndex] = useState(0);
   const [selectedCategory, setSelectedCategory] = useState<string>("all");
   const [isAnimating, setIsAnimating] = useState(false);
-  const [projectsData, setProjectsData] = useState<Project[]>([]);
-  const [loading, setLoading] = useState(true);
+  const { data: projects, isLoading: loading, isError } = useProjects();
 
-  useEffect(() => {
-    const fetchProjects = async () => {
-      try {
-        const res = await fetch(`${import.meta.env.VITE_API_URL}/api/projects`);
-        const data = await res.json();
-        
-        if (data.success && Array.isArray(data.projects)) {
-          // Filter for featured projects instead of active ones
-          const featuredProjects = data.projects.filter(
-            (project: Project) => project.featured === true
-          );
-          
-          setProjectsData(featuredProjects);
-        }
-      } catch (error) {
-        console.error("Failed to fetch projects:", error);
-      } finally {
-        setLoading(false);
-      }
-    };
-
-    fetchProjects();
-  }, []);
+  const projectsData = useMemo(() => {
+    if (!projects) return [];
+    return projects.filter((project) => project.featured === true);
+  }, [projects]);
 
   // Helper function to get category string from array or string
   const getCategoryString = (category: string[] | string): string => {
@@ -183,6 +151,14 @@ const Projects: React.FC = () => {
           <div className={styles.loader}></div>
           <p className={styles.loadingText}>Loading featured projects...</p>
         </div>
+      </div>
+    );
+  }
+
+  if (isError) {
+    return (
+      <div className={styles.container}>
+        <p>Failed to load projects. Please try again later.</p>
       </div>
     );
   }
