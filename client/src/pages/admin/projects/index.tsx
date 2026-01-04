@@ -2,6 +2,7 @@ import { useEffect, useState } from "react";
 import { useNavigate } from 'react-router-dom';
 import styles from "./styles/AdminProjectIndex.module.css";
 import { supabase } from "../../../lib/supabaseClient";
+import { useQueryClient } from "@tanstack/react-query";
 
 interface Project {
   id: number;
@@ -16,6 +17,7 @@ interface Project {
 
 const AdminProjectIndex = () => {
   const navigate = useNavigate();
+  const queryClient = useQueryClient();
   const [projects, setProjects] = useState<Project[]>([]);
   const [loading, setLoading] = useState(true);
   const [error, setError] = useState<string | null>(null);
@@ -58,6 +60,7 @@ const AdminProjectIndex = () => {
         console.error("Failed to update status:", error);
         alert("Failed to update project status. Please try again.");
       } else {
+        queryClient.invalidateQueries({ queryKey: ["projects"] });
         setProjects((prev) =>
           prev.map((project) =>
             project.id === id ? { ...project, status: [newStatus] } : project
@@ -81,6 +84,7 @@ const AdminProjectIndex = () => {
         console.error("Failed to update featured status:", error);
         alert("Failed to update featured status. Please try again.");
       } else {
+        queryClient.invalidateQueries({ queryKey: ["projects"] });
         setProjects((prev) =>
           prev.map((project) =>
             project.id === id ? { ...project, featured } : project

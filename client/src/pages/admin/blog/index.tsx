@@ -2,9 +2,11 @@ import { useEffect, useState } from "react";
 import { useNavigate } from 'react-router-dom';
 import styles from "./styles/AdminBlogList.module.css";
 import { supabase } from "../../../lib/supabaseClient";
+import { useQueryClient } from "@tanstack/react-query";
 
 const AdminBlogList = () => {
   const navigate = useNavigate();
+  const queryClient = useQueryClient();
   const [posts, setPosts] = useState<any[]>([]);
   const [loading, setLoading] = useState(true);
 
@@ -38,6 +40,7 @@ const AdminBlogList = () => {
     if (error) {
       console.error("Failed to update status:", error);
     } else {
+      queryClient.invalidateQueries({ queryKey: ["blogPosts"] });
       setPosts((prev) =>
         prev.map((post) =>
           post.id === id ? { ...post, published: newStatus === "Published" } : post

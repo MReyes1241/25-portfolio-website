@@ -3,11 +3,13 @@ import { useNavigate, useParams } from "react-router-dom";
 import styles from "./styles/AdminBlogForm.module.css";
 import { supabase } from "../../../lib/supabaseClient";
 import MDEditor from "@uiw/react-md-editor";
+import { useQueryClient } from "@tanstack/react-query";
 
 
 const AdminBlogEdit = () => {
   const { id } = useParams();
   const navigate = useNavigate();
+  const queryClient = useQueryClient();
 
   const [title, setTitle] = useState("");
   const [excerpt, setExcerpt] = useState("");
@@ -65,6 +67,7 @@ const AdminBlogEdit = () => {
     if (error) {
       setError(error.message);
     } else {
+      queryClient.invalidateQueries({ queryKey: ["blogPosts"] });
       navigate("/admin/blog");
     }
 
@@ -79,6 +82,7 @@ const AdminBlogEdit = () => {
     if (error) {
       alert("Failed to delete post.");
     } else {
+      queryClient.invalidateQueries({ queryKey: ["blogPosts"] });
       alert("Post deleted.");
       navigate("/admin/blog");
     }
