@@ -1,42 +1,15 @@
-import React, { useState, useEffect, useMemo } from "react";
+import React, { useState, useMemo } from "react";
+import { useBlogPosts} from "../../hooks/useApi";
 import { useNavigate } from "react-router-dom";
 import styles from "./Blog.module.css";
 import Footer from "../../components/footer/Footer";
 
-interface BlogPost {
-  id: number;
-  title: string;
-  excerpt: string;
-  content: string;
-  created_at: string;
-  readTime: string;
-  tags: string[];
-  category: string;
-}
 
 const Blog: React.FC = () => {
-  const [posts, setPosts] = useState<BlogPost[]>([]);
-  const [loading, setLoading] = useState(true);
   const [selectedCategory, setSelectedCategory] = useState("All");
   const navigate = useNavigate();
 
-  useEffect(() => {
-    const fetchPosts = async () => {
-      try {
-        const res = await fetch(`${import.meta.env.VITE_API_URL}/api/blog`);
-        const data = await res.json();
-        if (data.success) {
-          setPosts(data.data.posts);
-        }
-      } catch (err) {
-        console.error("Failed to fetch blog posts", err);
-      } finally {
-        setLoading(false);
-      }
-    };
-
-    fetchPosts();
-  }, []);
+  const { data: posts = [], isLoading: loading, isError } = useBlogPosts();
 
   const categories = useMemo(() => {
     const unique = [...new Set(posts.map((post) => post.category))];
@@ -61,6 +34,9 @@ const Blog: React.FC = () => {
   };
   if (loading) {
     return <div className={styles.loading}>Loading...</div>;
+  }
+  if (isError) {
+    return <div className={styles.loading}>Failed to load blog posts.</div>;
   }
   
   return (

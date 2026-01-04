@@ -2,10 +2,12 @@ import { useEffect, useState } from "react";
 import { useNavigate, useParams } from "react-router-dom";
 import styles from "./styles/AdminProjectForm.module.css";
 import { supabase } from "../../../lib/supabaseClient";
+import { useQueryClient } from "@tanstack/react-query";
 
 const AdminProjectEdit = () => {
   const { id } = useParams();
   const navigate = useNavigate();
+  const queryClient = useQueryClient();
 
   const [title, setTitle] = useState("");
   const [description, setDescription] = useState("");
@@ -128,6 +130,7 @@ const AdminProjectEdit = () => {
     if (error) {
       setError(error.message);
     } else {
+      queryClient.invalidateQueries({ queryKey: ["projects"] });
       navigate("/admin/projects");
     }
 
@@ -142,6 +145,7 @@ const AdminProjectEdit = () => {
     if (error) {
       alert("Failed to delete project.");
     } else {
+      queryClient.invalidateQueries({ queryKey: ["projects"] });
       alert("Project deleted.");
       navigate("/admin/projects");
     }
