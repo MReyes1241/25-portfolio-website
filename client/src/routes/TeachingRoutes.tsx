@@ -1,17 +1,18 @@
 // src/routes/TeachingRoutes.tsx
 import { Route } from "react-router-dom";
 import CourseHome from "../pages/teaching/CoursesHome.tsx";
-import CSCI133Unit1 from "../pages/teaching/csci133/unit1/CSCI133Unit1.tsx";
-import CSCI133Unit2 from "../pages/teaching/csci133/unit2/CSCI133Unit2.tsx";
-import CSCI133Unit3 from "../pages/teaching/csci133/unit3/CSCI133Unit3.tsx";
-import CSCI133Unit4 from "../pages/teaching/csci133/unit4/CSCI133Unit4.tsx";
-import CSCI133Unit5 from "../pages/teaching/csci133/unit5/CSCI133Unit5.tsx";
-import CSCI133Unit6 from "../pages/teaching/csci133/unit6/CSCI133Unit6.tsx";
-import CSCI133Unit7 from "../pages/teaching/csci133/unit7/Csci133unit7.tsx";
-import CSCI133Unit8 from "../pages/teaching/csci133/unit8/Csci133unit8.tsx";
-import CSCI133Unit9 from "../pages/teaching/csci133/unit9/Csci133unit9.tsx";
-import CSCI133Unit10 from "../pages/teaching/csci133/unit10/Csci133unit10.tsx";
-import CSCI133Unit11 from "../pages/teaching/csci133/unit11/Csci133unit11.tsx";
+import CSCI133Unit1 from "../pages/teaching/csci133_f25/unit1/CSCI133Unit1.tsx";
+import CSCI133Unit2 from "../pages/teaching/csci133_f25/unit2/CSCI133Unit2.tsx";
+import CSCI133Unit3 from "../pages/teaching/csci133_f25/unit3/CSCI133Unit3.tsx";
+import CSCI133Unit4 from "../pages/teaching/csci133_f25/unit4/CSCI133Unit4.tsx";
+import CSCI133Unit5 from "../pages/teaching/csci133_f25/unit5/CSCI133Unit5.tsx";
+import CSCI133Unit6 from "../pages/teaching/csci133_f25/unit6/CSCI133Unit6.tsx";
+import CSCI133Unit7 from "../pages/teaching/csci133_f25/unit7/Csci133unit7.tsx";
+import CSCI133Unit8 from "../pages/teaching/csci133_f25/unit8/Csci133unit8.tsx";
+import CSCI133Unit9 from "../pages/teaching/csci133_f25/unit9/Csci133unit9.tsx";
+import CSCI133Unit10 from "../pages/teaching/csci133_f25/unit10/Csci133unit10.tsx";
+import CSCI133Unit11 from "../pages/teaching/csci133_f25/unit11/Csci133unit11.tsx";
+import ExampleUnit from "../pages/teaching/csci133_s26/testUnit.tsx";
 
 export function TeachingRoutes() {
   return (

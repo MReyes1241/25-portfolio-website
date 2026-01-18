@@ -39,7 +39,7 @@ const CoursesHome: React.FC = () => {
 
   const courses: Course[] = [
     {
-      id: 'csci133',
+      id: 'csci133_f25',
       code: 'CSCI 133',
       title: 'Computer Programming',
       description: 'Introduction to computer programming using Python. Covers fundamental programming concepts including variables, control structures, functions, and basic data structures.',
