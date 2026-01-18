@@ -11,6 +11,7 @@
 
 /* Header */
 .header {
+  position: relative;
   background: rgba(15, 23, 42, 0.8);
   backdrop-filter: blur(10px);
   border-bottom: 1px solid rgba(148, 163, 184, 0.1);
@@ -38,6 +39,36 @@
   color: #94a3b8;
 }
 
+/* Back Button - Circular */
+.backButton {
+  position: absolute;
+  top: 1.5rem;
+  left: 1.5rem;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  width: 44px;
+  height: 44px;
+  background: rgba(148, 163, 184, 0.15);
+  border: 1px solid rgba(148, 163, 184, 0.25);
+  border-radius: 50%;
+  color: #94a3b8;
+  text-decoration: none;
+  transition: all 0.2s ease;
+}
+
+.backButton:hover {
+  background: rgba(148, 163, 184, 0.25);
+  border-color: rgba(148, 163, 184, 0.4);
+  color: #e2e8f0;
+  transform: scale(1.05);
+}
+
+.backButton svg {
+  width: 20px;
+  height: 20px;
+}
+
 /* Navigation */
 .navigation {
   background: rgba(30, 41, 59, 0.6);
@@ -56,6 +87,7 @@
 
 .navTabs {
   display: flex;
+  justify-content: center;
   gap: 0.5rem;
 }
 
@@ -443,9 +475,6 @@
   background: #0f172a;
 }
 
-.codeEditorContainer {
-  /* Container for toolbar and code input */
-}
 
 .codeToolbar {
   display: flex;
@@ -630,22 +659,42 @@
    ========================================== */
 
 .imageBlock {
-  margin: 1.5rem 0;
+  margin: 2rem 0;
+  display: flex;
+  flex-direction: column;
+  align-items: center;
 }
 
 .imageWrapper {
   position: relative;
-  display: inline-block;
+  display: block;
   max-width: 100%;
-  border-radius: 8px;
+  border-radius: 12px;
   overflow: hidden;
   border: 1px solid rgba(148, 163, 184, 0.2);
+  box-shadow: 0 4px 20px rgba(0, 0, 0, 0.3);
 }
 
 .image {
   display: block;
-  max-width: 100%;
+  width: 100%;
+  max-width: 600px;
   height: auto;
+}
+
+/* Hero images in overview should be larger */
+.overviewSection .imageBlock .image {
+  max-width: 700px;
+}
+
+/* Images in lesson content */
+.lessonContent .imageBlock .image {
+  max-width: 500px;
+}
+
+/* Images in exercises can be smaller */
+.lessonBody .imageBlock .image {
+  max-width: 450px;
 }
 
 .expandButton {
@@ -937,6 +986,17 @@
   .lightboxOverlay {
     padding: 1rem;
   }
+
+  .backButton {
+    top: 1rem;
+    left: 1rem;
+    width: 40px;
+    height: 40px;
+  }
+
+  .image {
+    max-width: 100% !important;
+  }
 }
 
 @media (max-width: 480px) {
@@ -956,5 +1016,17 @@
   .difficultyBadge {
     font-size: 0.7rem;
     padding: 0.25rem 0.5rem;
+  }
+
+  .backButton {
+    top: 0.75rem;
+    left: 0.75rem;
+    width: 36px;
+    height: 36px;
+  }
+
+  .backButton svg {
+    width: 18px;
+    height: 18px;
   }
 }

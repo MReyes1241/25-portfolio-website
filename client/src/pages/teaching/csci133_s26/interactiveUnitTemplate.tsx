@@ -1,7 +1,8 @@
 import React, { useState } from 'react';
-import { BookOpen, Play, Monitor, ChevronDown, ChevronRight, Maximize2, X } from 'lucide-react';
+import { Link } from 'react-router-dom';
+import { BookOpen, Play, Monitor, ChevronDown, ChevronRight, Maximize2, X, ArrowLeft } from 'lucide-react';
 import InteractivePythonBlock from './interactivePythonBlock';
-import styles from './InteractiveUnitTemplate.module.css';
+import styles from './interactiveUnitTemplate.module.css';
 
 export type Difficulty = 'beginner' | 'intermediate' | 'advanced';
 
@@ -79,6 +80,10 @@ export interface InteractiveUnitTemplateProps {
   overview: OverviewData;
   lessons: LessonData[];
   exercises: ExerciseData[];
+  backLink?: {
+    to: string;
+    label?: string;
+  };
 }
 
 // Utility functions
@@ -263,7 +268,8 @@ const InteractiveUnitTemplate: React.FC<InteractiveUnitTemplateProps> = ({
   unitSubtitle,
   overview,
   lessons,
-  exercises
+  exercises,
+  backLink
 }) => {
   const [activeTab, setActiveTab] = useState<'overview' | 'lessons' | 'practice'>('overview');
   const [openLesson, setOpenLesson] = useState<string | null>(null);
@@ -287,6 +293,16 @@ const InteractiveUnitTemplate: React.FC<InteractiveUnitTemplateProps> = ({
 
       <header className={styles.header}>
         <div className={styles.headerContent}>
+          {backLink && (
+            <Link 
+              to={backLink.to} 
+              className={styles.backButton}
+              title={backLink.label || 'Back to Course'}
+              aria-label={backLink.label || 'Back to Course'}
+            >
+              <ArrowLeft size={20} />
+            </Link>
+          )}
           <h1 className={styles.title}>{unitTitle}</h1>
           <p className={styles.subtitle}>{unitSubtitle}</p>
         </div>
