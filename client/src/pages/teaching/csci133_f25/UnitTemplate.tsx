@@ -1,6 +1,6 @@
 import React, { useState } from 'react';
 import { BookOpen, Play, Monitor, ChevronDown, ChevronRight } from 'lucide-react';
-import styles from '../csci133/unit2/CSCI133Unit2.module.css';
+import styles from '../csci133_f25/unit2/CSCI133Unit2.module.css';
 
 export type Difficulty = 'beginner' | 'intermediate' | 'advanced';
 

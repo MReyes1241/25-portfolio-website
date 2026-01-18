@@ -39,7 +39,7 @@ const CoursesHome: React.FC = () => {
 
   const courses: Course[] = [
     {
-      id: 'csci133',
+      id: 'csci133_f25',
       code: 'CSCI 133',
       title: 'Computer Programming',
       description: 'Introduction to computer programming using Python. Covers fundamental programming concepts including variables, control structures, functions, and basic data structures.',
@@ -127,6 +127,29 @@ const CoursesHome: React.FC = () => {
           title: 'Unit 11: Final Project',
           description: 'Integrate learned concepts to design and implement a comprehensive programming project',
           path: '/teaching/csci133/unit11',
+          status: 'available'
+        }
+      ]
+    },
+    {
+      id: 'csci133_s26',
+      code: 'CSCI 133',
+      title: 'Computer Programming',
+      description: 'Introduction to computer programming using Python. Covers fundamental programming concepts including variables, control structures, functions, and basic data structures.',
+      semester: 'Spring',
+      year: '2026',
+      institution: 'Hunter College',
+      totalStudents: 30,
+      color: {
+        primary: '#1fdf78ff',
+        secondary: '#1cd764ff'
+      },
+      units:[
+        {
+          id: 'unit1',
+          title: 'Unit 1: Python Fundamentals (s26)',
+          description: 'Getting started with Python, variables, strings, lists, and basic control structures',
+          path: '/teaching/csci133_s26/unit1',
           status: 'available'
         }
       ]
