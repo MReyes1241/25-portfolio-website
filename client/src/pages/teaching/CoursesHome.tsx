@@ -151,6 +151,13 @@ const CoursesHome: React.FC = () => {
           description: 'Getting started with Python, variables, strings, lists, and basic control structures',
           path: '/teaching/csci133_s26/unit1',
           status: 'available'
+        },
+        {
+          id: 'unit2',
+          title: 'Unit 2: Functions, Files, and Text Processing (s26)',
+          description: 'File processing, len/split/count, comparison operators, finding extremes, nested loops, user input',
+          path: '/teaching/csci133_s26/unit2',
+          status: 'available'
         }
       ]
     }
