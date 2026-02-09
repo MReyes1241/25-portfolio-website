@@ -14,6 +14,7 @@ import CSCI133Unit10 from "../pages/teaching/csci133_f25/unit10/Csci133unit10.ts
 import CSCI133Unit11 from "../pages/teaching/csci133_f25/unit11/Csci133unit11.tsx";
 import CSCI133Unit1_s26 from "../pages/teaching/csci133_s26/unit1/CSCI133Unit1_s26.tsx";
 import CSCI133Unit2_s26 from "../pages/teaching/csci133_s26/unit2/Csci133unit2_s26.tsx";
+import CSCI133Unit3_s26 from "../pages/teaching/csci133_s26/unit3/Csci133unit3_s26.tsx";
 
 export function TeachingRoutes() {
   return (
@@ -32,6 +33,7 @@ export function TeachingRoutes() {
       <Route path="/teaching/csci133/unit11" element={<CSCI133Unit11 />} />
       <Route path="/teaching/csci133_s26/unit1" element={<CSCI133Unit1_s26 />} />
       <Route path="/teaching/csci133_s26/unit2" element={<CSCI133Unit2_s26 />} />
+      <Route path="/teaching/csci133_s26/unit3" element={<CSCI133Unit3_s26 />} />
     </>
   );
 }
