@@ -158,6 +158,13 @@ const CoursesHome: React.FC = () => {
           description: 'File processing, len/split/count, comparison operators, finding extremes, nested loops, user input',
           path: '/teaching/csci133_s26/unit2',
           status: 'available'
+        },
+        {
+          id: 'unit 3',
+          title: 'Unit 3: Data Structures and Algorithms (s26)',
+          description: 'Lists, dictionaries, sets, tuples, and basic algorithms for searching and sorting',
+          path: '/teaching/csci133_s26/unit3',
+          status: 'available'
         }
       ]
     }
