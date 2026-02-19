@@ -165,6 +165,13 @@ const CoursesHome: React.FC = () => {
           description: 'Lists, dictionaries, sets, tuples, and basic algorithms for searching and sorting',
           path: '/teaching/csci133_s26/unit3',
           status: 'available'
+        },
+        {
+          id: 'unit4',
+          title: 'Unit 4: Simulations and Probability (s26)',
+          description: 'Random number generation, statistical simulations, and probability analysis through computational experiments',
+          path: '/teaching/csci133_s26/unit4',
+          status: 'available'
         }
       ]
     }
