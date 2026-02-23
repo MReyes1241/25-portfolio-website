@@ -172,6 +172,13 @@ const CoursesHome: React.FC = () => {
           description: 'Random number generation, statistical simulations, and probability analysis through computational experiments',
           path: '/teaching/csci133_s26/unit4',
           status: 'available'
+        },
+        {
+          id: 'unit5',
+          title: 'Unit 5: File Systems and Directory Navigation (s26)',
+          description: 'Working with the OS module, navigating directories, handling file operations, and understanding recursion through file system exploration',
+          path: '/teaching/csci133_s26/unit5',
+          status: 'available'
         }
       ]
     }
