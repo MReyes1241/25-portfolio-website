@@ -52,13 +52,19 @@
 }
 
 .logoText {
-    background: linear-gradient(135deg, #2563eb, #7c3aed);
-    -webkit-background-clip: text;
-    -webkit-text-fill-color: transparent;
-    background-clip: text;
-    font-weight: 700;
-    font-size: 1.2rem;
-    white-space: nowrap;
+  background: linear-gradient(135deg, #2563eb, #7c3aed);
+  -webkit-background-clip: text;
+  -webkit-text-fill-color: transparent;
+  background-clip: text;
+  font-weight: 700;
+  font-size: 1.2rem;
+  white-space: nowrap;
+}
+
+@media screen and (max-width: 1024px) {
+  .logoText {
+    display: none;
+  }
 }
 
 /* Desktop Navigation */

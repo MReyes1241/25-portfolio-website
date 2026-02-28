@@ -1,26 +1,16 @@
-// src/App.tsx
 import { useLocation } from 'react-router-dom';
 import { AppRoutes } from "./router";
 import Navbar from "./components/navbar/Navbar.tsx";
 
 function App() {
   const location = useLocation();
-  
-  // Define routes where navbar should be hidden
-  const hideNavbarRoutes = [
-    '/teaching',
-    '/teaching/csci133/unit1',
-    // Add more stuff here routes as needed
-  ];
-  
-  const shouldHideNavbar = hideNavbarRoutes.some(route => 
-    location.pathname === route || location.pathname.startsWith(route + '/')
-  );
+
+  const isTeachingPage = location.pathname.startsWith("/teaching");
 
   return (
     <>
-      {!shouldHideNavbar && <Navbar />}
-      <main className={shouldHideNavbar ? "" : "pt-20"}>
+      {!isTeachingPage && <Navbar />}
+      <main className={isTeachingPage ? "" : "pt-[70px]"}>
         <AppRoutes />
       </main>
     </>
