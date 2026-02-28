@@ -39,10 +39,7 @@ export function usePushNotifications() {
     setStatus(sub ? "subscribed" : "unsubscribed");
   }
 
-  async function subscribe() {
-
-    console.log("VAPID key:", VAPID_PUBLIC_KEY);
-    
+  async function subscribe() {    
     if (!VAPID_PUBLIC_KEY) {
       console.error("VITE_VAPID_PUBLIC_KEY is not set");
       return;
