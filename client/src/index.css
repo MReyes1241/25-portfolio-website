@@ -37,11 +37,15 @@
     min-height: 100vh;
     background: linear-gradient(135deg, #0f0f23 0%, #1a1a2e 50%, #16213e 100%);
     overscroll-behavior-y: none;
+    width: 100%;
+    overflow-x: hidden;
   }
 
   html {
     scroll-behavior: smooth;
     overscroll-behavior: none;
+    width: 100%;
+    overflow-x: hidden;
   }
 }
 
