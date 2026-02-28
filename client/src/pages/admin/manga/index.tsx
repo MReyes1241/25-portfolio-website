@@ -37,6 +37,8 @@ type ReadingStatus = "reading" | "on_hold" | "plan_to_read" | "dropped";
 
 // ─── Constants ────────────────────────────────────────────────────────────────
 
+const MANGADEX_BASE = `${import.meta.env.VITE_SUPABASE_URL}/functions/v1/mangadex-proxy`;
+
 const READING_STATUSES: { value: ReadingStatus; label: string }[] = [
   { value: "reading",      label: "Reading" },
   { value: "on_hold",      label: "On Hold" },
@@ -136,7 +138,7 @@ const AdminMangaTracker = () => {
         "availableTranslatedLanguage[]": "en",
       });
 
-      const res = await fetch(`https://api.mangadex.org/manga?${params}`);
+      const res = await fetch(`${MANGADEX_BASE}/manga?${params}`);
       if (!res.ok) throw new Error();
       const json = await res.json();
       setSearchResults(json.data ?? []);
@@ -161,7 +163,7 @@ const AdminMangaTracker = () => {
         includeEmptyPages: "0",
       });
       const feedRes = await fetch(
-        `https://api.mangadex.org/manga/${result.id}/feed?${feedParams}`
+        `${MANGADEX_BASE}/manga/${result.id}/feed?${feedParams}`
       );
       if (feedRes.ok) {
         const feedJson = await feedRes.json();
@@ -218,7 +220,7 @@ const AdminMangaTracker = () => {
         "order[chapter]": "desc",
       });
       const res = await fetch(
-        `https://api.mangadex.org/manga/${manga.mangadex_id}/feed?${params}`
+        `${MANGADEX_BASE}/manga/${manga.mangadex_id}/feed?${params}`
       );
       const json = await res.json();
       const ch = json.data?.[0];
