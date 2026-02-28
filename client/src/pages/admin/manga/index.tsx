@@ -99,8 +99,9 @@ const AdminMangaTracker = () => {
 
   const [activeFilter, setActiveFilter] = useState<ReadingStatus | "all">("all");
 
-  const { status: pushStatus, subscribe, unsubscribe } = usePushNotifications();
+  const [refreshingId, setRefreshingId] = useState<string | null>(null);
 
+  const { status: pushStatus, subscribe, unsubscribe } = usePushNotifications();
   
 
   const fetchTracked = useCallback(async () => {
@@ -206,6 +207,41 @@ const AdminMangaTracker = () => {
     await supabase.from("manga_tracking").delete().eq("id", id);
     setTracked((prev) => prev.filter((t) => t.id !== id));
     setRemovingId(null);
+  };
+
+  const refreshChapter = async (manga: TrackedManga) => {
+    setRefreshingId(manga.id);
+    try {
+      const params = new URLSearchParams({
+        limit: "1",
+        "translatedLanguage[]": "en",
+        "order[chapter]": "desc",
+      });
+      const res = await fetch(
+        `https://api.mangadex.org/manga/${manga.mangadex_id}/feed?${params}`
+      );
+      const json = await res.json();
+      const ch = json.data?.[0];
+      if (!ch?.attributes?.chapter) return;
+
+      const chapter = ch.attributes.chapter;
+      const chapterId = ch.id;
+
+      await supabase
+        .from("manga_tracking")
+        .update({ last_chapter: chapter, last_chapter_id: chapterId })
+        .eq("id", manga.id);
+
+      setTracked((prev) =>
+        prev.map((m) =>
+          m.id === manga.id ? { ...m, last_chapter: chapter, last_chapter_id: chapterId } : m
+        )
+      );
+    } catch (e) {
+      console.error("Refresh failed:", e);
+    } finally {
+      setRefreshingId(null);
+    }
   };
 
   const trackedIds = new Set(tracked.map((t) => t.mangadex_id));
@@ -414,9 +450,33 @@ const AdminMangaTracker = () => {
                       <span className={`${styles.statusBadge} ${mangaStatusColor[manga.status ?? ""] ?? ""}`}>
                         {manga.status ?? "unknown"}
                       </span>
-                      {manga.last_chapter && (
+                      {manga.last_chapter ? (
                         <span className={styles.chapterBadge}>Ch. {manga.last_chapter}</span>
+                      ) : (
+                        <span className={styles.noChapterBadge}>No chapter</span>
                       )}
+                      <button
+                        onClick={(e) => { e.stopPropagation(); refreshChapter(manga); }}
+                        disabled={refreshingId === manga.id}
+                        className={styles.refreshBtn}
+                        title="Refresh latest chapter"
+                      >
+                        <svg
+                          width="11"
+                          height="11"
+                          viewBox="0 0 24 24"
+                          fill="none"
+                          stroke="currentColor"
+                          strokeWidth="2.5"
+                          strokeLinecap="round"
+                          style={{
+                            animation: refreshingId === manga.id ? "spin 1s linear infinite" : "none",
+                          }}
+                        >
+                          <path d="M23 4v6h-6M1 20v-6h6" />
+                          <path d="M3.51 9a9 9 0 0 1 14.85-3.36L23 10M1 14l4.64 4.36A9 9 0 0 0 20.49 15" />
+                        </svg>
+                      </button>
                     </div>
 
                     <select
