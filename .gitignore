@@ -119,3 +119,6 @@ uploads/
 
 # Resume
 client/public/Manuel_Reyes_jr.pdf
+
+#supabase functions
+supabase/.temp
