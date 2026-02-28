@@ -46,6 +46,7 @@
     overscroll-behavior: none;
     width: 100%;
     overflow-x: hidden;
+    background-color: #0f0f23;
   }
 }
 
