@@ -2,6 +2,7 @@ import { useEffect, useState } from 'react';
 import { supabase } from '../../lib/supabaseClient';
 import { useNavigate } from 'react-router-dom';
 import type { User } from '@supabase/supabase-js';
+import NotificationBell from "../../components/admin/NotificationBell.tsx";
 import styles from './AdminDashboard.module.css';
 
 const AdminDashboard = () => {
@@ -137,13 +138,16 @@ const AdminDashboard = () => {
         <div>
           <h1 className={styles.title}>Admin Dashboard</h1>
           <p className={styles.subtitle}>Welcome back, {user?.email}</p>
+        </div> 
+        <div style={{ display: "flex", alignItems: "center", gap: "0.75rem" }}>
+          <NotificationBell />
+          <button onClick={handleLogout} className={styles.logoutBtn}>
+            <svg width="20" height="20" fill="currentColor" viewBox="0 0 24 24">
+              <path d="M16 17l5-5-5-5M21 12H9M9 21H5a2 2 0 01-2-2V5a2 2 0 012-2h4"/>
+            </svg>
+            Sign Out
+          </button>
         </div>
-        <button onClick={handleLogout} className={styles.logoutBtn}>
-          <svg width="20" height="20" fill="currentColor" viewBox="0 0 24 24">
-            <path d="M16 17l5-5-5-5M21 12H9M9 21H5a2 2 0 01-2-2V5a2 2 0 012-2h4"/>
-          </svg>
-          Sign Out
-        </button>
       </header>
 
       {/* Stats Overview */}
