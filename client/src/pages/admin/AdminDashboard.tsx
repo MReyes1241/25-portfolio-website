@@ -239,6 +239,26 @@ const AdminDashboard = () => {
               </svg>
             </div>
           </div>
+
+          <div
+            className={styles.managementCard}
+            onClick={() => navigate('/admin/manga')}
+          >
+            <div className={styles.cardIcon}>
+              <svg width="32" height="32" fill="currentColor" viewBox="0 0 24 24">
+                <path d="M18 2H6c-1.1 0-2 .9-2 2v16c0 1.1.9 2 2 2h12c1.1 0 2-.9 2-2V4c0-1.1-.9-2-2-2zm-4 14H8v-2h6v2zm2-4H8v-2h8v2zm0-4H8V6h8v2z"/>
+              </svg>
+            </div>
+            <h3 className={styles.cardTitle}>Manga Tracker</h3>
+            <p className={styles.cardDescription}>
+              Track series and get notified when new chapters drop.
+            </p>
+            <div className={styles.cardArrow}>
+              <svg width="20" height="20" fill="none" stroke="currentColor" viewBox="0 0 24 24">
+                <path d="M5 12h14M12 5l7 7-7 7" strokeWidth="2" strokeLinecap="round" strokeLinejoin="round" />
+              </svg>
+            </div>
+          </div>
         </div>
       </section>
 

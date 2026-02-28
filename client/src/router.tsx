@@ -16,6 +16,7 @@ import AdminBlogEdit from "./pages/admin/blog/Edit.tsx";
 import AdminProjectIndex from "./pages/admin/projects/index.tsx";
 import AdminProjectEdit from "./pages/admin/projects/edit.tsx";
 import { TeachingRoutes } from "./routes/TeachingRoutes.tsx";
+import AdminMangaTracker from "./pages/admin/manga/index.tsx";
 
 export function AppRoutes() {
   return (
@@ -42,6 +43,7 @@ export function AppRoutes() {
       <Route path="/admin/blog/edit/:id" element={<AdminBlogEdit />} />
       <Route path="/admin/projects" element={<AdminProjectIndex />} />
       <Route path="/admin/projects/edit/:id" element={<AdminProjectEdit />} />
+      <Route path="/admin/manga" element={<AdminMangaTracker />} />
       
       {/* 404 */}
       <Route path="*" element={<NotFound />} />
