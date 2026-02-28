@@ -38,6 +38,8 @@ type ReadingStatus = "reading" | "on_hold" | "plan_to_read" | "dropped";
 // ─── Constants ────────────────────────────────────────────────────────────────
 
 const MANGADEX_BASE = `${import.meta.env.VITE_SUPABASE_URL}/functions/v1/mangadex-proxy`;
+const SUPABASE_ANON_KEY = import.meta.env.VITE_SUPABASE_ANON_KEY;
+const PROXY_HEADERS = { Authorization: `Bearer ${SUPABASE_ANON_KEY}` };
 
 const READING_STATUSES: { value: ReadingStatus; label: string }[] = [
   { value: "reading",      label: "Reading" },
@@ -138,7 +140,9 @@ const AdminMangaTracker = () => {
         "availableTranslatedLanguage[]": "en",
       });
 
-      const res = await fetch(`${MANGADEX_BASE}/manga?${params}`);
+      const res = await fetch(`${MANGADEX_BASE}/manga?${params}`, {
+        headers: PROXY_HEADERS,
+      });
       if (!res.ok) throw new Error();
       const json = await res.json();
       setSearchResults(json.data ?? []);
@@ -163,7 +167,8 @@ const AdminMangaTracker = () => {
         includeEmptyPages: "0",
       });
       const feedRes = await fetch(
-        `${MANGADEX_BASE}/manga/${result.id}/feed?${feedParams}`
+        `${MANGADEX_BASE}/manga/${result.id}/feed?${feedParams}`,
+        { headers: PROXY_HEADERS }
       );
       if (feedRes.ok) {
         const feedJson = await feedRes.json();
@@ -220,7 +225,8 @@ const AdminMangaTracker = () => {
         "order[chapter]": "desc",
       });
       const res = await fetch(
-        `${MANGADEX_BASE}/manga/${manga.mangadex_id}/feed?${params}`
+        `${MANGADEX_BASE}/manga/${manga.mangadex_id}/feed?${params}`,
+        { headers: PROXY_HEADERS }
       );
       const json = await res.json();
       const ch = json.data?.[0];
