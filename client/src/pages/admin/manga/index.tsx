@@ -307,7 +307,7 @@ const AdminMangaTracker = () => {
                 <div key={result.id} className={styles.searchCard}>
                   <div className={styles.searchCover}>
                     {coverUrl ? (
-                      <img src={coverUrl} alt={title} className={styles.coverImg} />
+                      <img src={coverUrl} alt={title} className={styles.coverImg} referrerPolicy="no-referrer" />
                     ) : (
                       <div className={styles.coverPlaceholder}>?</div>
                     )}
@@ -386,7 +386,7 @@ const AdminMangaTracker = () => {
                   >
                     <div className={styles.trackedCover}>
                       {coverUrl ? (
-                        <img src={coverUrl} alt={manga.title} className={styles.coverImg} />
+                        <img src={coverUrl} alt={manga.title} className={styles.coverImg} referrerPolicy="no-referrer" />
                       ) : (
                         <div className={styles.coverPlaceholder}>?</div>
                       )}
