@@ -113,7 +113,7 @@ async function sendEmail(updates: NewChapter[], resendKey: string, adminEmail: s
       "Content-Type": "application/json",
     },
     body: JSON.stringify({
-      from: "Manga Tracker <onboarding@resend.dev>",
+      from: "Manga Tracker <manga@reyesjr.com>",
       to: [adminEmail],
       subject: `📖 ${updates.length} new manga chapter${updates.length > 1 ? "s" : ""} available`,
       html,
