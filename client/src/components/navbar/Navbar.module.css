@@ -58,6 +58,7 @@
     background-clip: text;
     font-weight: 700;
     font-size: 1.2rem;
+    white-space: nowrap;
 }
 
 /* Desktop Navigation */

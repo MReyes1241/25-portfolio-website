@@ -32,6 +32,10 @@
 
 /* ── Page Header ── */
 .pageHeader {
+  display: flex;
+  align-items: flex-start;
+  justify-content: space-between;
+  gap: 1rem;
   margin-bottom: 2.5rem;
 }
 
@@ -552,4 +556,42 @@
 .refreshBtn:disabled {
   opacity: 0.5;
   cursor: not-allowed;
+}
+
+/* ── Mobile ── */
+@media (max-width: 640px) {
+  .container {
+    padding: 1rem;
+  }
+
+  .pageHeader {
+    flex-direction: column;
+    gap: 0.75rem;
+  }
+
+  .title {
+    font-size: 1.5rem;
+  }
+
+  .trackedGrid {
+    grid-template-columns: 1fr;
+  }
+
+  .searchForm {
+    flex-direction: column;
+  }
+
+  .searchBtn {
+    width: 100%;
+    justify-content: center;
+  }
+
+  .filterTabs {
+    gap: 0.3rem;
+  }
+
+  .filterTab {
+    font-size: 0.72rem;
+    padding: 0.25rem 0.6rem;
+  }
 }
